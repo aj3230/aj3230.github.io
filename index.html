@@ -159,7 +159,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2024/05/23/My-first-blog/">My first blog</a>
+      <a class="article-title" href="/2024/05/23/My-first-blog/">网络工作原理 (皮毛)</a>
     </h1>
   
 
@@ -172,11 +172,54 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p>
+        <h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><blockquote>
+<ul>
+<li><em><strong>ISP：</strong></em> 即互联网服务提供商（例如国内各大运营商），搭建、维护相关设施，提供互联网服务。需要投入大量成本，故ISP是有偿提供网络接入，所以宽带要限速、计费</li>
+</ul>
+</blockquote>
+<p>&nbsp;</p>
+<blockquote>
+<ul>
+<li><em><strong>NAT、端口映射</strong></em><ul>
+<li><strong>NAT：</strong> 网络地址转换，局域网内设备的IP地址被网关映射为统一地址，接入网络，但存在无法精准传送数据的问题。</li>
+<li><strong>端口映射：</strong> 在IP地址后面增加一串端口号，网关以不同的端口与外网交互，把端口号映射给局域网内的各个设备.传输数据时，映射IP地址和端口号，来实现以共同的IP精准传送数据。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>&nbsp;</p>
+<blockquote>
+<ul>
+<li><em><strong>局域网：</strong></em> 若能互联的干台设备组成的网络<ul>
+<li><strong>广域网：</strong> 设备数量庞大的局域网</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<br/>
+
+<blockquote>
+<ul>
+<li><em><strong>IP地址：</strong></em> 每台设备都有一个的独自的数字虚拟地址，以联网时辨别、区分于其他设备<ul>
+<li><strong>分类</strong><ul>
+<li><strong>公有IP &#x2F; 私有IP：</strong> 网关拥有的可以直接在广域网上交互数据的IP地址 &#x2F; 只能局域网内有效使用（能区分于其他设备）的IP地址</li>
+<li><strong>IPV4 &#x2F; IPV6：</strong> IPV4和IPV6是两个不同协议，不能直接互通，需要借助其他设备做转换和映射，导致短时间内IPV6无法完全取代IPV4，但IPV6是大势所趋。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>&nbsp;<br>     - <strong>IPV4：</strong> 32位二进制构成，理论上能提供 2^32(约42.28亿) 个地址。为方便记忆、输入，将每8位二进制分为1组，转换为十进制，转化成4个0~255的数字。但一些地址特殊用途，保留下来不提供给大众使用，真正可用的IP地址只有36.47亿个，而当今世界约有80亿人，很多人都有接入互联网的需求，且每个人的设备不止一台(PC,laptop,iPad,mobile phone)，自2011年底，IPV4已经面临枯竭。<br>&nbsp;<br>     - <strong>IPV6：</strong> 由8组四位十六进制组合而成，理论上能 3.4*10^38 个IP地址，足够为地球上每一个沙子发一个独立IP。</p>
+</blockquote>
+<p>&nbsp;</p>
+<blockquote>
+<ul>
+<li><em><strong>域名：</strong></em> 每个IP地址对应一个域名，以便于记忆和输入.</li>
+<li><em><strong>DNS服务器：</strong></em> 用于查询域名对应的IP地址。电脑自动或许宽带运营商DNS服务器的IP地址，或到指定的公共DNS服务器上查询。若能查到，DNS服务器会返回对于的IP地址，否则，这台DNS服务器会问根域名 服务器，</li>
+</ul>
+</blockquote>
 <hr>
-<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>内容</p>
-<hr>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>内容</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><strong>(1)</strong><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1DD4y127r4/?spm_id_from=trigger_reload&amp;vd_source=df38266eedfef61aa7370319919d94d7">https://www.bilibili.com/video/BV1DD4y127r4/?spm_id_from=trigger_reload&amp;vd_source=df38266eedfef61aa7370319919d94d7</a><br>&nbsp;<br><strong>(2)</strong><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1VE41187N7/?spm_id_from=333.788.recommend_more_video.2&amp;vd_source=df38266eedfef61aa7370319919d94d7">https://www.bilibili.com/video/BV1VE41187N7/?spm_id_from=333.788.recommend_more_video.2&amp;vd_source=df38266eedfef61aa7370319919d94d7</a></p>
 <hr>
 
       
