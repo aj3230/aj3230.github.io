@@ -16,8 +16,9 @@
 <meta property="og:description" content="5.23一、前言  重要性 webservice &#x3D; HTTP协议 + XML Rest &#x3D; HTTP协议 + ison 各种API一般也是用 HTTP协议 +">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/83221e81175ce73ca728f482fb4f26ef.png">
+<meta property="og:image" content="http://example.com/images/QQ%E6%88%AA%E5%9B%BE20240525142912.png">
 <meta property="article:published_time" content="2024-05-23T13:18:34.000Z">
-<meta property="article:modified_time" content="2024-05-24T13:39:34.944Z">
+<meta property="article:modified_time" content="2024-05-25T06:30:25.603Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/83221e81175ce73ca728f482fb4f26ef.png">
@@ -223,8 +224,87 @@
 <li><strong>e.g.</strong>   ftp http pop tcp&#x2F;ip</li>
 </ul>
 </li>
-<li><strong>HTTP协议：</strong> 按照一定规则<br><img src="/../images/83221e81175ce73ca728f482fb4f26ef.png" alt="HTTP工作流程"></li>
+<li><strong>HTTP协议：</strong> 客户端按照一定规则向服务器发送请求、索要数据，服务器按照一定规则响应请求、返回数据<br><img src="/../images/83221e81175ce73ca728f482fb4f26ef.png" alt="HTTP工作流程"></li>
 </ul>
+</blockquote>
+<hr>
+<h1 id="5-25"><a href="#5-25" class="headerlink" title="5.25"></a>5.25</h1><blockquote>
+<p><strong>config</strong> (计算机系统)配置</p>
+</blockquote>
+<h2 id="四、-HTTP请求信息和响应信息的格式"><a href="#四、-HTTP请求信息和响应信息的格式" class="headerlink" title="四、 HTTP请求信息和响应信息的格式"></a>四、 <em><strong>HTTP请求信息和响应信息的格式</strong></em></h2><blockquote>
+<p><strong>请求信息格式</strong></p>
+<ul>
+<li><strong>请求行：</strong><ul>
+<li><p>请求方法</p>
+<ul>
+<li>GET</li>
+<li>POST</li>
+<li>PUT</li>
+<li>DELETE</li>
+<li>TRACE</li>
+<li>OPTIONS</li>
+</ul>
+</li>
+<li><p>请求路径：URL的一部分</p>
+</li>
+<li><p>所用协议：目前一般是 “<strong>HTTP&#x2F;1.1</strong>“,0.9和1.0基本上已经不用</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+</blockquote>
+<ul>
+<li><strong>请求头信息</strong></li>
+<li><strong>请求主体信息(可没有)</strong></li>
+</ul>
+<p><strong>头信息结束后，和主体信息之间要空一行</strong></p>
+<ul>
+<li><strong>请求主题信息：</strong></li>
+</ul>
+</blockquote>
+<p><img src="/../images/QQ%E6%88%AA%E5%9B%BE20240525142912.png" alt="实操：测试HTTP"></p>
+<p>&nbsp;</p>
+<h3 id="实操："><a href="#实操：" class="headerlink" title="实操："></a>实操：</h3><h4 id="安装HTTP服务器"><a href="#安装HTTP服务器" class="headerlink" title="安装HTTP服务器"></a>安装HTTP服务器</h4><blockquote>
+<ul>
+<li><strong>IIS</strong> (Internet Information Services) Windows的内置Web服务器<ul>
+<li><strong>控制面板</strong>——<strong>程序</strong>——<strong>程序和功能</strong>——<strong>打开或关闭Windows功能</strong>——勾选”<strong>Internet Information Services</strong>“</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>&nbsp;</p>
+<h4 id="在windows操作系统上使用telnet指令"><a href="#在windows操作系统上使用telnet指令" class="headerlink" title="在windows操作系统上使用telnet指令"></a>在windows操作系统上使用telnet指令</h4><blockquote>
+<ul>
+<li><strong>控制面板</strong>——<strong>程序</strong>——<strong>程序和功能</strong>——<strong>打开或关闭Windows功能</strong>——勾选”<strong>telnet client</strong>“</li>
+</ul>
+</blockquote>
+<p>&nbsp;</p>
+<h3 id="搭建平台，在浏览器中实现运行php代码"><a href="#搭建平台，在浏览器中实现运行php代码" class="headerlink" title="搭建平台，在浏览器中实现运行php代码"></a>搭建平台，在浏览器中实现运行php代码</h3><blockquote>
+<ul>
+<li><strong>操作步骤</strong></li>
+</ul>
+<ol>
+<li>到 <a target="_blank" rel="noopener" href="https://www.xp.cn/download.html" title="phpStudy官网">phpStudy官网</a> 下载 <strong>phpStudy</strong><br>  安装路径不能包含”中文”或”空格”，否则会报错</li>
+<li>配置Apache环境<br>  “启动” <strong>Apache2.4.39</strong>，点击”配置”，可以看到网站目录”E:&#x2F;phpstudy_pro&#x2F;WWW”</li>
+<li>把要浏览的.php文件放在www目录下面</li>
+<li>浏览器输入访问路径：”<a target="_blank" rel="noopener" href="http://localhost/%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84">http://localhost/文件路径</a>“ 就可在浏览器上打开、运行php文件</li>
+</ol>
+<ul>
+<li><strong>参考</strong><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44381873/article/details/104761158">https://blog.csdn.net/qq_44381873/article/details/104761158</a></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>&nbsp;</p>
+<h4 id="测试-HTTP-协议"><a href="#测试-HTTP-协议" class="headerlink" title="测试 HTTP 协议"></a>测试 HTTP 协议</h4><blockquote>
+<ol>
+<li>打开命令行<br>  <strong>Win</strong> + <strong>R</strong> ——&gt; <strong>cmd</strong> + <strong>ENTER</strong> </li>
+<li>输入<strong>ipconfig</strong>查看IP地址<br>  <strong>IPV4: xxx.xxx.xxx.xxx</strong></li>
+<li>与指定 IP 地址的端口 80 建立一个 telnet 连接<br>  (telnet 是一种网络协议，它提供了一种在两台计算机之间进行交互式文本通信的方法。使用 telnet 命令加上一个 IP 地址和端口号，可以尝试与目标 IP 地址的指定端口建立文本通信连接。端口号 80 是互联网上用于未加密的 HTTP（超文本传输协议）通信的标准端口。HTTP 是网页传输的基础协&gt;议，所以这个操作通常用于测试网络上的 HTTP 服务器是否可达。)<br><strong>telnet</strong> <strong>IP地址</strong> <strong>80</strong> + <strong>ENTER</strong>  (80为默认情况下HTTP指定端口)</li>
+<li>打开回显，使得能看到输入的东西，便于调试<br><strong>CTRL</strong> + <strong>]</strong> + <strong>ENTER</strong></li>
+</ol>
 </blockquote>
 
       
