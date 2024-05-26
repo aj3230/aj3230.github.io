@@ -15,14 +15,26 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="5.23一、前言  重要性 webservice &#x3D; HTTP协议 + XML Rest &#x3D; HTTP协议 + ison 各种API一般也是用 HTTP协议 +">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/83221e81175ce73ca728f482fb4f26ef.png">
-<meta property="og:image" content="http://example.com/images/QQ%E6%88%AA%E5%9B%BE20240525142912.png">
-<meta property="og:image" content="http://example.com/images/8b5fa89628841219df8f94a90237856f.png">
+<meta property="og:image" content="http://example.com/images/HTTP-workflow.png">
+<meta property="og:image" content="http://example.com/images/Example-GET-Method.png">
+<meta property="og:image" content="http://example.com/images/Example-POST-Method.png">
+<meta property="og:image" content="http://example.com/images/GET-Method.png">
+<meta property="og:image" content="http://example.com/images/Head-Method.png">
+<meta property="og:image" content="http://example.com/images/Head-Method.png">
+<meta property="og:image" content="http://example.com/images/405-Methon-Not-Allowed.png">
+<meta property="og:image" content="http://example.com/images/OPTIONS-Methond.png">
+<meta property="og:image" content="http://example.com/images/302.png">
+<meta property="og:image" content="http://example.com/images/301.png">
+<meta property="og:image" content="http://example.com/images/302-Found.png">
+<meta property="og:image" content="http://example.com/images/301-Moved-Permanently.png">
+<meta property="og:image" content="http://example.com/images/307-Temporary-Redirect.png">
+<meta property="og:image" content="http://example.com/images/404-Not-Found.png">
 <meta property="article:published_time" content="2024-05-23T13:18:34.000Z">
-<meta property="article:modified_time" content="2024-05-25T09:41:36.097Z">
+<meta property="article:modified_time" content="2024-05-26T04:30:43.146Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="技术">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/83221e81175ce73ca728f482fb4f26ef.png">
+<meta name="twitter:image" content="http://example.com/images/HTTP-workflow.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -194,7 +206,8 @@
 <ul>
 <li><strong>原理</strong><ul>
 <li>形象理解原理</li>
-<li>三部分</li>
+<li>请求信息和响应信息的格式</li>
+<li>请求方法 状态码</li>
 </ul>
 </li>
 <li><strong>实战</strong><ul>
@@ -225,7 +238,7 @@
 <li><strong>e.g.</strong>   ftp http pop tcp&#x2F;ip</li>
 </ul>
 </li>
-<li><strong>HTTP协议：</strong> 客户端按照一定规则向服务器发送请求、索要数据，服务器按照一定规则响应请求、返回数据<br><img src="/../images/83221e81175ce73ca728f482fb4f26ef.png" alt="HTTP工作流程"></li>
+<li><strong>HTTP协议：</strong> 客户端按照一定规则向服务器发送请求、索要数据，服务器按照一定规则响应请求、返回数据<br><img src="/../images/HTTP-workflow.png" alt="HTTP工作流程"></li>
 </ul>
 </blockquote>
 <hr>
@@ -233,13 +246,13 @@
 <p><strong>config</strong> (计算机系统)配置</p>
 </blockquote>
 <h2 id="四、-HTTP请求信息和响应信息的格式"><a href="#四、-HTTP请求信息和响应信息的格式" class="headerlink" title="四、 HTTP请求信息和响应信息的格式"></a>四、 <em><strong>HTTP请求信息和响应信息的格式</strong></em></h2><blockquote>
-<p><strong>请求信息格式</strong></p>
-<ul>
-<li><strong>请求行：</strong><ul>
-<li><p>请求方法</p>
+<h3 id="1-请求信息格式"><a href="#1-请求信息格式" class="headerlink" title="1)请求信息格式"></a>1)请求信息格式</h3><ul>
+<li><strong>请求行  (格式：请求方法 路径 协议)</strong><ul>
+<li><p>请求方法 </p>
 <ul>
 <li>GET</li>
 <li>POST</li>
+<li>HEAD</li>
 <li>PUT</li>
 <li>DELETE</li>
 <li>TRACE</li>
@@ -256,15 +269,83 @@
 <blockquote>
 </blockquote>
 <ul>
-<li><strong>请求头信息</strong></li>
-<li><strong>请求主体信息(可没有)</strong></li>
+<li><strong>请求头信息 (格式：key value)</strong></li>
 </ul>
 <p><strong>头信息结束后，和主体信息之间要空一行</strong></p>
 <ul>
-<li><strong>请求主题信息：</strong></li>
+<li><strong>请求主体信息 (可选) (发送内容)</strong><blockquote>
+<ul>
+<li>e.g.<br><strong>POST &#x2F;03.php HTTP&#x2F;1.1</strong><br><strong>Host: localhost</strong><br><strong>Conten-type: application&#x2F;x-www-form-urlencode</strong><br><strong>Content-length: 24</strong><br>空行<br><strong>username&#x3D;zhangsan&amp;age&#x3D;18</strong><br><img src="/../images/Example-GET-Method.png" alt="e.g."></li>
 </ul>
 </blockquote>
+</li>
+</ul>
 <p>&nbsp;</p>
+</blockquote>
+<blockquote>
+<h3 id="2-响应信息格式"><a href="#2-响应信息格式" class="headerlink" title="2)响应信息格式"></a>2)响应信息格式</h3><ul>
+<li><strong>响应行  (格式：请求方法 状态码 状态文字)</strong><ul>
+<li><p><strong>状态码：</strong> 反应服务器的响应情况 (e.g. <strong>200 OK</strong> <strong>404 NOT FOUND</strong> )</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>定义</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1XX</td>
+<td>信息</td>
+<td>接收到请求，继续处理(HTTP预留待拓展)</td>
+</tr>
+<tr>
+<td>2XX</td>
+<td>成功</td>
+<td>操作成功地收到，理解和接受</td>
+</tr>
+<tr>
+<td>3XX</td>
+<td>重定向</td>
+<td>为了完成请求，必须采取进一步措施</td>
+</tr>
+<tr>
+<td>4XX</td>
+<td>客户端错误</td>
+<td>请求的语法有错误或不能完全被满足。</td>
+</tr>
+<tr>
+<td>5XX</td>
+<td>服务器错误</td>
+<td>服务器无法完成明显有效的请求。</td>
+</tr>
+</tbody></table>
+</blockquote>
+</li>
+<li><p><strong>状态文字:</strong> 描述状态码，便于人观察</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+</blockquote>
+<ul>
+<li><strong>响应头信息 (格式：key value)</strong></li>
+</ul>
+<p><strong>头信息结束后，和主体信息之间要空一行</strong></p>
+<ul>
+<li><p><strong>请求主体信息 (可选)</strong></p>
+</li>
+<li><p><strong>请求主体信息 (可选) (发送内容)</strong></p>
+<blockquote>
+<ul>
+<li>e.g.<br><strong>HTTP&#x2F;1.1 OK 200</strong><br><strong>Content-tyoe: text&#x2F;html</strong><br><strong>Content-length: 5</strong><br>空行<br><strong>Hello</strong><br><img src="/../images/Example-POST-Method.png" alt="e.g."><br>&nbsp;</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
 <h3 id="实操："><a href="#实操：" class="headerlink" title="实操："></a>实操：</h3><h4 id="一-前置工作"><a href="#一-前置工作" class="headerlink" title="(一) 前置工作"></a>(一) 前置工作</h4><blockquote>
 <p><em><strong>安装HTTP服务器</strong></em></p>
 <ul>
@@ -312,19 +393,64 @@
 <blockquote>
 <p><em><strong>(1)GET方法请求</strong></em></p>
 <blockquote>
-<p><strong>GET &#x2F;01.php HTTP&#x2F;1.1</strong></p>
+<p><strong>GET &#x2F;01.php HTTP&#x2F;1.1</strong><br><strong>Host: localhost</strong><br> <img src="/../images/GET-Method.png" alt="GET方法做HTTP请求"></p>
 </blockquote>
-<ul>
-<li><img src="/../images/QQ%E6%88%AA%E5%9B%BE20240525142912.png" alt="GET方法做HTTP请求"></li>
-</ul>
 <p><em><strong>(2)POST方法请求</strong></em></p>
 <blockquote>
 <p><strong>POST &#x2F;02.php HTTP&#x2F;1.1</strong><br><strong>Host: localhost</strong><br><strong>Content-type: application&#x2F;x-www-form-urlencoded</strong><br><strong>Content-length: 23</strong></p>
 <p><strong>name&#x3D;John&amp;age&#x3D;30</strong></p>
+<p> <img src="/../images/Head-Method.png" alt="POST方法做HTTP请求"></p>
 </blockquote>
+<h1 id="5-26"><a href="#5-26" class="headerlink" title="5.26"></a>5.26</h1><p><em><strong>(3)HEAD方法请求</strong></em></p>
+<blockquote>
+<p>功能：与GET方法基本一致，只是不返回内容。例如，只是想确认一个内容(e.g.照片)是否还正常存在，不需要返回照片内容。</p>
+<p><strong>GET &#x2F;01.php HTTP&#x2F;1.1</strong><br><strong>Host: localhost</strong><br> <img src="/../images/Head-Method.png" alt="HEAD方法做HTTP请求"></p>
+</blockquote>
+<p><em><strong>(4)注：</strong></em> </p>
+<blockquote>
+<p>这些方法虽然是HTTP协议规定的，但 <strong>WEB</strong> <strong>SERVER</strong> 未必全部允许或支持，一般前三个，即 <strong>GET</strong> <strong>POST</strong> <strong>HEAD</strong> 都支持。</p>
+<p><strong>telnet news.163.com 80</strong><br><strong>TRACE &#x2F; HTTP&#x2F;1.1</strong><br><strong>Host: news.163.com</strong></p>
+<p> <img src="/../images/405-Methon-Not-Allowed.png" alt="不支持该方法"></p>
+</blockquote>
+<p><em><strong>(5)OPTIONS方法</strong></em> </p>
+<blockquote>
+<p>功能：返回服务器支持的请求方法</p>
+<p><strong>OPTIONS &#x2F; HTTP&#x2F;1.1</strong><br><strong>Host: localhost</strong></p>
 <ul>
-<li><img src="/../images/8b5fa89628841219df8f94a90237856f.png" alt="GET方法做HTTP请求"></li>
+<li><img src="/../images/OPTIONS-Methond.png" alt="OPTIONS方法做HTTP请求"></li>
 </ul>
+</blockquote>
+</blockquote>
+<p>&nbsp;</p>
+<h4 id="常用状态码-及状态文字"><a href="#常用状态码-及状态文字" class="headerlink" title="常用状态码(及状态文字)"></a>常用状态码(及状态文字)</h4><blockquote>
+<p><strong>200：</strong> 服务器成功返回网页<br><strong>301&#x2F;302：</strong> 永久&#x2F;临时重定向</p>
+<ul>
+<li>分类<ul>
+<li><img src="/../images/302.png" alt="默认302重定向"></li>
+<li><img src="/../images/301.png" alt="指定301重定向"></li>
+</ul>
+</li>
+<li>问题<ul>
+<li>描述：一篇新闻，对于<strong>GET</strong>请求，重定向影响不大，能看到原来的内容即可。但对于<strong>POST</strong>请求，可能造成<strong>数据丢失</strong>。</li>
+<li>解决： <strong>307：</strong> <em><strong>重定向中保护原有的请求数据</strong></em><ul>
+<li>服务器上的资源暂时移动到了另一个URI，但是客户端应该继续使用原来的请求方法来访问新的URI。这个状态码与301和302重定向类似，但主要区别在于它不会改变客户端的请求方法（GET、POST等）。换言之，301和302重定向会改变客户端的请求方法。</li>
+<li><img src="/../images/302-Found.png" alt="302 Found"></li>
+<li><img src="/../images/301-Moved-Permanently.png" alt="301 Moved Permanently"></li>
+<li><img src="/../images/307-Temporary-Redirect.png" alt="307 Temporary Redirect"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><em><strong>304 NOT MODIFIED：</strong></em> 未修改 </p>
+<ul>
+<li>例如一张图片(一般长期不变)：客户端第一次请求服务器获得这个图片后，之后的每次请求，服务器会告诉客户端我有这张图片，并告诉服务器自己对该图片的时间编号(<strong>ETag</strong>)，让服务器判断过期没，如果过期了，服务器再重新返回新的图片，否则客户端直接取缓存，节省连接，实现<strong>优化</strong>。</li>
+</ul>
+<p>失败状态码<br><strong>404 NOT FOUND：</strong> 请求的网页不存在</p>
+<ul>
+<li><img src="/../images/404-Not-Found.png" alt="404 Not Found"></li>
+</ul>
+<p><strong>503：</strong> 服务器暂时不可用<br><strong>500：</strong> 服务器内部问题</p>
 </blockquote>
 
       
@@ -355,6 +481,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -554,6 +691,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
