@@ -41,8 +41,10 @@
 <meta property="og:image" content="http://example.com/images/060501.jpg">
 <meta property="og:image" content="http://example.com/images/060502.jpg">
 <meta property="og:image" content="http://example.com/images/060500.png">
+<meta property="og:image" content="http://example.com/images/060504.png">
+<meta property="og:image" content="http://example.com/images/060505.png">
 <meta property="article:published_time" content="2024-05-23T13:18:34.000Z">
-<meta property="article:modified_time" content="2024-06-05T04:42:29.611Z">
+<meta property="article:modified_time" content="2024-06-05T14:59:30.721Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="技术">
 <meta name="twitter:card" content="summary">
@@ -235,7 +237,7 @@
 <li><strong>优化</strong><ul>
 <li>HTTP协议 与 缓存控制</li>
 <li>HTTP协议 与 COOKIE</li>
-<li>持久链接 与 反向Ajax</li>
+<li>分块传输 与 反向Ajax</li>
 </ul>
 </li>
 </ul>
@@ -653,8 +655,45 @@
 </li>
 </ul>
 <h4 id="拓展-2-："><a href="#拓展-2-：" class="headerlink" title="拓展(2)："></a>拓展(2)：</h4><ul>
-<li>情景：有些资源，如个人信息，不允许缓存服务器缓存，必须到主服务器请求</li>
+<li><p>情景：有些资源，如个人信息，不允许缓存服务器缓存，必须到主服务器请求</p>
+</li>
+<li><p>示例： 	</p>
+<ul>
+<li><strong>.htaccess</strong> 配置文件</li>
 </ul>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ExpiresActive On</span><br><span class="line">ExpiresByType image/jpeg &quot;access plus 30 days&quot;</span><br><span class="line"></span><br><span class="line">&lt;FilesMatch &quot;\.(gif)$&quot;&gt;</span><br><span class="line">header set Cache-Control &quot;no-store,must-revalidate&quot;</span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>配置使得JPEG图片可以被缓存30天，而GIF图片则不会被缓存，每次请求都需要从服务器重新加载</p>
+<pre><code>- 效果 ![](../images/060503.png)
+</code></pre>
+</blockquote>
+<p>&nbsp;</p>
+<h3 id="二-内容压缩"><a href="#二-内容压缩" class="headerlink" title="(二) 内容压缩"></a>(二) 内容压缩</h3><h4 id="概述："><a href="#概述：" class="headerlink" title="概述："></a>概述：</h4><blockquote>
+<ul>
+<li>引入 </li>
+<li><img src="/../images/060504.png"></li>
+<li>HTTP内容压缩是一种优化网络传输的技术，它通过减少服务器响应的大小来提高网页加载速度。通常是通过在服务器和客户端之间传输数据之前，使用某种算法来压缩数据来实现的。</li>
+<li>以下是一些常见的HTTP内容压缩方法：<ul>
+<li><strong>GZIP</strong></li>
+<li><strong>Deflate</strong></li>
+<li><strong>Brotli</strong></li>
+</ul>
+</li>
+<li>原理：服务器返回压缩内容，客服端接收压缩文件，解压缩，再渲染页面。而Content-Length是压缩后的长度。</li>
+</ul>
+</blockquote>
+<h4 id="实操：-1"><a href="#实操：-1" class="headerlink" title="实操："></a>实操：</h4><blockquote>
+<p>在 Apache 启用压缩功能：</p>
+<ol>
+<li>开启 Deflate 模块</li>
+<li>配置 conf 文件 (写入下列代码)<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;ifmodule mod_deflate.c&gt;</span><br><span class="line">DeflateCompressionLevel 6 				# 压缩等级1~9 推荐6</span><br><span class="line">AddOutputFilterByType DEFLATE text/plain</span><br><span class="line">AddOutputFilterByType DEFLATE text/html</span><br><span class="line">AddOutputFilterByType DEFLATE text/xml</span><br><span class="line">AddOutputFilterByType DEFLATE text/css</span><br><span class="line">AddOutputFilterByType DEFLATE text/javascript</span><br><span class="line">AddOutputFilterByType DEFLATE application/xhtml+xml</span><br><span class="line">AddOutputFilterByType DEFLATE application/xml</span><br><span class="line">AddOutputFilterByType DEFLATE application/rss+xml</span><br><span class="line">AddOutputFilterByType DEFLATE application/atom xml</span><br><span class="line">AddOutputFilterByType DEFLATE application/x-javascript</span><br><span class="line">AddOutputFilterByType DEFLATE application/x-httpd-php</span><br><span class="line">AddOutputFilterByType DEFLATE image/svg+xml</span><br><span class="line">&lt;/ifmodule&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<blockquote>
+<p>服务器怎么知道我们的服务器支持 gzip 或其他压缩方式？<br><img src="/../images/060505.png"></p>
+</blockquote>
+<blockquote>
+<p>小技巧：<br>做采集时，不发送 Accept-Encoding 信息，这样采集的是源码。而用 gzip 采集以提高速度，再用 PHP 解压 gzip 的内容。</p>
 </blockquote>
 
       
@@ -901,15 +940,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">语法</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
             
             <div class="clearfix"></div>
