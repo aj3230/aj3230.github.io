@@ -38,8 +38,11 @@
 <meta property="og:image" content="http://example.com/images/060302.png">
 <meta property="og:image" content="http://example.com/images/060402.png">
 <meta property="og:image" content="http://example.com/images/060403.png">
+<meta property="og:image" content="http://example.com/images/060501.jpg">
+<meta property="og:image" content="http://example.com/images/060502.jpg">
+<meta property="og:image" content="http://example.com/images/060500.png">
 <meta property="article:published_time" content="2024-05-23T13:18:34.000Z">
-<meta property="article:modified_time" content="2024-06-04T14:45:10.638Z">
+<meta property="article:modified_time" content="2024-06-05T04:42:29.611Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="技术">
 <meta name="twitter:card" content="summary">
@@ -611,6 +614,47 @@
 <p>&nbsp;</p>
 <h2 id="六、-优化"><a href="#六、-优化" class="headerlink" title="六、 优化"></a>六、 优化</h2><h3 id="一-缓存控制"><a href="#一-缓存控制" class="headerlink" title="(一) 缓存控制"></a>(一) 缓存控制</h3><blockquote>
 <p>下载图片时<br>第1次请求 <strong>200 OK</strong><br>第2次请求 <strong>304 NOT Modified</strong> 未修改状态</p>
+</blockquote>
+<h1 id="6-4-1"><a href="#6-4-1" class="headerlink" title="6.4"></a>6.4</h1><blockquote>
+<p>HTTP缓存控制是Web性能优化的重要手段，它通过减少服务器负载和加快内容传输速度来提升用户体验<br>HTTP协议通过几种不同的头部字段来实现缓存控制</p>
+<ul>
+<li><p><strong>Last-Modified&#x2F;If-Modified-Since</strong>: Last-Modified是服务器响应头，指明了资源的最后修改时间。浏览器可以在后续的请求中带上If-Modified-Since头部，将最后修改时间发送给服务器，服务器根据这个时间决定是否返回新的内容，如果资源没有改变，服务器会返回一个304 Not Modified状态码，告知浏览器使用其缓存中的资源。</p>
+</li>
+<li><p><strong>ETag&#x2F;If-None-Match</strong>: ETag是服务器响应头，包含了资源的版本标识符。浏览器可以在后续的请求中带上If-None-Match头部，服务器会对比这个标识符和资源的当前标识符，如果相同，则返回304状态码，表示资源未改变。</p>
+<ul>
+<li><img src="/../images/060501.jpg"></li>
+<li><img src="/../images/060502.jpg"></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<h4 id="拓展-1-："><a href="#拓展-1-：" class="headerlink" title="拓展(1)："></a>拓展(1)：</h4><ul>
+<li><p>问：网站较大，有多台缓存服务器，那么这多台缓存服务器如何处理主服务器上的文件？</p>
+<ul>
+<li>是否缓存？</li>
+<li>缓存多久？</li>
+</ul>
+</li>
+<li><p>答：在主服务器打开 Apache 的 Expires 拓展，利用该拓展来控制来图片、css、html等文件的缓存与否及缓存生命周期</p>
+<ul>
+<li><strong>Cache-Control</strong>: 是HTTP1.1中引入的头部，它提供了更细粒度的缓存控制</li>
+<li><strong>Expires</strong>：这是HTTP1.0中使用的头部，它指定了一个日期&#x2F;时间，在此时间之前，缓存被认为是有效的。如果浏览器访问一个带有Expires头部的资源，并且当前时间在Expires指定的时间之前，浏览器将会使用缓存中的资源，而不是重新从服务器获取</li>
+</ul>
+</li>
+<li><p>示例： 	</p>
+<ul>
+<li><p><strong>.htaccess</strong> 配置文件</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ExpiresActive On</span><br><span class="line">ExpiresByType image/jpeg &quot;access plus 30 days&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>效果 <img src="/../images/060500.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="拓展-2-："><a href="#拓展-2-：" class="headerlink" title="拓展(2)："></a>拓展(2)：</h4><ul>
+<li>情景：有些资源，如个人信息，不允许缓存服务器缓存，必须到主服务器请求</li>
+</ul>
 </blockquote>
 
       
