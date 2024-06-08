@@ -8,13 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>浏览器及工作原理 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="不懂浏览器的前端工程师不是好码农   结构：  用户界面 浏览器引擎 渲染引擎 —— 浏览器的内核 网络 JS解释器     多进程结构 每个结构并发多个线程 每个线程可以并行执行不同的任务 启动一程序，会创建一进程来执行任务代码，并为该进程分配内存空间，应用程序的状态保存在内存空间里，应">
+<meta property="og:type" content="article">
 <meta property="og:title" content="浏览器及工作原理">
 <meta property="og:url" content="http://example.com/2024/06/06/Browser-working-mode/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="不懂浏览器的前端工程师不是好码农   结构：  用户界面 浏览器引擎 渲染引擎 —— 浏览器的内核 网络 JS解释器     多进程结构 每个结构并发多个线程 每个线程可以并行执行不同的任务 启动一程序，会创建一进程来执行任务代码，并为该进程分配内存空间，应用程序的状态保存在内存空间里，应">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-06-06T05:19:39.000Z">
-<meta property="article:modified_time" content="2024-06-06T06:28:22.076Z">
+<meta property="article:modified_time" content="2024-06-08T14:23:33.145Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="网络知识">
 <meta name="twitter:card" content="summary">
@@ -175,7 +177,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <blockquote>
+<p>不懂浏览器的前端工程师不是好码农</p>
+</blockquote>
+<blockquote>
+<p>结构：</p>
+<ul>
+<li>用户界面</li>
+<li>浏览器引擎</li>
+<li><strong>渲染引擎</strong> —— 浏览器的内核<ul>
+<li>网络</li>
+<li>JS解释器</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>多进程结构 每个结构并发多个线程 每个线程可以并行执行不同的任务</p>
+<p>启动一程序，会创建一进程来执行任务代码，并为该进程分配内存空间，应用程序的状态保存在内存空间里，应用程序关闭，内存空间被回收。进程可以启动更多的进程来执行任务。进程间彼此独立，若两进程间需要传递数据，需要通过进程间通信管道IPC来传递。多进程结果能避免一个进程故障而影响整个应用程序。进程可将任务细分，通过创建多个线程并行执行不同的任务，同一进程间的线程可直接共享数据。</p>
+<p>早期浏览器并非是多进程结果，存在很多问题：</p>
+<ul>
+<li>不稳定：其中一个线程卡死可能会导致整个进程出现问题</li>
+<li>不安全：数据共享</li>
+<li>不流畅：一个进程负担过重，运行效率不高</li>
+</ul>
+<p>&nbsp;</p>
+<p>目前的浏览器是多进程结构，根据进程的功能不同，可以分为以下结构：</p>
+<ul>
+<li>浏览器进程：负责控制除标签页外的用户界面(顶部)，包括地址栏、书签、前进后退按钮、负责与浏览器其他进程协调工作</li>
+<li>网络进程：负责发起、接受网络请求</li>
+<li>GPU进程：负责浏览器也页面的渲染</li>
+<li>插件进程：负责控制网站使用的所有插件(例如Flash)，并非扩展</li>
+<li>渲染器进程：负责控制显示Tab标签内的所有内容，浏览器默认情况下会为每个标签页都创建一个进程(具体有进程模型决定)</li>
+</ul>
+<p>&nbsp;</p>
+<p>当在地址栏输入地址时，浏览器进程的UI线程会捕捉输入内容</p>
+<ul>
+<li>若输入的是网址，UI线程会启动一个网络线程来请求DNS进行域名解析，然后连接服务器获取数据</li>
+<li>若输入的是关键词，浏览器会使用默认配置的搜索引擎来查询</li>
+</ul>
+<p>网络线程获取到数据后 巴拉巴拉巴拉 听不懂了<br>只是想简单入个门的</p>
+
       
 
       
@@ -278,6 +319,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2024/06/08/Introduction-to-front-end-development/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          前端入门
+        
+      </div>
+    </a>
   
   
     <a href="/2024/06/03/2nd/" id="article-nav-older" class="article-nav-link-wrap">
@@ -420,6 +470,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
             
             <div class="clearfix"></div>
