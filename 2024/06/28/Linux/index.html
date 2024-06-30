@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Linux | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前置硬件知识 计算机组成：  中央处理器（CPU）： CPU是计算机的大脑，负责解释和执行程序指令。 它包含了控制单元、算术逻辑单元（ALU）和寄存器。   主板（Motherboard）：">
+  <meta name="description" content="前置知识 计算机组成：  中央处理器（CPU）： CPU是计算机的大脑，负责解释和执行程序指令。 它包含了控制单元、算术逻辑单元（ALU）和寄存器。   主板（Motherboard）： 主板是连">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux">
 <meta property="og:url" content="http://example.com/2024/06/28/Linux/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前置硬件知识 计算机组成：  中央处理器（CPU）： CPU是计算机的大脑，负责解释和执行程序指令。 它包含了控制单元、算术逻辑单元（ALU）和寄存器。   主板（Motherboard）：">
+<meta property="og:description" content="前置知识 计算机组成：  中央处理器（CPU）： CPU是计算机的大脑，负责解释和执行程序指令。 它包含了控制单元、算术逻辑单元（ALU）和寄存器。   主板（Motherboard）： 主板是连">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-06-29T03:42:24.339Z">
+<meta property="article:modified_time" content="2024-06-30T03:59:47.279Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -177,7 +177,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="前置硬件知识"><a href="#前置硬件知识" class="headerlink" title="前置硬件知识"></a>前置硬件知识</h1><blockquote>
+        <h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><blockquote>
 <p><em><strong>计算机组成</strong></em>：</p>
 <ul>
 <li><strong>中央处理器（CPU）</strong>：<ul>
@@ -393,6 +393,50 @@
 <p>&nbsp;</p>
 <h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><blockquote>
 <p>用 <strong>虚拟机</strong> 安装 <strong>Linux</strong> 系统</p>
+<ul>
+<li><strong>VMware</strong></li>
+<li><strong>Centos7系统iso镜像文件</strong></li>
+<li><strong>xshell远程连接工具</strong></li>
+</ul>
+</blockquote>
+<p>&nbsp;<br><strong>虚拟机网络环境</strong>:</p>
+<ul>
+<li>桥接网络：在当前网络环境下，再分配一个IP地址，让虚拟机和宿主机处于同一个局域网段</li>
+<li>网络地址转换(NAT)：在宿主机的网络环境下，再生成一个虚拟局域网，和宿主机处于不同 局域网段</li>
+<li>仅主机网络模式：单机模式，无法与外界通信</li>
+</ul>
+<p><strong>虚拟终端（TTY）</strong>:<br>在Linux系统中，通常有多个虚拟终端可供使用。你可以通过按下Ctrl + Alt + F1 ~ F7等组合键在不同的虚拟终端之间切换。</p>
+<ul>
+<li><strong>Ctrl + Alt + F1</strong>：图形化界面(安装过了)</li>
+<li><strong>Ctrl + Alt + F2</strong>：命令行界面</li>
+</ul>
+<p>&nbsp;</p>
+<h2 id="三、远程连接"><a href="#三、远程连接" class="headerlink" title="三、远程连接"></a>三、远程连接</h2><blockquote>
+<p><strong>ssh（安全外壳协议）</strong>：<br>一种网络协议，用于计算机之间的加密登录和执行命令。它为远程登录会话和其他网络服务提供了一种安全传输环境。ssh 命令是用于客户端的，用于建立到远程服务器的安全连接。<br>Windows用户需要单独安装 <strong>Xshell</strong> 远程连接工具(封装了ssh命令)</p>
+</blockquote>
+<blockquote>
+<p><em><strong>步骤</strong></em>：</p>
+<ol>
+<li>确保 Linux 虚拟机正确配置了 IP 地址<br>命令行输入 <strong>ip addr show</strong> 查看网络信息，找到IPV4地址：192.168.197.181</li>
+<li>安装 <strong>Xshell</strong> 软件，进行远程连接<br>建立 <strong>会话</strong>，即远程操作 Linux 虚拟机的终端，登录账户，实现连接</li>
+<li>使用 <strong>ssh命令</strong> 实现远程连接</li>
+</ol>
+<ul>
+<li>基本连接:<br><strong>ssh 用户名@服务器地址</strong></li>
+<li>指定端口: (如果服务器不是使用默认的22端口，可以通过-p选项指定端口)<br><strong>ssh -p 端口号 用户名@服务器地址</strong></li>
+</ul>
+<ol start="4">
+<li>PC Windows 系统远程连接 Linux 虚拟机(和Xshell一样)<br>  <strong>ssh 用户名@服务器地址</strong></li>
+</ol>
+</blockquote>
+<p>&nbsp;</p>
+<h2 id="四、命令语句"><a href="#四、命令语句" class="headerlink" title="四、命令语句"></a>四、命令语句</h2><blockquote>
+<p>常用命令</p>
+<ul>
+<li><strong>ls</strong>：当前路径下的文件(夹)</li>
+<li><strong>cd</strong>：进入某路径</li>
+<li><strong>pwd</strong>： 查看当前路径</li>
+</ul>
 </blockquote>
 
       
