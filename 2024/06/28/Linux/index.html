@@ -15,11 +15,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="前置知识 计算机组成：  中央处理器（CPU）： CPU是计算机的大脑，负责解释和执行程序指令。 它包含了控制单元、算术逻辑单元（ALU）和寄存器。   主板（Motherboard）： 主板是连">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/070201.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-06-30T03:59:47.279Z">
+<meta property="article:modified_time" content="2024-07-02T09:13:09.321Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/070201.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -430,12 +432,139 @@
 </ol>
 </blockquote>
 <p>&nbsp;</p>
-<h2 id="四、命令语句"><a href="#四、命令语句" class="headerlink" title="四、命令语句"></a>四、命令语句</h2><blockquote>
+<h2 id="四、命令语句"><a href="#四、命令语句" class="headerlink" title="四、命令语句"></a>四、命令语句</h2><p>Linux命令行</p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th>空格</th>
+<th align="center">参数(可省)</th>
+<th>空格</th>
+<th align="center">文件&#x2F;文件夹(可省)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>ls</strong></td>
+<td></td>
+<td align="center"></td>
+<td></td>
+<td align="center">缺省’.’，表示当前文件夹的内容</td>
+</tr>
+<tr>
+<td align="center"><strong>ls</strong></td>
+<td></td>
+<td align="center"><strong>-a</strong></td>
+<td></td>
+<td align="center">&#x2F;root</td>
+</tr>
+</tbody></table>
+<p><strong>ls</strong>：列出当前路径下的文件(夹)<br><strong>-a</strong>：列出包括隐藏文件在内的所有文件<br><strong>-l</strong>：列出详细信息</p>
+<blockquote>
+<p>标准 Linux 命令提示符：</p>
+<ul>
+<li>格式：<ul>
+<li><strong>当前登录的用户名@主机名 当前目录</strong></li>
+</ul>
+</li>
+<li>e.g.<ul>
+<li><strong>[root@localhost ~]#</strong></li>
+</ul>
+</li>
+</ul>
+<p>“<strong>#</strong>“ 是超级用户（也称为根用户或root用户）的命令提示符符号</p>
+<ul>
+<li>指令：<ul>
+<li><strong>whoami</strong>：显示当前登录的用户名</li>
+<li><strong>hostname</strong>：显示当前的主机名</li>
+<li><strong>pwd</strong>：显示当前的(绝对)路径<br><img src="/../images/070201.png"></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
 <p>常用命令</p>
 <ul>
-<li><strong>ls</strong>：当前路径下的文件(夹)</li>
+<li><strong>ls</strong>：列出当前路径下的文件(夹)</li>
 <li><strong>cd</strong>：进入某路径</li>
 <li><strong>pwd</strong>： 查看当前路径</li>
+</ul>
+</blockquote>
+<p>&nbsp;</p>
+<h2 id="五、文件结构"><a href="#五、文件结构" class="headerlink" title="五、文件结构"></a>五、文件结构</h2><h3 id="一-Windows-与-Linux-操作系统文件结构的区别"><a href="#一-Windows-与-Linux-操作系统文件结构的区别" class="headerlink" title="(一) Windows 与 Linux 操作系统文件结构的区别"></a>(一) Windows 与 Linux 操作系统文件结构的区别</h3><blockquote>
+<ol>
+<li>根目录结构：</li>
+</ol>
+<ul>
+<li>Windows：<ul>
+<li>Windows文件系统通常以字母标识的驱动器（如C:、D:等）为根目录，每个驱动器可以有自己的文件系统结构。Windows使用盘符来区分不同的存储设备。</li>
+</ul>
+</li>
+<li>Linux：<ul>
+<li>Linux文件系统有一个单一的根目录（用 &#x2F; 表示），所有的文件和目录都从根目录开始。Linux不使用盘符，而是将所有的存储设备挂载到根目录下的某个目录上，如&#x2F;boot、&#x2F;home、&#x2F;var等。</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>目录命名约定</li>
+</ol>
+<ul>
+<li><p>Windows：</p>
+<ul>
+<li>以 <strong>反斜杠 \</strong> 分割目录</li>
+<li>e.g.：<ul>
+<li><strong>C:\Users\aj\blog&gt;</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Linux：</p>
+</li>
+<li><p>以 <strong>正斜杠 &#x2F;</strong> 分割目录，第一个 <strong>&#x2F;</strong> 表示路径的起点(根目录)，之后的 <strong>&#x2F;</strong> 表示目录间的分隔符</p>
+</li>
+<li><p><strong>&#x2F;home&#x2F;aj&#x2F;文档</strong></p>
+</li>
+</ul>
+<ol start="3">
+<li>系统文件和用户文件的位置：</li>
+</ol>
+<ul>
+<li>Windows：<ul>
+<li>系统文件通常位于C:\Windows目录下，用户个人文件通常位于C:\Users[用户名]目录下。</li>
+</ul>
+</li>
+<li>Linux：<ul>
+<li>系统文件分布在根目录的多个子目录下，如&#x2F;bin、&#x2F;sbin、&#x2F;etc、&#x2F;lib等，而用户个人文件通常位于&#x2F;home&#x2F;[用户名]目录下。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="二-常见目录及其含义"><a href="#二-常见目录及其含义" class="headerlink" title="(二) 常见目录及其含义"></a>(二) 常见目录及其含义</h3><blockquote>
+<p><em><strong>Linux 常见目录</strong></em>：</p>
+<ul>
+<li><strong>&#x2F;（根目录）</strong>：整个文件系统的起点</li>
+<li><strong>dev（Devices）</strong>：&#x2F;dev存放抽象硬件</li>
+<li><strong>boot（Boot）</strong>：&#x2F;boot存放内核与启动文件</li>
+<li><strong>lib（Library）</strong>：&#x2F;lib存放系统库文件</li>
+<li><strong>bin（Binary）</strong> :&#x2F;bin 存放基本系统命令的二进制文件，这些命令在任何情况下都必需</li>
+<li><strong>sbin（System Binary）</strong>：&#x2F;sbin存放系统管理的二进制文件，通常需要超级用户权限才能执行</li>
+<li><strong>usr（User）</strong> :&#x2F;usr存放安装程序（软件默认目录）</li>
+<li><strong>var（Variable）</strong>：&#x2F;var存放经常变化的文件，如日志文件</li>
+<li><strong>mnt</strong>：&#x2F;mnt文件挂载目录(u盘、光驱)</li>
+<li><strong>home（Home）</strong>：&#x2F;home普通用户目录</li>
+<li><strong>root（Root Home）</strong>：&#x2F;root特权用户目录</li>
+<li><strong>etc（Etceter）</strong>：&#x2F;etc存放配置文件目录</li>
+<li><strong>opt（Optional）</strong>：&#x2F;opt用于存放第三方软件包和附加应用程序（非强制）</li>
+<li><strong>proc（Processes）</strong>：一个虚拟文件系统，包含系统进程和内核信息</li>
+</ul>
+</blockquote>
+<h3 id="三-重要路径"><a href="#三-重要路径" class="headerlink" title="(三) 重要路径"></a>(三) 重要路径</h3><blockquote>
+<ul>
+<li><p><em><strong>&#x2F;etc</strong></em><br><strong>&#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-ens33</strong>：网卡配置文件，包括动态分配 IP、设备名称、启动加载的ONBOOT参数<br><strong>&#x2F;etc&#x2F;resolv.conf</strong>：DNS客户端的配置文件，包括域名解析<br><strong>etc&#x2F;hostname</strong>：主机名配置文件<br><strong>&#x2F;ect&#x2F;hosts</strong>：用于本地名称解析的静态表，它将主机名映射到IP地址<br><strong>&#x2F;etc&#x2F;motd</strong>：“Message of the Day”（每日消息），在用户通过SSH或其他方式登录到系统时会被显示<br><strong>&#x2F;etc&#x2F;os-release</strong>：包含了操作系统的身份信息，如发行版ID、名称、版本号、版本ID和PRETTY_NAME等</p>
+</li>
+<li><p><em><strong>&#x2F;proc</strong></em><br><strong>&#x2F;proc&#x2F;meminfo</strong>：系统内存信息<br><strong>&#x2F;proc&#x2F;cpuinfo</strong>：处理器相关信息，如类型、厂家、型号、类型</p>
+</li>
+<li><p><em><strong>&#x2F;var</strong></em><br><strong>var&#x2F;log&#x2F;message</strong>：系统级别日志文件<br><strong>var&#x2F;log&#x2F;secure</strong>:用户登录信息日志文件<br><strong>var&#x2F;log&#x2F;dmesg</strong>：记录硬件加载情况的日志信息</p>
+</li>
 </ul>
 </blockquote>
 
