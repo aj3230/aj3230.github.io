@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Linux | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前置知识计算机组成：  中央处理器（CPU）： CPU是计算机的大脑，负责解释和执行程序指令。 它包含了控制单元、算术逻辑单元（ALU）和寄存器。   主板（Motherboard）： 主板是连接和允许各个硬件组件通信的电路板。 它通常包含CPU插座、内存插槽、扩展槽（用于显卡、声卡等）">
+  <meta name="description" content="前置知识计算机组成：  中央处理器（CPU）： CPU是计算机的大脑，负责解释和执行程序指令。 它包含了控制单元、算术逻辑单元（ALU）和寄存器。   主板（Motherboard）： 主板是连接和允许各个硬件组件通信的电路板。 它通常包含CPU插座、内存插槽、扩展槽（用于显卡、声卡等）和连接器（用于硬盘驱动器、光驱等）。   内存（RAM）： 随机存取存储器（RAM）用于临时存储正在运行的程序和">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux">
 <meta property="og:url" content="http://example.com/2024/06/28/Linux/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前置知识计算机组成：  中央处理器（CPU）： CPU是计算机的大脑，负责解释和执行程序指令。 它包含了控制单元、算术逻辑单元（ALU）和寄存器。   主板（Motherboard）： 主板是连接和允许各个硬件组件通信的电路板。 它通常包含CPU插座、内存插槽、扩展槽（用于显卡、声卡等）">
+<meta property="og:description" content="前置知识计算机组成：  中央处理器（CPU）： CPU是计算机的大脑，负责解释和执行程序指令。 它包含了控制单元、算术逻辑单元（ALU）和寄存器。   主板（Motherboard）： 主板是连接和允许各个硬件组件通信的电路板。 它通常包含CPU插座、内存插槽、扩展槽（用于显卡、声卡等）和连接器（用于硬盘驱动器、光驱等）。   内存（RAM）： 随机存取存储器（RAM）用于临时存储正在运行的程序和">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/070201.png">
 <meta property="og:image" content="http://example.com/images/070202.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-07-02T12:22:03.789Z">
+<meta property="article:modified_time" content="2024-07-03T06:39:25.978Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -40,7 +40,7 @@
 
   
 
-<meta name="generator" content="Hexo 7.2.0"></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -235,38 +235,111 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">内存的速度远大于硬盘</span><br><span class="line">先读取到内存，CPU再执行，然后输出或写入硬盘</span><br></pre></td></tr></table></figure>
-
+<span id="more"></span>
+<p>内存的速度远大于硬盘<br>先读取到内存，CPU再执行，然后输出或写入硬盘</p>
 <p>读入方式</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 高并发写入(如微博)：先读入到内存，再写入硬盘</span><br><span class="line"><span class="bullet">-</span> 中小企业读取写入：WEB服务器直接写入硬盘，然后再读入内存</span><br><span class="line">内存加速——多通道设计</span><br></pre></td></tr></table></figure>
+<ul>
+<li>高并发写入(如微博)：先读入到内存，再写入硬盘</li>
+<li>中小企业读取写入：WEB服务器直接写入硬盘，然后再读入内存<br>内存加速——多通道设计</li>
+</ul>
 <p>程序、进程与守护进程</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">程序：</span><br><span class="line"><span class="bullet">-</span> 程序是一系列按照特定顺序排列的指令，这些指令被编写来执行特定的任务。程序通常以文件的形式存储在磁盘上，例如可执行文件（在Unix/Linux系统中通常以.exe、.app或无扩展名形式存在，在Windows系统中通常以.exe为扩展名）。</span><br><span class="line"><span class="bullet">-</span> 程序是静态的，它只是指令的集合，不占用系统资源，只有当程序被加载到内存中并执行时，它才成为进程。</span><br><span class="line"></span><br><span class="line">进程：</span><br><span class="line"><span class="bullet">-</span> 进程是程序的一次执行实例。当程序被操作系统加载到内存中并开始执行时，它就变成了一个进程。进程具有状态，并且可以被操作系统调度。</span><br><span class="line"><span class="bullet">-</span> 每个进程都有独立的地址空间，这意味着一个进程不能直接访问另一个进程的数据。进程可能包含一个或多个线程，线程是进程内的一个执行流。</span><br><span class="line"><span class="bullet">-</span> 进程是资源分配的单位，它可能会请求CPU时间、内存空间、文件I/O等系统资源。</span><br><span class="line"></span><br><span class="line">守护进程：</span><br><span class="line"><span class="bullet">-</span> 守护进程（Daemon）是在后台运行的服务进程，通常在系统引导时启动，并在系统关闭时终止。守护进程没有控制终端，也就是说，它们不与任何终端关联，可以在用户登录之前、之后或用户不登录的情况下运行。</span><br><span class="line"><span class="bullet">-</span> 守护进程用于执行系统任务，如网络监控、打印服务等，它们通常以超级用户（root）权限运行，以保证有足够的权限来管理系统资源。</span><br><span class="line"><span class="bullet">-</span> 在Unix和类Unix系统中，守护进程通常在系统启动时通过init系统或者特定的启动脚本来启动，而在Windows系统中，类似的概念是服务。</span><br><span class="line"></span><br><span class="line">在操作系统的管理下，程序、进程和守护进程共同工作，确保计算机系统的稳定运行和高效服务。</span><br></pre></td></tr></table></figure>
-
+<p>程序：</p>
+<ul>
+<li>程序是一系列按照特定顺序排列的指令，这些指令被编写来执行特定的任务。程序通常以文件的形式存储在磁盘上，例如可执行文件（在Unix&#x2F;Linux系统中通常以.exe、.app或无扩展名形式存在，在Windows系统中通常以.exe为扩展名）。</li>
+<li>程序是静态的，它只是指令的集合，不占用系统资源，只有当程序被加载到内存中并执行时，它才成为进程。</li>
+</ul>
+<p>进程：</p>
+<ul>
+<li>进程是程序的一次执行实例。当程序被操作系统加载到内存中并开始执行时，它就变成了一个进程。进程具有状态，并且可以被操作系统调度。</li>
+<li>每个进程都有独立的地址空间，这意味着一个进程不能直接访问另一个进程的数据。进程可能包含一个或多个线程，线程是进程内的一个执行流。</li>
+<li>进程是资源分配的单位，它可能会请求CPU时间、内存空间、文件I&#x2F;O等系统资源。</li>
+</ul>
+<p>守护进程：</p>
+<ul>
+<li>守护进程（Daemon）是在后台运行的服务进程，通常在系统引导时启动，并在系统关闭时终止。守护进程没有控制终端，也就是说，它们不与任何终端关联，可以在用户登录之前、之后或用户不登录的情况下运行。</li>
+<li>守护进程用于执行系统任务，如网络监控、打印服务等，它们通常以超级用户（root）权限运行，以保证有足够的权限来管理系统资源。</li>
+<li>在Unix和类Unix系统中，守护进程通常在系统启动时通过init系统或者特定的启动脚本来启动，而在Windows系统中，类似的概念是服务。</li>
+</ul>
+<p>在操作系统的管理下，程序、进程和守护进程共同工作，确保计算机系统的稳定运行和高效服务。</p>
 <p>存储设备：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 机械硬盘：容量大，读写速度慢，价格便宜</span><br><span class="line"><span class="bullet">-</span> 固态硬盘：容量小，读写很快，价格贵</span><br><span class="line"><span class="bullet">-</span> 软盘：已弃用；DVD：光盘存储介质； U盘：闪存设备； 移动硬盘：类似机械硬盘</span><br></pre></td></tr></table></figure>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在生产环境中，服务器使用AB双电源线路；</span><br><span class="line">如果在计算机集群中，可以不使用双电源</span><br></pre></td></tr></table></figure>
-
+<ul>
+<li>机械硬盘：容量大，读写速度慢，价格便宜</li>
+<li>固态硬盘：容量小，读写很快，价格贵</li>
+<li>软盘：已弃用；DVD：光盘存储介质； U盘：闪存设备； 移动硬盘：类似机械硬盘</li>
+</ul>
+<p>在生产环境中，服务器使用AB双电源线路；<br>如果在计算机集群中，可以不使用双电源</p>
 <p>服务器：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> CPU、主板、内存、磁盘、网卡等硬件设备性能更高、安全性更高、更稳定的计算机</span><br><span class="line"><span class="bullet">-</span> 在计算机网络中，一个管理资源并为用户提供服务的计算机</span><br><span class="line"> 分类：</span><br><span class="line"><span class="bullet">-</span> 文件服务器：图片、网页文件、视频文件的展示</span><br><span class="line"><span class="bullet">-</span> 数据库服务器：提供数据读写的机器</span><br><span class="line"><span class="bullet">-</span> 应用程序服务器：开发应用程序的运行机器</span><br></pre></td></tr></table></figure>
-
+<ul>
+<li>CPU、主板、内存、磁盘、网卡等硬件设备性能更高、安全性更高、更稳定的计算机</li>
+<li>在计算机网络中，一个管理资源并为用户提供服务的计算机<br> 分类：</li>
+<li>文件服务器：图片、网页文件、视频文件的展示</li>
+<li>数据库服务器：提供数据读写的机器</li>
+<li>应用程序服务器：开发应用程序的运行机器</li>
+</ul>
 <p>机房托管：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 服务器运行条件严苛，要求无尘、干燥、低温、五静电</span><br><span class="line"><span class="bullet">-</span> 7\<span class="emphasis">*24\*</span>365  </span><br><span class="line"><span class="bullet">-</span> 硬件安全防护 hacker入侵</span><br><span class="line"><span class="bullet">-</span> 带宽有限</span><br></pre></td></tr></table></figure>
+<ul>
+<li>服务器运行条件严苛，要求无尘、干燥、低温、五静电</li>
+<li>7*24*365  </li>
+<li>硬件安全防护 hacker入侵</li>
+<li>带宽有限</li>
+</ul>
 <p>云服务器</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">云服务器很适合初创公司(阿里云、腾讯云)</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 优点：</span><br><span class="line"><span class="bullet">    -</span> 操作和升级部署更方便</span><br><span class="line"><span class="bullet">    -</span> 访问更快</span><br><span class="line"><span class="bullet">    -</span> 存储更便捷</span><br><span class="line"><span class="bullet">    -</span> 更安全、稳定</span><br><span class="line"><span class="bullet">    -</span> 高性价比</span><br></pre></td></tr></table></figure>
+<p>云服务器很适合初创公司(阿里云、腾讯云)</p>
+<ul>
+<li>优点：<ul>
+<li>操作和升级部署更方便</li>
+<li>访问更快</li>
+<li>存储更便捷</li>
+<li>更安全、稳定</li>
+<li>高性价比</li>
+</ul>
+</li>
+</ul>
 <p>&nbsp;</p>
 <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>操作系统：<br>人机交互的中介，是用于控制和管理计算机的各种软、硬件资源的基础系统软件，如检测CPU使用率、内存使用情况、系统磁盘剩余空间</p>
 <p>Linux操作系统：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 开源、可自由传播</span><br><span class="line"><span class="bullet">-</span> 支持多用户同时操作、多任务、支持多CPU、多线程</span><br><span class="line"><span class="bullet">-</span> 与Unix操作系统兼容，有其所有优秀特性</span><br><span class="line"><span class="bullet">-</span> 移植性高，适用于各种架构的计算机，如PC、服务器、树莓派、嵌入式等环境</span><br></pre></td></tr></table></figure>
+<ul>
+<li>开源、可自由传播</li>
+<li>支持多用户同时操作、多任务、支持多CPU、多线程</li>
+<li>与Unix操作系统兼容，有其所有优秀特性</li>
+<li>移植性高，适用于各种架构的计算机，如PC、服务器、树莓派、嵌入式等环境</li>
+</ul>
 <p>Unix操作系统：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 成熟、可靠</span><br><span class="line"><span class="bullet">-</span> 强大的的网络功能，TCP/IP就是基于Unix</span><br><span class="line"><span class="bullet">-</span> 支持多种编程语言，C/C++、Python</span><br><span class="line"><span class="bullet">-</span> 强大的数据库，Oracle、Mysql、DB2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>成熟、可靠</li>
+<li>强大的的网络功能，TCP&#x2F;IP就是基于Unix</li>
+<li>支持多种编程语言，C&#x2F;C++、Python</li>
+<li>强大的数据库，Oracle、Mysql、DB2</li>
+</ul>
 <p>演变</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Unix (1969)  —— &gt;</span><br><span class="line"></span><br><span class="line">1) Linux (1991) ——Android(2007)                 </span><br><span class="line">2) IOS(2007)</span><br></pre></td></tr></table></figure>
-
+<p>Unix (1969)  —— &gt;</p>
+<ol>
+<li>Linux (1991) ——Android(2007)                 </li>
+<li>IOS(2007)</li>
+</ol>
 <p>拓展</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GNU活动：指的是由GNU计划和自由软件基金会（Free Software Foundation, FSF）发起或支持的各种活动，旨在推广自由软件（Free Software）的理念、使用和发展。GNU计划由理查德·斯托曼（Richard Stallman）于1983年发起，目标是创建一个完全由自由软件组成的操作系统——GNU操作系统。</span><br><span class="line"></span><br><span class="line">GPL：全称是GNU通用公共许可证（GNU General Public License），是由自由软件基金会（Free Software Foundation, FSF）制定的自由软件许可证。GPL是一种“强”版权许可证，它确保软件的自由性，并允许用户自由地运行、研究、修改和分发软件。</span><br></pre></td></tr></table></figure>
-
+<p>GNU活动：指的是由GNU计划和自由软件基金会（Free Software Foundation, FSF）发起或支持的各种活动，旨在推广自由软件（Free Software）的理念、使用和发展。GNU计划由理查德·斯托曼（Richard Stallman）于1983年发起，目标是创建一个完全由自由软件组成的操作系统——GNU操作系统。</p>
+<p>GPL：全称是GNU通用公共许可证（GNU General Public License），是由自由软件基金会（Free Software Foundation, FSF）制定的自由软件许可证。GPL是一种“强”版权许可证，它确保软件的自由性，并允许用户自由地运行、研究、修改和分发软件。</p>
 <p>&nbsp;<br>重要的Linux发行版：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Red Hat Enterprise Linux (RHEL)：</span><br><span class="line"><span class="bullet">-</span> Red Hat Enterprise Linux是Red Hat公司提供的企业级Linux发行版。它以其稳定性和企业支持而受到企业的青睐。</span><br><span class="line"><span class="bullet">-</span> 提供收费的技术支持；提供资格认证证书，RHCSA、RHCE、RHCA</span><br><span class="line"></span><br><span class="line">CentOS：</span><br><span class="line"><span class="bullet">-</span> CentOS是RHEL的免费克隆版本，它使用了RHEL的源代码，但去除了Red Hat的商标和商业支持服务。它适合那些需要稳定的服务器环境但没有预算购买商业支持的用户。</span><br><span class="line"></span><br><span class="line">Ubuntu：</span><br><span class="line"><span class="bullet">-</span> Ubuntu是基于Debian的发行版，由Canonical Ltd.维护。它以用户友好、易于安装和使用的特点而闻名，是桌面和服务器领域的热门选择。</span><br><span class="line"><span class="bullet">-</span> 桌面版Linux，也用于物联网、嵌入式领域</span><br><span class="line"></span><br><span class="line">openSUSE：</span><br><span class="line"><span class="bullet">-</span> openSUSE是一个由社区开发的发行版，由SUSE公司赞助。它提供了两个版本：Leap（稳定版）和Tumbleweed（滚动更新版）。</span><br><span class="line"><span class="bullet">-</span> 数据库领域</span><br></pre></td></tr></table></figure>
+<p>Red Hat Enterprise Linux (RHEL)：</p>
+<ul>
+<li>Red Hat Enterprise Linux是Red Hat公司提供的企业级Linux发行版。它以其稳定性和企业支持而受到企业的青睐。</li>
+<li>提供收费的技术支持；提供资格认证证书，RHCSA、RHCE、RHCA</li>
+</ul>
+<p>CentOS：</p>
+<ul>
+<li>CentOS是RHEL的免费克隆版本，它使用了RHEL的源代码，但去除了Red Hat的商标和商业支持服务。它适合那些需要稳定的服务器环境但没有预算购买商业支持的用户。</li>
+</ul>
+<p>Ubuntu：</p>
+<ul>
+<li>Ubuntu是基于Debian的发行版，由Canonical Ltd.维护。它以用户友好、易于安装和使用的特点而闻名，是桌面和服务器领域的热门选择。</li>
+<li>桌面版Linux，也用于物联网、嵌入式领域</li>
+</ul>
+<p>openSUSE：</p>
+<ul>
+<li>openSUSE是一个由社区开发的发行版，由SUSE公司赞助。它提供了两个版本：Leap（稳定版）和Tumbleweed（滚动更新版）。</li>
+<li>数据库领域</li>
+</ul>
 <p>选择：</p>
 <table>
 <thead>
@@ -303,21 +376,39 @@
 <p>主流互联网企业还是 CentOS，所以就学这个</p>
 <p>&nbsp;</p>
 <h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><p>用 虚拟机 安装 Linux 系统</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> VMware</span><br><span class="line"><span class="bullet">-</span> Centos7系统iso镜像文件</span><br><span class="line"><span class="bullet">-</span> xshell远程连接工具</span><br></pre></td></tr></table></figure>
-
+<ul>
+<li>VMware</li>
+<li>Centos7系统iso镜像文件</li>
+<li>xshell远程连接工具</li>
+</ul>
 <p>&nbsp;<br>虚拟机网络环境:</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 桥接网络：在当前网络环境下，再分配一个IP地址，让虚拟机和宿主机处于同一个局域网段</span><br><span class="line"><span class="bullet">-</span> 网络地址转换(NAT)：在宿主机的网络环境下，再生成一个虚拟局域网，和宿主机处于不同 局域网段</span><br><span class="line"><span class="bullet">-</span> 仅主机网络模式：单机模式，无法与外界通信</span><br></pre></td></tr></table></figure>
-
+<ul>
+<li>桥接网络：在当前网络环境下，再分配一个IP地址，让虚拟机和宿主机处于同一个局域网段</li>
+<li>网络地址转换(NAT)：在宿主机的网络环境下，再生成一个虚拟局域网，和宿主机处于不同 局域网段</li>
+<li>仅主机网络模式：单机模式，无法与外界通信</li>
+</ul>
 <p>虚拟终端（TTY）:</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在Linux系统中，通常有多个虚拟终端可供使用。你可以通过按下Ctrl + Alt + F1 ~ F7等组合键在不同的虚拟终端之间切换。</span><br><span class="line"><span class="bullet">-</span> Ctrl + Alt + F1：图形化界面(安装过了)</span><br><span class="line"><span class="bullet">-</span> Ctrl + Alt + F2：命令行界面</span><br></pre></td></tr></table></figure>
-
+<p>在Linux系统中，通常有多个虚拟终端可供使用。你可以通过按下Ctrl + Alt + F1 ~ F7等组合键在不同的虚拟终端之间切换。</p>
+<ul>
+<li>Ctrl + Alt + F1：图形化界面(安装过了)</li>
+<li>Ctrl + Alt + F2：命令行界面</li>
+</ul>
 <p>&nbsp;</p>
 <h2 id="三、远程连接"><a href="#三、远程连接" class="headerlink" title="三、远程连接"></a>三、远程连接</h2><p>ssh（安全外壳协议）：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一种网络协议，用于计算机之间的加密登录和执行命令。它为远程登录会话和其他网络服务提供了一种安全传输环境。ssh 命令是用于客户端的，用于建立到远程服务器的安全连接。</span><br><span class="line">Windows用户需要单独安装 Xshell 远程连接工具(封装了ssh命令)</span><br></pre></td></tr></table></figure>
-
+<p>一种网络协议，用于计算机之间的加密登录和执行命令。它为远程登录会话和其他网络服务提供了一种安全传输环境。ssh 命令是用于客户端的，用于建立到远程服务器的安全连接。<br>Windows用户需要单独安装 Xshell 远程连接工具(封装了ssh命令)</p>
 <p>步骤：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1) 确保 Linux 虚拟机正确配置了 IP 地址</span><br><span class="line">命令行输入 ip addr show 查看网络信息，找到IPV4地址：192.168.197.181</span><br><span class="line">2) 安装 Xshell 软件，进行远程连接</span><br><span class="line">建立 会话，即远程操作 Linux 虚拟机的终端，登录账户，实现连接</span><br><span class="line">3) 使用 ssh命令 实现远程连接</span><br><span class="line"><span class="bullet">-</span> 基本连接:</span><br><span class="line">  ssh 用户名@服务器地址</span><br><span class="line"><span class="bullet">-</span> 指定端口: (如果服务器不是使用默认的22端口，可以通过-p选项指定端口)</span><br><span class="line">ssh -p 端口号 用户名@服务器地址</span><br><span class="line">4) PC Windows 系统远程连接 Linux 虚拟机(和Xshell一样)</span><br><span class="line">  ssh 用户名@服务器地址</span><br></pre></td></tr></table></figure>
-
+<ol>
+<li>确保 Linux 虚拟机正确配置了 IP 地址<br>命令行输入 ip addr show 查看网络信息，找到IPV4地址：192.168.197.181</li>
+<li>安装 Xshell 软件，进行远程连接<br>建立 会话，即远程操作 Linux 虚拟机的终端，登录账户，实现连接</li>
+<li>使用 ssh命令 实现远程连接</li>
+</ol>
+<ul>
+<li>基本连接:<br>ssh 用户名@服务器地址</li>
+<li>指定端口: (如果服务器不是使用默认的22端口，可以通过-p选项指定端口)<br>ssh -p 端口号 用户名@服务器地址</li>
+</ul>
+<ol start="4">
+<li>PC Windows 系统远程连接 Linux 虚拟机(和Xshell一样)<br>  ssh 用户名@服务器地址</li>
+</ol>
 <p>&nbsp;</p>
 <h2 id="四、命令语句"><a href="#四、命令语句" class="headerlink" title="四、命令语句"></a>四、命令语句</h2><p>Linux命令行</p>
 <table>
@@ -345,50 +436,232 @@
 <td align="center">&#x2F;root</td>
 </tr>
 </tbody></table>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ls：列出当前路径下的文件(夹)</span><br><span class="line">-a：列出包括隐藏文件在内的所有文件</span><br><span class="line">-l：列出详细信息</span><br><span class="line"></span><br><span class="line">标准 Linux 命令提示符：</span><br><span class="line"><span class="bullet">-</span> 格式：</span><br><span class="line"><span class="bullet">  -</span> 当前登录的用户名@主机名 当前目录</span><br><span class="line"><span class="bullet">-</span> e.g.</span><br><span class="line"><span class="bullet">  -</span> [root@localhost ~]# </span><br><span class="line"></span><br><span class="line">&quot;#&quot; 是超级用户（也称为根用户或root用户）的命令提示符符号</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 指令：</span><br><span class="line"><span class="bullet">  -</span> whoami：显示当前登录的用户名</span><br><span class="line"><span class="bullet">  -</span> hostname：显示当前的主机名</span><br><span class="line"><span class="bullet">  -</span> pwd：显示当前的(绝对)路径</span><br></pre></td></tr></table></figure>
+<p>ls：列出当前路径下的文件(夹)<br>-a：列出包括隐藏文件在内的所有文件<br>-l：列出详细信息</p>
+<p>标准 Linux 命令提示符：</p>
+<ul>
+<li>格式：<ul>
+<li>当前登录的用户名@主机名 当前目录</li>
+</ul>
+</li>
+<li>e.g.<ul>
+<li>[root@localhost ~]#</li>
+</ul>
+</li>
+</ul>
+<p>“#” 是超级用户（也称为根用户或root用户）的命令提示符符号</p>
+<ul>
+<li>指令：<ul>
+<li>whoami：显示当前登录的用户名</li>
+<li>hostname：显示当前的主机名</li>
+<li>pwd：显示当前的(绝对)路径</li>
+</ul>
+</li>
+</ul>
 <p><img src="/../images/070201.png"></p>
 <p>常用命令</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> ls：列出当前路径下的文件(夹)</span><br><span class="line"><span class="bullet">-</span> cd：进入某路径</span><br><span class="line"><span class="bullet">-</span> pwd： 查看当前路径</span><br><span class="line"><span class="bullet">-</span> su：于切换到另一个用户账户并以其身份执行命令</span><br><span class="line"><span class="bullet">  -</span> 语法：</span><br><span class="line"><span class="bullet">      -</span> su [选项] [用户名]</span><br><span class="line"><span class="bullet">      -</span> 如果省略了用户名，su命令默认会切换到根用户（root）</span><br><span class="line"><span class="bullet">  -</span> 常见选项：</span><br><span class="line"><span class="bullet">      -</span> su -：以登录shell的方式切换用户，这意味着环境变量和配置文件会被加载，就像用户直接登录一样。</span><br><span class="line"><span class="bullet">      -</span> su -l：与su -相同，以登录shell的方式切换用户。</span><br><span class="line"><span class="bullet">      -</span> su [用户名]：切换到指定的用户，但不加载该用户的环境变量和配置文件。        </span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> logout：退出当前用户</span><br></pre></td></tr></table></figure>
-
+<ul>
+<li><p>ls：列出当前路径下的文件(夹)</p>
+</li>
+<li><p>cd：进入某路径</p>
+</li>
+<li><p>pwd： 查看当前路径</p>
+</li>
+<li><p>su：于切换到另一个用户账户并以其身份执行命令</p>
+<ul>
+<li>语法：<ul>
+<li>su [选项] [用户名]</li>
+<li>如果省略了用户名，su命令默认会切换到根用户（root）</li>
+</ul>
+</li>
+<li>常见选项：<ul>
+<li>su -：以登录shell的方式切换用户，这意味着环境变量和配置文件会被加载，就像用户直接登录一样。</li>
+<li>su -l：与su -相同，以登录shell的方式切换用户。</li>
+<li>su [用户名]：切换到指定的用户，但不加载该用户的环境变量和配置文件。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>logout：退出当前用户</p>
+</li>
+</ul>
 <p>&nbsp;</p>
 <h2 id="五、文件结构"><a href="#五、文件结构" class="headerlink" title="五、文件结构"></a>五、文件结构</h2><h3 id="一-Windows-与-Linux-操作系统文件结构的区别"><a href="#一-Windows-与-Linux-操作系统文件结构的区别" class="headerlink" title="(一) Windows 与 Linux 操作系统文件结构的区别"></a>(一) Windows 与 Linux 操作系统文件结构的区别</h3><ol>
-<li><p>根目录结构：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> Windows：</span><br><span class="line"><span class="bullet">  -</span> Windows文件系统通常以字母标识的驱动器（如C:、D:等）为根目录，每个驱动器可以有自己的文件系统结构。Windows使用盘符来区分不同的存储设备。</span><br><span class="line"><span class="bullet">-</span> Linux：</span><br><span class="line"><span class="bullet">  -</span> Linux文件系统有一个单一的根目录（用 / 表示），所有的文件和目录都从根目录开始。Linux不使用盘符，而是将所有的存储设备挂载到根目录下的某个目录上，如/boot、/home、/var等。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>目录命名约定</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> Windows：</span><br><span class="line"><span class="bullet">  -</span> 以 反斜杠 \\ 分割目录</span><br><span class="line"><span class="bullet">  -</span> e.g.：</span><br><span class="line"><span class="bullet">      -</span> C:\Users\aj\blog&gt;</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> Linux：</span><br><span class="line"><span class="bullet">-</span> 以 正斜杠 / 分割目录，第一个 / 表示路径的起点(根目录)，之后的 / 表示目录间的分隔符</span><br><span class="line"><span class="bullet">-</span> /home/aj/文档</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>系统文件和用户文件的位置：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> Windows：</span><br><span class="line"><span class="bullet">  -</span> 系统文件通常位于C:\Windows目录下，用户个人文件通常位于C:\Users\[用户名]目录下。</span><br><span class="line"><span class="bullet">-</span> Linux：</span><br><span class="line"><span class="bullet">  -</span> 系统文件分布在根目录的多个子目录下，如/bin、/sbin、/etc、/lib等，而用户个人文件通常位于/home/[用户名]目录下。</span><br></pre></td></tr></table></figure></li>
+<li>根目录结构：</li>
 </ol>
+<ul>
+<li>Windows：<ul>
+<li>Windows文件系统通常以字母标识的驱动器（如C:、D:等）为根目录，每个驱动器可以有自己的文件系统结构。Windows使用盘符来区分不同的存储设备。</li>
+</ul>
+</li>
+<li>Linux：<ul>
+<li>Linux文件系统有一个单一的根目录（用 &#x2F; 表示），所有的文件和目录都从根目录开始。Linux不使用盘符，而是将所有的存储设备挂载到根目录下的某个目录上，如&#x2F;boot、&#x2F;home、&#x2F;var等。</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>目录命名约定</li>
+</ol>
+<ul>
+<li><p>Windows：</p>
+<ul>
+<li>以 反斜杠 \ 分割目录</li>
+<li>e.g.：<ul>
+<li>C:\Users\aj\blog&gt;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Linux：</p>
+</li>
+<li><p>以 正斜杠 &#x2F; 分割目录，第一个 &#x2F; 表示路径的起点(根目录)，之后的 &#x2F; 表示目录间的分隔符</p>
+</li>
+<li><p>&#x2F;home&#x2F;aj&#x2F;文档</p>
+</li>
+</ul>
+<ol start="3">
+<li>系统文件和用户文件的位置：</li>
+</ol>
+<ul>
+<li>Windows：<ul>
+<li>系统文件通常位于C:\Windows目录下，用户个人文件通常位于C:\Users[用户名]目录下。</li>
+</ul>
+</li>
+<li>Linux：<ul>
+<li>系统文件分布在根目录的多个子目录下，如&#x2F;bin、&#x2F;sbin、&#x2F;etc、&#x2F;lib等，而用户个人文件通常位于&#x2F;home&#x2F;[用户名]目录下。</li>
+</ul>
+</li>
+</ul>
 <h3 id="二-常见目录及其含义"><a href="#二-常见目录及其含义" class="headerlink" title="(二) 常见目录及其含义"></a>(二) 常见目录及其含义</h3><p><strong>Linux 常见目录</strong>：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> /（根目录）：整个文件系统的起点</span><br><span class="line"><span class="bullet">-</span> dev（Devices）：/dev存放抽象硬件</span><br><span class="line"><span class="bullet">-</span> boot（Boot）：/boot存放内核与启动文件</span><br><span class="line"><span class="bullet">-</span> lib（Library）：/lib存放系统库文件</span><br><span class="line"><span class="bullet">-</span> bin（Binary） :/bin 存放基本系统命令的二进制文件，这些命令在任何情况下都必需</span><br><span class="line"><span class="bullet">-</span> sbin（System Binary）：/sbin存放系统管理的二进制文件，通常需要超级用户权限才能执行</span><br><span class="line"><span class="bullet">-</span> usr（User） :/usr存放安装程序（软件默认目录）</span><br><span class="line"><span class="bullet">-</span> var（Variable）：/var存放经常变化的文件，如日志文件</span><br><span class="line"><span class="bullet">-</span> mnt：/mnt文件挂载目录(u盘、光驱)</span><br><span class="line"><span class="bullet">-</span> home（Home）：/home普通用户目录</span><br><span class="line"><span class="bullet">-</span> root（Root Home）：/root特权用户目录</span><br><span class="line"><span class="bullet">-</span> etc（Etceter）：/etc存放配置文件目录</span><br><span class="line"><span class="bullet">-</span> opt（Optional）：/opt用于存放第三方软件包和附加应用程序（非强制）</span><br><span class="line"><span class="bullet">-</span> proc（Processes）：一个虚拟文件系统，包含系统进程和内核信息</span><br></pre></td></tr></table></figure>
-
+<ul>
+<li>&#x2F;（根目录）：整个文件系统的起点</li>
+<li>dev（Devices）：&#x2F;dev存放抽象硬件</li>
+<li>boot（Boot）：&#x2F;boot存放内核与启动文件</li>
+<li>lib（Library）：&#x2F;lib存放系统库文件</li>
+<li>bin（Binary） :&#x2F;bin 存放基本系统命令的二进制文件，这些命令在任何情况下都必需</li>
+<li>sbin（System Binary）：&#x2F;sbin存放系统管理的二进制文件，通常需要超级用户权限才能执行</li>
+<li>usr（User） :&#x2F;usr存放安装程序（软件默认目录）</li>
+<li>var（Variable）：&#x2F;var存放经常变化的文件，如日志文件</li>
+<li>mnt：&#x2F;mnt文件挂载目录(u盘、光驱)</li>
+<li>home（Home）：&#x2F;home普通用户目录</li>
+<li>root（Root Home）：&#x2F;root特权用户目录</li>
+<li>etc（Etceter）：&#x2F;etc存放配置文件目录</li>
+<li>opt（Optional）：&#x2F;opt用于存放第三方软件包和附加应用程序（非强制）</li>
+<li>proc（Processes）：一个虚拟文件系统，包含系统进程和内核信息</li>
+</ul>
 <h3 id="三-重要路径"><a href="#三-重要路径" class="headerlink" title="(三) 重要路径"></a>(三) 重要路径</h3><ul>
 <li><p><strong>&#x2F;etc</strong></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> /etc/sysconfig/network-scripts/ifcfg-ens33：网卡配置文件，包括动态分配 IP、设备名称、启动加载的ONBOOT参数 </span><br><span class="line"><span class="bullet">-</span> /etc/resolv.conf：DNS客户端的配置文件，包括域名解析</span><br><span class="line"><span class="bullet">-</span> /etc/hostname：主机名配置文件</span><br><span class="line"><span class="bullet">-</span> /ect/hosts：用于本地名称解析的静态表，它将主机名映射到IP地址</span><br><span class="line"><span class="bullet">-</span> /etc/motd：“Message of the Day”（每日消息），在用户通过SSH或其他方式登录到系统时会被显示</span><br><span class="line"><span class="bullet">-</span> /etc/os-release：包含了操作系统的身份信息，如发行版ID、名称、版本号、版本ID和PRETTY<span class="emphasis">_NAME等</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-ens33：网卡配置文件，包括动态分配 IP、设备名称、启动加载的ONBOOT参数 </p>
+</li>
+<li><p>&#x2F;etc&#x2F;resolv.conf：DNS客户端的配置文件，包括域名解析</p>
+</li>
+<li><p>&#x2F;etc&#x2F;hostname：主机名配置文件</p>
+</li>
+<li><p>&#x2F;ect&#x2F;hosts：用于本地名称解析的静态表，它将主机名映射到IP地址</p>
+</li>
+<li><p>&#x2F;etc&#x2F;motd：“Message of the Day”（每日消息），在用户通过SSH或其他方式登录到系统时会被显示</p>
+</li>
+<li><p>&#x2F;etc&#x2F;os-release：包含了操作系统的身份信息，如发行版ID、名称、版本号、版本ID和PRETTY_NAME等</p>
 </li>
 <li><p><strong>&#x2F;proc</strong></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> /proc/meminfo：系统内存信息</span><br><span class="line"><span class="bullet">-</span> /proc/cpuinfo：处理器相关信息，如类型、厂家、型号、类型</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>&#x2F;proc&#x2F;meminfo：系统内存信息</p>
+</li>
+<li><p>&#x2F;proc&#x2F;cpuinfo：处理器相关信息，如类型、厂家、型号、类型</p>
 </li>
 <li><p><strong>&#x2F;var</strong></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> var/log/message：系统级别日志文件</span><br><span class="line"><span class="bullet">-</span> var/log/secure:用户登录信息日志文件</span><br><span class="line"><span class="bullet">-</span> r/log/dmesg：记录硬件加载情况的日志信息</span><br></pre></td></tr></table></figure></li>
+</li>
+<li><p>var&#x2F;log&#x2F;message：系统级别日志文件</p>
+</li>
+<li><p>var&#x2F;log&#x2F;secure:用户登录信息日志文件</p>
+</li>
+<li><p>r&#x2F;log&#x2F;dmesg：记录硬件加载情况的日志信息</p>
+</li>
 </ul>
 <h3 id="四-文件管理命令"><a href="#四-文件管理命令" class="headerlink" title="(四) 文件管理命令"></a>(四) 文件管理命令</h3><ol>
-<li><p>cd（change directory） 命令：改当前工作目录</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 语法：</span><br><span class="line"><span class="bullet">  -</span> cd 目标路径</span><br><span class="line"><span class="bullet">  -</span> 若省略 目标路径 参数，则转到当前用户的主目录，同 cd ~ </span><br><span class="line"><span class="bullet">-</span> 几个特殊的目录：</span><br><span class="line"><span class="bullet">  -</span> . 当前工作目录</span><br><span class="line"><span class="bullet">  -</span> .. 上一级工作目录</span><br><span class="line"><span class="bullet">  -</span> - 上一次的工作目录</span><br><span class="line"><span class="bullet">  -</span> ~ 当前用户的主目录</span><br></pre></td></tr></table></figure></li>
-<li><p>ls（list）命令：列出目录内容</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 语法</span><br><span class="line"><span class="bullet">  -</span> ls [选项] [目录或文件]</span><br><span class="line"><span class="bullet">  -</span> 如果省略了 目录或文件 参数，ls命令会默认列出当前工作目录的内容</span><br><span class="line"><span class="bullet">-</span> 常见选项</span><br><span class="line"><span class="bullet">  -</span> -l：以长格式列出文件和目录的详细信息，包括权限、所有者、大小和最后修改时间。</span><br><span class="line"><span class="bullet">  -</span> -a：列出所有文件，包括以.开头的隐藏文件。</span><br><span class="line"><span class="bullet">  -</span> -h：以人类可读的格式显示文件大小，例如K（千字节）、M（兆字节）和G（吉字节）。</span><br><span class="line"><span class="bullet">  -</span> -r：逆序列出目录内容。</span><br><span class="line"><span class="bullet">  -</span> -t：按文件修改时间排序。</span><br><span class="line"><span class="bullet">  -</span> -d：仅列出目录本身，而不是目录的内容。</span><br><span class="line"><span class="bullet">  -</span> -S：大写的S，按文件大小排序，默认从大到小。</span><br><span class="line"><span class="bullet">  -</span> --full-time：详细输出时间信息</span><br><span class="line"><span class="bullet">  -</span> -F：在列出的文件和目录名称后添加指示符，以区分不同类型的文件</span><br><span class="line"><span class="bullet">      -</span> /：表示目录。</span><br><span class="line"><span class="bullet">      -</span> @：表示符号链接。</span><br><span class="line"><span class="bullet">      -</span> \<span class="emphasis">*：表示可执行文件。</span></span><br><span class="line"><span class="emphasis">      - =：表示套接字文件。</span></span><br><span class="line"><span class="emphasis">      - |：表示FIFO（命名管道）</span></span><br><span class="line"><span class="emphasis">      - : 普通文件类似结尾为空</span></span><br><span class="line"><span class="emphasis">  - -i：显示每个文件的inode编号（ inode 是文件系统中的一种数据结构，用于存储文件的元数据，如权限、所有者、大小和最后修改时间等。inode编号是一个唯一的标识符，用于在文件系统中唯一地识别文件。）</span></span><br></pre></td></tr></table></figure></li>
+<li>cd（change directory） 命令：改当前工作目录</li>
+</ol>
+<ul>
+<li>语法：<ul>
+<li>cd 目标路径</li>
+<li>若省略 目标路径 参数，则转到当前用户的主目录，同 cd ~</li>
+</ul>
+</li>
+<li>几个特殊的目录：<ul>
+<li>. 当前工作目录</li>
+<li>.. 上一级工作目录</li>
+<li><ul>
+<li>上一次的工作目录</li>
+</ul>
+</li>
+<li>~ 当前用户的主目录</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>ls（list）命令：列出目录内容</li>
+</ol>
+<ul>
+<li>语法<ul>
+<li>ls [选项] [目录或文件]</li>
+<li>如果省略了 目录或文件 参数，ls命令会默认列出当前工作目录的内容</li>
+</ul>
+</li>
+<li>常见选项<ul>
+<li>-l：以长格式列出文件和目录的详细信息，包括权限、所有者、大小和最后修改时间。</li>
+<li>-a：列出所有文件，包括以.开头的隐藏文件。</li>
+<li>-h：以人类可读的格式显示文件大小，例如K（千字节）、M（兆字节）和G（吉字节）。</li>
+<li>-r：逆序列出目录内容。</li>
+<li>-t：按文件修改时间排序。</li>
+<li>-d：仅列出目录本身，而不是目录的内容。</li>
+<li>-S：大写的S，按文件大小排序，默认从大到小。</li>
+<li>–full-time：详细输出时间信息</li>
+<li>-F：在列出的文件和目录名称后添加指示符，以区分不同类型的文件<ul>
+<li>&#x2F;：表示目录。</li>
+<li>@：表示符号链接。</li>
+<li>*：表示可执行文件。</li>
+<li>&#x3D;：表示套接字文件。</li>
+<li>|：表示FIFO（命名管道）</li>
+<li>: 普通文件类似结尾为空</li>
+</ul>
+</li>
+<li>-i：显示每个文件的inode编号（ inode 是文件系统中的一种数据结构，用于存储文件的元数据，如权限、所有者、大小和最后修改时间等。inode编号是一个唯一的标识符，用于在文件系统中唯一地识别文件。）</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
 <li><p>pwd（print working directory） 指令：显示当前工作目录的绝对路径的命令</p>
 </li>
 <li><p>tree 指令：以树形结构显示⽬录下内容</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">需要单独安装：yum install tree -y</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 语法</span><br><span class="line"><span class="code">    tree [选项] [目录路径]</span></span><br><span class="line"><span class="code">- 常⽤参数</span></span><br><span class="line"><span class="code">    - C 在⽂件和⽬录清单加上⾊彩，便于区分各种类型。</span></span><br><span class="line"><span class="code">    - d 显示⽬录名称⽽⾮内容。</span></span><br><span class="line"><span class="code">    - D 列出⽂件或⽬录的更改时间。</span></span><br><span class="line"><span class="code">    - f 在每个⽂件或⽬录之前，显示完整的相对路径名称。</span></span><br><span class="line"><span class="code">    - F 在条⽬后加上⽂件类型的指示符号</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>mkdir（make directory）：用于创建新目录</p>
- <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> 语法：</span><br><span class="line"><span class="bullet">    -</span> mkdir [选项] [目录路径]</span><br><span class="line"><span class="bullet">-</span> 常用选项：</span><br><span class="line"><span class="bullet">    -</span> -m [mode]：设置权限模式</span><br><span class="line"><span class="bullet">    -</span> -p：递归创建目录，如果路径中存在，不会报错 </span><br></pre></td></tr></table></figure>
-<p><img src="/../images/070202.png"></p>
 </li>
 </ol>
+<p>需要单独安装：yum install tree -y</p>
+<ul>
+<li>语法<br>  tree [选项] [目录路径]</li>
+<li>常⽤参数<ul>
+<li>C 在⽂件和⽬录清单加上⾊彩，便于区分各种类型。</li>
+<li>d 显示⽬录名称⽽⾮内容。</li>
+<li>D 列出⽂件或⽬录的更改时间。</li>
+<li>f 在每个⽂件或⽬录之前，显示完整的相对路径名称。</li>
+<li>F 在条⽬后加上⽂件类型的指示符号</li>
+</ul>
+</li>
+</ul>
+<ol start="5">
+<li>mkdir（make directory）：用于创建新目录</li>
+</ol>
+<ul>
+<li>语法：<ul>
+<li>mkdir [选项] [目录路径]</li>
+</ul>
+</li>
+<li>常用选项：<ul>
+<li>-m [mode]：设置权限模式</li>
+<li>-p：递归创建目录，如果路径中存在，不会报错</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../images/070202.png"></p>
 <hr>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CS4y1C7ZY?p=1&vd_source=df38266eedfef61aa7370319919d94d7">老男孩于超</a></p>
@@ -633,7 +906,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">语法</a>
+                <a href="javascript:void(0)" class="js-tag color3">运维</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,11 +914,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+                <a href="javascript:void(0)" class="js-tag color3">语法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">运维</a>
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
               </li>
             
             <div class="clearfix"></div>
