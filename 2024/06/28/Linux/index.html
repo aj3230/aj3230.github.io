@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://example.com/images/070303.png">
 <meta property="og:image" content="http://example.com/images/070304.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-07-03T14:46:51.787Z">
+<meta property="article:modified_time" content="2024-07-04T03:29:02.153Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -898,6 +898,127 @@
 <li>快速到达⾏尾并进⼊编辑模式 <strong>A</strong> </li>
 <li>快速保存并退出 <strong>ZZ</strong></li>
 </ul>
+<p>&nbsp;<br><em><strong>批量增删</strong></em>：</p>
+<ul>
+<li>批量删除<br>进⼊批量编辑模式 ( 可视块 ) ctrl+v 选择 上下左右 删除 d </li>
+<li>批量增加 :<br>进⼊批量编辑模式 ( 可视块 )ctrl+v 选择区域 输⼊⼤写的 I 进⼊编辑模式 编辑 按两次 ESC 键 </li>
+<li>批量去掉注释</li>
+</ul>
+<ol>
+<li>进⼊命令⾏模式，按 ctrl + v 进⼊ visual block 模式，按字⺟ l 横向选中列</li>
+<li>按字⺟ j ，或者 k 选中注释符号 </li>
+<li>按 d 键就可全部取消注释</li>
+</ol>
+<p><em><strong>批量缩进</strong></em>：<br>:set tabstop&#x3D;4 ：设定 tab 宽度为 4 个字符<br>:set shiftwidth&#x3D;4：设定⾃动缩进为 4 个字符<br>:set expandtab：⽤ space 替代 tab 的输⼊<br>:set noexpandtab：不⽤ space 替代 tab 的输⼊ </p>
+<ol>
+<li>命令模式，按下 v ，进⼊可视模式 </li>
+<li>光标移动选择⾏，输⼊ &gt; ⼤于号，缩进，输⼊ &lt; 缩进</li>
+</ol>
+<p>输⼊⾏号缩进： </p>
+<ol>
+<li>显示⾏号<br>:set nu # 显示<br>:set nonu # 关闭 </li>
+<li>⾏号缩进 :10,20 &gt; #10 到 20 ⾏，缩进⼀次</li>
+</ol>
+<p><em><strong>底线命令模式</strong></em>：<br>在命令模式下输⼊冒号（英⽂的:），就进⼊了底线命令模式，在底线命 令模式下可以输⼊单个或多个字符的命令，常⽤命令有：</p>
+<ul>
+<li>:q! 强制退出 </li>
+<li>:wq! 强制写⼊退出 </li>
+<li>:set nu 显示⾏号 </li>
+<li>:数字 调到数字那⾏ </li>
+<li>:set nonu 取消显示⾏号</li>
+</ul>
+<p>随时按下 esc 可以退出底线命令模式</p>
+<p>&nbsp;</p>
+<h2 id="八、交换文件解决方法"><a href="#八、交换文件解决方法" class="headerlink" title="八、交换文件解决方法"></a>八、交换文件解决方法</h2><blockquote>
+<p>.xxx.swp  </p>
+</blockquote>
+<p>Vi&#x2F;Vim编辑文件正常流程</p>
+<ol>
+<li>打开 vim_test.txt</li>
+<li>进入编辑模式编辑文件</li>
+<li>编辑文件时 Vi 会自动创建一个临时文件 .vim_test.txt.swp</li>
+<li>编辑完成，Vi 自动删除临时文件</li>
+<li>保存退出</li>
+</ol>
+<p>故障原因 及 相应的解决方案</p>
+<ul>
+<li>多个窗口同时编辑同一文件<ul>
+<li>不需要未保存的数据<ul>
+<li>D 删除临时文件</li>
+</ul>
+</li>
+<li>恢复未保存的数据<ul>
+<li>R ENTER :wq 恢复未保存的数据</li>
+<li>rm -f .vim_test.txt.swp 删除临时文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>多个窗口同时打开一个文件，会有交互界面，若正常退出，临时文件不会保留</p>
+</blockquote>
+<p>&nbsp;</p>
+<h2 id="九、读取文件"><a href="#九、读取文件" class="headerlink" title="九、读取文件"></a>九、读取文件</h2><p><em><strong>重定向符号</strong></em>：</p>
+<blockquote>
+<p>重定向：将数据传到其他地方</p>
+</blockquote>
+<p>输入重定向（Redirecting Input）:</p>
+<ul>
+<li>&lt; 符号用于从文件读取输入</li>
+</ul>
+<p>输出重定向（Redirecting Output）:</p>
+<ul>
+<li><strong>&gt;</strong>：符号用于将输出重定向到一个文件。如果目标文件已存在，它将被覆盖;如果目标文件不存在，它将被创建。</li>
+<li>**&gt;&gt;**：符号用于将输出追加到文件末尾。如果目标文件不存在，它将被创建。</li>
+<li>2&gt; 符号用于将标准错误输出重定向到文件。</li>
+<li>2&gt;&gt; 符号用于将标准错误输出追加到文件末尾。</li>
+</ul>
+<p>&nbsp;<br><em><strong>cat命令</strong></em></p>
+<blockquote>
+<p><strong>cat（concatenate）</strong> 命令是一个常用的文本查看工具，用于读取文件内容并将其显示在终端中。它也可以用于创建文件、复制文件或合并文件。</p>
+</blockquote>
+<p>语法：</p>
+<ul>
+<li><strong>cat [选项] 文件名</strong></li>
+</ul>
+<p>常用选项：</p>
+<ul>
+<li>-n：为输出的每一行编号。</li>
+<li>-b：与 -n 类似，但是只对非空白行编号。</li>
+<li>-s：将多个连续的空白行合并为一个。</li>
+<li>-E：在文件结束处显示 $ 字符。</li>
+<li>-T：将制表符显示为 ^I。</li>
+</ul>
+<p>案例</p>
+<ol>
+<li><p>将 redirecting.test01.txt 的内容覆盖 redirecting.test02.txt<br>cat redirecting.test01.txt &gt; redirecting.test02.txt </p>
+</li>
+<li><p>将 redirecting.test01.txt 的内容追加到 redirecting.test03.txt 文件结尾<br>cat redirecting.test01.txt &gt;&gt; redirecting.test03.txt</p>
+</li>
+</ol>
+<p><strong>注</strong>： 1. 2. 都可合并操作<br>例如：把redirecting_test01.txt和redirecting_test02.txt的内容追加到redirecting_test05.txt<br>cat redirecting_test01.txt redirecting_test02.txt &gt; redirecting_test05.txt</p>
+<ol start="3">
+<li><p>查看文件的内容<br>cat &lt; redirecting.test01.txt（作用同 cat redirecting.test01.txt ）</p>
+</li>
+<li><p>非交互式编辑 &gt; 或 追加 &gt;&gt; 内容<br>cat &gt;&gt; motto.txt &lt;&lt; EOF<br>&gt; 世界上只有一种英雄主义<br>&gt; 罗曼罗兰<br>&gt; EOF<br>注：**&lt;&lt;**</p>
+</li>
+<li><p>将  redirecting.test01.txt 中的内容拆分成多行<br><strong>xargs</strong> -n 3 &lt; redirecting_test01.txt</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>xargs</strong> 命令：将标准输入的内容转换成命令行参数，并传递给另一个命令执行。它通常用于处理命令的输出，将其内容作为参数传递给其他命令<br>语法：</p>
+<ul>
+<li>xargs [选项] [命令]</li>
+</ul>
+<p>常用选项</p>
+<ul>
+<li>-n：指定每次调用命令时传递给命令的参数数量。</li>
+</ul>
+</blockquote>
+<ol start="7">
+<li>清空文件内容<br>cat &#x2F;dev&#x2F;null &gt; file.txt  ( &#x2F;dev&#x2F;null 是 linux 系统 的⿊洞⽂件)</li>
+</ol>
 <hr>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CS4y1C7ZY?p=1&vd_source=df38266eedfef61aa7370319919d94d7">老男孩于超</a></p>
