@@ -21,8 +21,15 @@
 <meta property="og:image" content="http://example.com/images/070302.png">
 <meta property="og:image" content="http://example.com/images/070303.png">
 <meta property="og:image" content="http://example.com/images/070304.png">
+<meta property="og:image" content="http://example.com/images/070401.png">
+<meta property="og:image" content="http://example.com/images/070402.png">
+<meta property="og:image" content="http://example.com/images/070403.png">
+<meta property="og:image" content="http://example.com/images/070404.png">
+<meta property="og:image" content="http://example.com/images/070405.png">
+<meta property="og:image" content="http://example.com/images/070406.png">
+<meta property="og:image" content="http://example.com/images/070407.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-07-04T03:29:02.153Z">
+<meta property="article:modified_time" content="2024-07-04T09:18:43.072Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -959,7 +966,7 @@
 <p>多个窗口同时打开一个文件，会有交互界面，若正常退出，临时文件不会保留</p>
 </blockquote>
 <p>&nbsp;</p>
-<h2 id="九、读取文件"><a href="#九、读取文件" class="headerlink" title="九、读取文件"></a>九、读取文件</h2><p><em><strong>重定向符号</strong></em>：</p>
+<h2 id="九、文件管理命令"><a href="#九、文件管理命令" class="headerlink" title="九、文件管理命令"></a>九、文件管理命令</h2><p><em><strong>重定向符号</strong></em>：</p>
 <blockquote>
 <p>重定向：将数据传到其他地方</p>
 </blockquote>
@@ -1019,6 +1026,174 @@
 <ol start="7">
 <li>清空文件内容<br>cat &#x2F;dev&#x2F;null &gt; file.txt  ( &#x2F;dev&#x2F;null 是 linux 系统 的⿊洞⽂件)</li>
 </ol>
+<p>&nbsp;<br><em><strong>tac命令</strong></em><br>与 <strong>cat</strong> 命令作用相反，反向读取文件内容</p>
+<p>&nbsp;<br><em><strong>管道符</strong></em></p>
+<blockquote>
+<p><strong>管道符（|）</strong>：用于将一个命令的输出作为另一个命令的输入。它允许命令之间进行数据流传递，从而实现复杂的数据处理流程。</p>
+</blockquote>
+<p>常⻅⽤法： </p>
+<ul>
+<li>#过滤字符串<ul>
+<li>cat motto.txt | grep “一”</li>
+</ul>
+</li>
+<li>#检查 python 程序是否启动 <ul>
+<li>ps -ef | grep “python”</li>
+</ul>
+</li>
+<li>#找到 &#x2F;tmp ⽬录下所有 txt ⽂件 <ul>
+<li>ls &#x2F;tmp | grep ‘.txt’</li>
+</ul>
+</li>
+<li>#检查 nginx 的端⼝是否存活 <ul>
+<li>netstat -tunlp | grep nginx</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../images/070401.png"></p>
+<p>&nbsp;<br><em><strong>grep 命令</strong></em> </p>
+<blockquote>
+<p>grep 是一个强大的文本搜索工具，用于查找文件中匹配指定模式的文本行。它支持正则表达式，可以进行复杂的文本匹配。</p>
+</blockquote>
+<p>语法：</p>
+<ul>
+<li>grep [选项] [模式] [文件…]<br>模式可为 字符串</li>
+</ul>
+<p>常见选项：</p>
+<ul>
+<li>-i：忽略大小写。</li>
+<li>-v：逆向搜索，即显示不包含指定模式的行。</li>
+<li>-n：显示匹配行及其行号。</li>
+<li>-r：递归搜索目录</li>
+<li>-c：只输出匹配行的数量。</li>
+<li>-l：只输出包含匹配模式的文件名。</li>
+<li>-L：只输出不包含匹配模式的文件名。</li>
+<li>-e ：从文件中读取模式。</li>
+<li>-E ：支持扩展的正则表达式。</li>
+</ul>
+<p><em><strong>more &amp; less 命令</strong></em></p>
+<blockquote>
+<p><strong>more</strong> 和 <strong>less</strong> ⽤于分⻚显示（⼀次⼀屏）⽂本，以当前屏幕窗⼝尺⼨ 为准。它们允许用户逐页浏览文件内容，而不会一次性将整个文件加载到内存中</p>
+</blockquote>
+<p>more 命令会显示文件的前几行，然后暂停，等待用户输入命令<br>常用的 more 命令选项：</p>
+<ul>
+<li>空格：向下滚动⼀屏 </li>
+<li>Enter：向下显示⼀⾏ </li>
+<li>&#x3D;：显示当前⾏号 </li>
+<li>q： 退出</li>
+</ul>
+<p>less 命令提供了比 more 更强大的导航功能和交互式特性</p>
+<p>&nbsp;<br><em><strong>head &amp; tail 命令</strong></em></p>
+<blockquote>
+<p>head 和 tail 命令用于查看文件的开头和结尾部分。常用于调试和监控文件内容。</p>
+</blockquote>
+<p><strong>head</strong>（默认显示前10行，不显示文件名）<br>语法：</p>
+<ul>
+<li>head [选项] 文件名</li>
+</ul>
+<p>常用选项：</p>
+<ul>
+<li>-n：指定显示前几行，默认是前 10 行。</li>
+<li>-q：不显示文件名。</li>
+<li>-v：显示文件名</li>
+<li>-c：指定字节数</li>
+</ul>
+<p><strong>tail 命令</strong>：<br>同head<br>特有选项：</p>
+<ul>
+<li>-f：持续监视文件内容的更新，即文件内容发生变化时自动刷新显示。<ul>
+<li>echo “测试tail -f 选项” &gt;&gt; &#x2F;home&#x2F;aj&#x2F;文档&#x2F;documents&#x2F;more_test&#x2F;01.txt</li>
+<li>常用于监测线上日志文件的请求变动</li>
+</ul>
+</li>
+<li>-F：不断打开文件（对于不存在的文件，-f无法检测，而-F则等待文件建立）</li>
+</ul>
+<p><em><strong>cut 命令</strong></em></p>
+<blockquote>
+<p>cut 命令是一个用于切割文本文件的列或行的工具。它通常用于文本处理和数据提取。</p>
+</blockquote>
+<p>语法</p>
+<ul>
+<li>cut 参数 ⽂件</li>
+</ul>
+<p>常用选项</p>
+<ul>
+<li>-b 以字节为单位分割 </li>
+<li>-n 取消分割多字节字符，与-b ⼀起⽤ </li>
+<li>-c 以字符为单位 </li>
+<li>-d ⾃定义分隔符，默认以 tab 为分隔符 </li>
+<li>-f 与-d ⼀起使⽤，指定显示哪个区域</li>
+</ul>
+<p>参数</p>
+<ul>
+<li>N：第 N 个 字节 , 字符 或 字段 , 从 1 计数 起 </li>
+<li>N-：从 第 N 个 字节 , 字符 或 字段 直⾄ ⾏尾 </li>
+<li>N-M：从 第 N 到 第 M ( 并包括 第 M) 个 字节 , 字符 或 字段 </li>
+<li>-M：从 第 1 到 第 M ( 并包括 第 M) 个 字节 , 字符 或 字段</li>
+</ul>
+<p><img src="/../images/070402.png"><br><img src="/../images/070403.png"></p>
+<p><em><strong>sort 命令</strong></em></p>
+<blockquote>
+<p><strong>sort</strong> 命令用于对文本行进行排序</p>
+</blockquote>
+<p>语法</p>
+<ul>
+<li>sort [选项] 文件名</li>
+</ul>
+<p>常用的 sort 命令选项包括：</p>
+<ul>
+<li>缺省：默认为按字母顺序（比较字符的 ASCLL 值）</li>
+<li>-n：根据数字值进行排序。</li>
+<li>-r：反转排序结果，即从大到小排序。</li>
+<li>-u：去重。</li>
+<li>-t：指定分隔符，默认为制表符 \t。</li>
+<li>-k：指定要排序的区域。</li>
+</ul>
+<p><img src="/../images/070404.png"></p>
+<p><em><strong>uniq 命令</strong></em></p>
+<blockquote>
+<p>uniq 命令可以输出或者忽略⽂件中的重复⾏，常与 sort 排序结合使⽤</p>
+</blockquote>
+<p>语法： </p>
+<ul>
+<li>uniq [ 选项 ]… [ ⽂件 ]</li>
+</ul>
+<p>从输⼊⽂件或者标准输⼊中筛选相邻的匹配⾏并写⼊到输出⽂件或标准输出。<br>不附加任何选项时匹配⾏将在⾸次出现处被合并。 </p>
+<p>常用选项：</p>
+<ul>
+<li>-c：在每⾏前加上表示相应⾏⽬出现次数的前缀编号 </li>
+<li>-d：只输出重复的⾏ </li>
+<li>-u：只显示出现过⼀次的⾏</li>
+</ul>
+<p><img src="/../images/070405.png"></p>
+<p><em><strong>wc 指令</strong></em></p>
+<blockquote>
+<p>wc 命令⽤于统计⽂件的⾏数、单词、字节数</p>
+</blockquote>
+<p>语法： </p>
+<ul>
+<li>wc [ 选项 ]… [ ⽂件 ]</li>
+</ul>
+<p>常用选项：</p>
+<ul>
+<li>-c：打印字节数 </li>
+<li>-m：打印字符数 </li>
+<li>-l：打印⾏数 </li>
+<li>-L：打印最⻓⾏的⻓度 </li>
+<li>-w：打印单词数</li>
+</ul>
+<p><img src="/../images/070406.png"></p>
+<blockquote>
+<p><strong>echo</strong> 命令用于在终端中显示文本或变量值。它是一个简单的命令行工具，用于输出文本到标准输出，即终端屏幕。<br>语法：</p>
+<ul>
+<li>echo [选项] [输出内容…]</li>
+</ul>
+<p>常用选项：</p>
+<ul>
+<li>-e：启用转义序列</li>
+<li>-n：不输出换行符</li>
+</ul>
+</blockquote>
+<p><img src="/../images/070407.png"></p>
 <hr>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CS4y1C7ZY?p=1&vd_source=df38266eedfef61aa7370319919d94d7">老男孩于超</a></p>
