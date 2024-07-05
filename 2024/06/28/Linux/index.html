@@ -33,8 +33,12 @@
 <meta property="og:image" content="http://example.com/images/070503.png">
 <meta property="og:image" content="http://example.com/images/070504.png">
 <meta property="og:image" content="http://example.com/images/070505.png">
+<meta property="og:image" content="http://example.com/images/070506.png">
+<meta property="og:image" content="http://example.com/images/070507.png">
+<meta property="og:image" content="http://example.com/images/070508.png">
+<meta property="og:image" content="http://example.com/images/070509.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-07-05T05:01:08.241Z">
+<meta property="article:modified_time" content="2024-07-05T09:20:17.457Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -1458,6 +1462,94 @@
 </ul>
 <p>注：默认为相对于当前工作目录的相对路径</p>
 </blockquote>
+<p><em><strong>file 命令</strong></em></p>
+<blockquote>
+<p><strong>file</strong> 确定给定文件或文件系统的类型。它通过检查文件的头部信息、魔术数字和其他特征来尝试猜测文件类型，并输出一个描述性的字符串。</p>
+</blockquote>
+<p>语法：</p>
+<ul>
+<li>file [选项] [文件或目录…]</li>
+</ul>
+<p>常用选项：</p>
+<ul>
+<li>-b：只输出文件类型，不输出文件名。</li>
+<li>-L：跟随符号链接，显示链接指向的文件类型。</li>
+</ul>
+<p><em><strong>which 命令</strong></em><br>查找 PATH 环境变量中的⽂件， linux 内置命令不在 path 中<br>[root@localhost find_test]# whereis ls<br>ls: &#x2F;usr&#x2F;bin&#x2F;ls &#x2F;usr&#x2F;share&#x2F;man&#x2F;man1&#x2F;ls.1.gz &#x2F;usr&#x2F;share&#x2F;man&#x2F;man1p&#x2F;ls.1p.gz</p>
+<p><em><strong>whereis 命令</strong></em><br>whereis 命令⽤来定位指令的⼆进制程序、源代码⽂件和 man ⼿册⻚等相 关⽂件的路径<br>[root@localhost find_test]# which python<br>&#x2F;usr&#x2F;bin&#x2F;python</p>
+<p>&nbsp;<br><em><strong>tar 命令</strong></em></p>
+<blockquote>
+<p><strong>tar</strong> 是Linux中最常用的归档工具，它可以将多个文件和目录打包成一个单一的归档文件，但不进行压缩。tar 常用于备份和文件传输。</p>
+</blockquote>
+<p>基本用法：</p>
+<ul>
+<li>tar [选项] [文件或目录…]</li>
+</ul>
+<p>常用选项：</p>
+<ul>
+<li>-c：创建归档文件。</li>
+<li>-x：解包归档文件。</li>
+<li>-v：显示过程信息。</li>
+<li>-f：指定归档文件名。</li>
+<li>-t：列出归档文件内容。</li>
+<li>-z：通过gzip进行压缩或解压缩。</li>
+<li>-C：指定解压缩的目录</li>
+<li>–exclude：排除指定文件</li>
+</ul>
+<p>案例</p>
+<ol>
+<li>仅打包、拆包<br><img src="/../images/070506.png"></li>
+</ol>
+<p>注：</p>
+<ul>
+<li>参数必须写在最后，后⾯紧跟压缩⽂件名</li>
+<li>tar 命令仅打包，习惯⽤ .tar 作为后缀</li>
+<li>tar 命令加上 z 参数，⽂件以 .tar.gz 或 .tgz 表示</li>
+</ul>
+<ol start="2">
+<li><p>打包压缩、解压缩拆包<br><img src="/../images/070507.png"></p>
+</li>
+<li><p>-h 打包链接文件<br><img src="/../images/070508.png"></p>
+</li>
+</ol>
+<p>注：tar 命令的默认行为——即使没有使用 -h 选项，tar 也会尝试跟随符号链接，并将链接指向的文件或目录的内容打包到归档文件中</p>
+<p><em><strong>gzip命令</strong></em></p>
+<blockquote>
+<p><strong>gzip</strong> 是一个常用的文件压缩工具，它使用DEFLATE算法来压缩文件。gzip 通常用于压缩单个文件，而不是目录。</p>
+</blockquote>
+<p>基本用法：</p>
+<ul>
+<li>gzip [选项] [文件…]</li>
+</ul>
+<p>常用选项：</p>
+<ul>
+<li>-d：解压缩文件。</li>
+<li>-v：显示压缩或解压缩过程信息。</li>
+<li>-r：递归压缩目录中的所有文件。</li>
+<li>-c：将解压缩后的文件写入标准输出，而原始文件保持不变。</li>
+</ul>
+<p><img src="/../images/070509.png"></p>
+<p>注：</p>
+<ul>
+<li>文件夹⽆法压缩，必须先 tar 打包</li>
+<li>gzip 压缩、解压默认都会删除源⽂件</li>
+<li>通过 -c 及重定向实现保留原文件</li>
+</ul>
+<p><em><strong>zip命令</strong></em></p>
+<blockquote>
+<p><strong>zip</strong> 是一个流行的压缩工具，它可以将多个文件和目录压缩成一个单一的ZIP文件。zip 在Windows和Linux系统中都有广泛的应用。</p>
+</blockquote>
+<p>基本用法：</p>
+<ul>
+<li>zip [选项] [zip文件] [文件或目录…]</li>
+</ul>
+<p>常用选项：</p>
+<ul>
+<li>-r：递归压缩目录及其子目录。</li>
+<li>-m：压缩后删除原始文件。</li>
+<li>-v：显示过程信息。</li>
+<li>-e：加密压缩文件。</li>
+</ul>
 <hr>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CS4y1C7ZY?p=1&vd_source=df38266eedfef61aa7370319919d94d7">老男孩于超</a></p>
