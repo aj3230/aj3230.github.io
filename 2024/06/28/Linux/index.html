@@ -37,8 +37,9 @@
 <meta property="og:image" content="http://example.com/images/070507.png">
 <meta property="og:image" content="http://example.com/images/070508.png">
 <meta property="og:image" content="http://example.com/images/070509.png">
+<meta property="og:image" content="http://example.com/images/070510.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-07-05T09:20:17.457Z">
+<meta property="article:modified_time" content="2024-07-05T11:02:08.120Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -860,8 +861,8 @@
 <li>按 <strong>ESC</strong> 退出编辑模式</li>
 <li>退出 Vim：<ul>
 <li>按 <strong>:q</strong>：退出 Vim（如果文件未修改）。</li>
-<li>按 **:q!**： 强制退出 Vim，不保存修改。</li>
-<li>按 **:wq!**： 保存修改并强制退出 Vim。</li>
+<li>按 <strong>:q!</strong>： 强制退出 Vim，不保存修改。</li>
+<li>按 <strong>:wq!</strong>： 保存修改并强制退出 Vim。</li>
 </ul>
 </li>
 </ul>
@@ -874,7 +875,7 @@
 <li><strong>w</strong>：移动光标到下⼀个单词 </li>
 <li><strong>b</strong>： 移动到光标上⼀个单词<br>&nbsp;</li>
 <li><strong>数字0</strong>：移动到本⾏开头 </li>
-<li>**字符$**：移动光标到本⾏结尾<br>&nbsp;</li>
+<li><strong>字符$</strong>：移动光标到本⾏结尾<br>&nbsp;</li>
 <li><strong>H</strong>：移动光标到屏幕⾸⾏ </li>
 <li><strong>M</strong>：移动到光标到屏幕的中间⼀⾏ </li>
 <li><strong>L</strong>：移动光标到屏幕的尾⾏<br>&nbsp;</li>
@@ -991,7 +992,7 @@
 <p>输出重定向（Redirecting Output）:</p>
 <ul>
 <li><strong>&gt;</strong>：符号用于将输出重定向到一个文件。如果目标文件已存在，它将被覆盖;如果目标文件不存在，它将被创建。</li>
-<li>**&gt;&gt;**：符号用于将输出追加到文件末尾。如果目标文件不存在，它将被创建。</li>
+<li><strong>&gt;&gt;</strong>：符号用于将输出追加到文件末尾。如果目标文件不存在，它将被创建。</li>
 <li>2&gt; 符号用于将标准错误输出重定向到文件。</li>
 <li>2&gt;&gt; 符号用于将标准错误输出追加到文件末尾。</li>
 </ul>
@@ -1022,7 +1023,7 @@
 <ol start="3">
 <li><p>查看文件的内容<br>cat &lt; redirecting.test01.txt（作用同 cat redirecting.test01.txt ）</p>
 </li>
-<li><p>非交互式编辑 &gt; 或 追加 &gt;&gt; 内容<br>cat &gt;&gt; motto.txt &lt;&lt; EOF<br>&gt; 世界上只有一种英雄主义<br>&gt; 罗曼罗兰<br>&gt; EOF<br>注：**&lt;&lt;**</p>
+<li><p>非交互式编辑 &gt; 或 追加 &gt;&gt; 内容<br>cat &gt;&gt; motto.txt &lt;&lt; EOF<br>&gt; 世界上只有一种英雄主义<br>&gt; 罗曼罗兰<br>&gt; EOF<br>注： <strong>&lt;&lt;</strong></p>
 </li>
 <li><p>将  redirecting.test01.txt 中的内容拆分成多行<br><strong>xargs</strong> -n 3 &lt; redirecting_test01.txt</p>
 </li>
@@ -1537,7 +1538,7 @@
 </ul>
 <p><em><strong>zip命令</strong></em></p>
 <blockquote>
-<p><strong>zip</strong> 是一个流行的压缩工具，它可以将多个文件和目录压缩成一个单一的ZIP文件。zip 在Windows和Linux系统中都有广泛的应用。</p>
+<p><strong>zip</strong> 是一个流行的压缩工具，它可以将多个文件和目录压缩成一个单一的ZIP文件。</p>
 </blockquote>
 <p>基本用法：</p>
 <ul>
@@ -1549,6 +1550,54 @@
 <li>-m：压缩后删除原始文件。</li>
 <li>-v：显示过程信息。</li>
 <li>-e：加密压缩文件。</li>
+</ul>
+<p>解压缩</p>
+<ul>
+<li>unzip<ul>
+<li>l：显示压缩⽂件内所包含的⽂件</li>
+<li>d：指定⽂件解压缩后所要存储的⽬录<ul>
+<li>unzip -d .&#x2F;tmpt song.txt.zip</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/../images/070510.png"></p>
+<hr>
+<p><em><strong>date 命令</strong></em></p>
+<blockquote>
+<p><strong>date</strong> 命令用于显示或设置系统日期和时间的工具。它提供了多种功能，包括显示当前日期和时间、设置日期和时间、执行基于日期的任务等。</p>
+</blockquote>
+<p>语法</p>
+<ul>
+<li>date [选项] [+格式]</li>
+</ul>
+<p>常用选项</p>
+<ul>
+<li>-d：指定日期和时间，可以指定一个字符串表示的时间。</li>
+<li>-s：设置系统日期和时间。</li>
+<li>-u：使用UTC（协调世界时）时间。</li>
+<li>+：指定日期和时间的输出格式。<ul>
+<li>“%Y-%m-%d %H:%M:%S”</li>
+</ul>
+</li>
+</ul>
+<p><em><strong>shred 命令</strong></em><br>shred 命令是 Linux 和 Unix 系统中用于安全删除文件的工具。通过多次覆盖文件内容，使用随机数据来确保文件内容无法被恢复。</p>
+<p>基本用法：</p>
+<ul>
+<li>shred [选项] 文件…</li>
+</ul>
+<p>常用选项：</p>
+<ul>
+<li>-n：指定重写次数，默认为25次。</li>
+<li>-u：在文件被删除后立即刷新文件系统缓存，确保文件立即从磁盘上删除。</li>
+<li>-z：在文件被删除后添加一个0字节的数据块，进一步防止文件被恢复。</li>
+<li>-f：强制执行，即使文件无法删除也不会报错。</li>
+<li>-v：显示详细信息。</li>
+</ul>
+<p>案例：</p>
+<ul>
+<li>shred -n 25 -uzv song.txt</li>
 </ul>
 <hr>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
