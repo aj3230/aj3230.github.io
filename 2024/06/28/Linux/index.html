@@ -28,8 +28,12 @@
 <meta property="og:image" content="http://example.com/images/070405.png">
 <meta property="og:image" content="http://example.com/images/070406.png">
 <meta property="og:image" content="http://example.com/images/070407.png">
+<meta property="og:image" content="http://example.com/images/070501.png">
+<meta property="og:image" content="http://example.com/images/070502.png">
+<meta property="og:image" content="http://example.com/images/070503.png">
+<meta property="og:image" content="http://example.com/images/070504.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-07-04T09:18:43.072Z">
+<meta property="article:modified_time" content="2024-07-05T03:22:36.680Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -703,7 +707,7 @@
 <li>相对路径：相对于根目录的子目录</li>
 </ul>
 </blockquote>
-<p><strong>touch</strong>：创建新文件或改变文件的时间戳<br>如果指定的文件不存在，它将创建一个大小为0的新文件。如果文件已经存在，touch 命令将更新该文件的访问时间和修改时间为当前时间，而不改变文件的内容。</p>
+<p><strong>touch</strong>：创建新文件或改变文件的时间戳<br>如果指定的文件不存在，它将创建一个大小为0的新文件。如果文件已经存在，touch 命令将更新该文件的访问(access)时间和修改(modify)时间为当前时间，而不改变文件的内容。</p>
 <ul>
 <li>语法：<ul>
 <li>touch [选项] 文件名</li>
@@ -861,8 +865,8 @@
 <li><strong>l</strong>：向右移动光标。<br>&nbsp;</li>
 <li><strong>w</strong>：移动光标到下⼀个单词 </li>
 <li><strong>b</strong>： 移动到光标上⼀个单词<br>&nbsp;</li>
-<li><strong>数字 0</strong>：移动到本⾏开头 </li>
-<li>**字符 $**：移动光标到本⾏结尾<br>&nbsp;</li>
+<li><strong>数字0</strong>：移动到本⾏开头 </li>
+<li>**字符$**：移动光标到本⾏结尾<br>&nbsp;</li>
 <li><strong>H</strong>：移动光标到屏幕⾸⾏ </li>
 <li><strong>M</strong>：移动到光标到屏幕的中间⼀⾏ </li>
 <li><strong>L</strong>：移动光标到屏幕的尾⾏<br>&nbsp;</li>
@@ -950,11 +954,13 @@
 <p>故障原因 及 相应的解决方案</p>
 <ul>
 <li>多个窗口同时编辑同一文件<ul>
-<li>不需要未保存的数据<ul>
+<li><p>不需要未保存的数据</p>
+<ul>
 <li>D 删除临时文件</li>
 </ul>
 </li>
-<li>恢复未保存的数据<ul>
+<li><p>恢复未保存的数据</p>
+<ul>
 <li>R ENTER :wq 恢复未保存的数据</li>
 <li>rm -f .vim_test.txt.swp 删除临时文件</li>
 </ul>
@@ -1194,7 +1200,142 @@
 </ul>
 </blockquote>
 <p><img src="/../images/070407.png"></p>
-<hr>
+<!-- 查找命令 -->
+<p><em><strong>stat 命令</strong></em></p>
+<blockquote>
+<p>stat 命令⽤于显示⽂件的状态信息。 stat 命令的输出信息⽐ ls 命令的输出信 息要更详细。</p>
+</blockquote>
+<p>语法</p>
+<ul>
+<li>stat [选项]  [参数]</li>
+</ul>
+<p>选项</p>
+<ul>
+<li>-f：显示文件系统的状态而非文件的状态。</li>
+<li>-t：以简洁的方式显示时间。</li>
+<li>-L：跟随符号链接，显示链接指向文件的信息</li>
+</ul>
+<p><img src="/../images/070501.png"></p>
+<p><em><strong>find 命令</strong></em></p>
+<blockquote>
+<p><strong>find</strong> 命令是Linux和Unix系统中用于在目录树中搜索文件的强大工具。它允许你根据各种条件来查找文件，并且可以执行相应的操作</p>
+</blockquote>
+<p>语法：</p>
+<ul>
+<li>find [起始目录] [选项] [操作]<ul>
+<li>起始目录：指定find命令从哪个目录开始搜索。默认为当前目录。</li>
+<li>选项：指定搜索的条件，如文件名、文件类型、大小等。</li>
+<li>操作：找到符合条件的文件后执行的操作，如打印文件名、删除文件等。</li>
+</ul>
+</li>
+</ul>
+<p>选项：</p>
+<ul>
+<li>-maxdepth：设置最⼤⽬录层级；</li>
+<li>-mindepth：设置最⼩⽬录层级</li>
+<li>-atime：按照⽂件访问 access 的时间查找，单位是 天</li>
+<li>-ctime：按照⽂件的改变 change 状态来查找⽂件， 单位是天</li>
+<li>-mtime：根据⽂件修改 modify 时间查找⽂件（最常 ⽤）</li>
+<li>-name 按照⽂件名字查找，⽀持 * ? [] 通配符</li>
+<li>-group 按照⽂件的所属组查找-perm 按照⽂件的权限查找</li>
+<li>-size：按照文件大小搜索。<ul>
+<li>c: 字节</li>
+<li>k: 千字节（ 1024 字节）</li>
+<li>w: 字（ 2 字节）</li>
+<li>M: 兆字节（ 1048576 字节）</li>
+<li>G: 千兆字节（ 1073741824 字节</li>
+</ul>
+</li>
+<li>-perm：按照文件权限搜索。</li>
+<li>-type：按照文件类型搜索<ul>
+<li>d 目录</li>
+<li>f 普通文件</li>
+</ul>
+</li>
+<li>-path：配合-prune 参数排除指定⽬录</li>
+<li>-prune：使 find 命令不在指定的⽬录寻找</li>
+<li>-delete：删除找出的⽂件</li>
+<li>-exec 或 -ok：对匹配的⽂件执⾏相应 shell 命令</li>
+<li>-print：将匹配的结果标准输出</li>
+<li>!：取反</li>
+<li>-a：取交集</li>
+<li>-o：取并集</li>
+</ul>
+<p>案例</p>
+<ol>
+<li><p>按照名字查找<br><img src="/../images/070502.png"></p>
+</li>
+<li><p>按照时间查找<br>Linux 文件系统 文件的三种时间戳</p>
+</li>
+</ol>
+<ul>
+<li>访问(access)时间（-atime&#x2F;天，-amin&#x2F;分钟）：⽤户最近⼀次访问时间（⽂件 修改了，还未被读取过，则不变）。 </li>
+<li>修改(modify)时间（-mtime&#x2F;天，-mmin&#x2F;分钟）：⽂件最后⼀次修改时间（数 据变动）。 </li>
+<li>变化(change)时间（-ctime&#x2F;天，-cmin&#x2F;分钟）：⽂件数据元（例如权限、文件名等）最 后⼀次修改时间。</li>
+</ul>
+<p>⽂件任何数据改变， change 变化，⽆论是元数据变动，或是对⽂件 mv ， cp 等<br>⽂件内容被修改时， modify 和 change 更新<br>当 change 更新后，第⼀次访问该⽂件（ cat ， less 等）， access time ⾸次会更新，之后则不</p>
+<p>touch：三种时间都更新<br>touch -a ：仅更新 Access time（同时更新 Change 为 current time ）<br>touch -m ：仅更新 Modify time（同时更新 Change 为 current time ）<br>touch -c ：不创建新⽂件<br>touch -t ：使⽤指定的时间更新时间戳（仅更改 Access time 与 Modify time）</p>
+<ul>
+<li>1天以内，被访问 access 过的⽂件<br>find . -atime -1</li>
+<li>超过2天，内容变化的⽂件<br>find . -mtime +1 </li>
+<li>恰好在 7 天内被访问过的⽂件<br>find &#x2F; -maxdepth 3 -type f -atime 7</li>
+</ul>
+<ol start="3">
+<li><p>反向查找<br>最大层级为1，在当前目录下查找非目录文件<br>find . -maxdepth 1  ! -type d</p>
+</li>
+<li><p>按照访问权限查找<br>在当前目录及其子目录中查找权限为755的文件<br>find . -perm 755</p>
+</li>
+<li><p>按照文件大小查找<br>在当前目录及其子目录下查找大小超过 150字节 的文件<br>find . -type d -size +150c</p>
+</li>
+<li><p>指定忽略目录查找<br>find . -path “.&#x2F;dir21” -prune -o -type f -print</p>
+</li>
+</ol>
+<ul>
+<li>find .：在当前目录查找命令</li>
+<li>-path “.&#x2F;dir21” -prune：忽略指定路径</li>
+<li>-o:并</li>
+<li>-type f -print：类型为普通文件 执行打印操作</li>
+</ul>
+<ol start="7">
+<li>查找并删除<br>在当前目录及其子目录中查找名为”example.txt”的文件并删除它们</li>
+</ol>
+<ul>
+<li>find . -name “example.txt” -ok rm {} \;</li>
+</ul>
+<p>注：</p>
+<ul>
+<li>find命令的 -exec 选项后面的命令需要用 {} 来代替找到的文件名，并且命令的结尾需要用;来表示命令的结束。这是因为分号在shell中有特殊含义，所以需要用反斜杠来转义。</li>
+<li>-ok⽐-exec更安全，存在⽤户提示确认</li>
+</ul>
+<p><em><strong>xargs 命令</strong></em></p>
+<blockquote>
+<p><strong>xargs</strong> 常与管道（|）配合使用，将标准输入数据转换成命令行参数。会读取来自标准输入的数据（通常是上一个命令的输出），然后以空格分隔这些数据，并将它们作为参数传递给指定的命令。</p>
+</blockquote>
+<p>语法</p>
+<ul>
+<li>xargs [选项] [命令]<ul>
+<li>选项：xargs 命令的行为可以通过一系列选项来修改。</li>
+<li>命令：xargs 将从标准输入接收的数据作为参数传递给这个命令</li>
+</ul>
+</li>
+</ul>
+<p>常用选项：</p>
+<ul>
+<li>-n：指定每次传递给命令的参数数量。</li>
+<li>-d：指定一个定界符，用于分隔输入数据中的字段。</li>
+<li>-i：⽤ {} 代替 传递的数据</li>
+<li>-I：将输入的每一行替换为指定的替换字符串，然后传递给命令。</li>
+<li>-0：以null字符作为输入数据的定界符，适用于处理包含空格、换行符或特殊字符的文件名。</li>
+<li>-P：指定并行的进程数量。</li>
+</ul>
+<p>示例：<br><img src="/../images/070503.png"></p>
+<p><em><strong>注</strong></em>：<br>xargs 识别字符串的标识是空格或是换⾏符，因此如果遇⻅⽂件名有空格 或是换⾏符， xargs 就会识别为两个字符串，就会报错</p>
+<ul>
+<li>-print0：令find 用 NULL(\0)字符分割文件名，⽽不是换⾏符（ find 默认以 \n ，因此结果是换⾏输出的），达到”\0hello world.txt\0anotherfile.txt\0”的效果</li>
+<li>xargs -0：表示 xargs 以 NULL 作为分隔符</li>
+</ul>
+<p><img src="/../images/070504.png"></p>
+<h2 id="十、Linux-文件属性"><a href="#十、Linux-文件属性" class="headerlink" title="十、Linux 文件属性"></a>十、Linux 文件属性</h2><hr>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CS4y1C7ZY?p=1&vd_source=df38266eedfef61aa7370319919d94d7">老男孩于超</a></p>
 </blockquote>
