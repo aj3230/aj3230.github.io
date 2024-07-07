@@ -42,8 +42,12 @@
 <meta property="og:image" content="http://example.com/images/070602.png">
 <meta property="og:image" content="http://example.com/images/070603.png">
 <meta property="og:image" content="http://example.com/images/070701.png">
+<meta property="og:image" content="http://example.com/images/070702.png">
+<meta property="og:image" content="http://example.com/images/070703.png">
+<meta property="og:image" content="http://example.com/images/070704.png">
+<meta property="og:image" content="http://example.com/images/070705.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-07-07T03:23:25.471Z">
+<meta property="article:modified_time" content="2024-07-07T09:23:46.943Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -1753,6 +1757,35 @@
 <li>-s ：指定⽤户登⼊后所使⽤的 shell ； </li>
 <li>-u ：指定⽤户 id 。</li>
 </ul>
+<p><em><strong>groupadd 命令</strong></em><br>语法：</p>
+<ul>
+<li>groupadd [options] groupname<br>常用选项</li>
+<li>-g: 指定一个唯一的组ID（GID）。</li>
+<li>-r: 创建一个系统组，GID默认小于500。</li>
+<li>-f: 如果组已存在，则忽略错误继续执行。<br>示例</li>
+</ul>
+<p><em><strong>usermode 命令</strong></em> </p>
+<blockquote>
+<p>⽤于修改系统已存在的⽤户信息，只能修改未使⽤中的⽤户</p>
+</blockquote>
+<p>语法 </p>
+<ul>
+<li>usermod( 选项 )( 参数 )</li>
+</ul>
+<p>选项 </p>
+<ul>
+<li>-c&lt; 备注 &gt; ：修改⽤户帐号的备注⽂字； </li>
+<li>-d&lt; 登⼊⽬录 &gt; ：修改⽤户登⼊时的⽬录； </li>
+<li>-e&lt; 有效期限 &gt; ：修改帐号的有效期限； </li>
+<li>-f&lt; 缓冲天数 &gt; ：修改在密码过期后多少天即关闭该帐号； </li>
+<li>-g&lt; 群组 &gt; ：修改⽤户所属的群组； </li>
+<li>-G&lt; 群组 &gt; ；修改⽤户所属的附加群组； </li>
+<li>-l&lt; 帐号名称 &gt; ：修改⽤户帐号名称； </li>
+<li>-L ：锁定⽤户密码，使密码⽆效； </li>
+<li>-s ：修改⽤户登⼊后所使⽤的 shell ； </li>
+<li>-u ：修改⽤户 ID ； </li>
+<li>-U: 解除密码锁定。</li>
+</ul>
 <p>案例：</p>
 <ol>
 <li>-s 禁止用户登录，-M 并不创建家目录</li>
@@ -1874,10 +1907,10 @@ aj：指定用户<br>ALL&#x3D;(ALL)：从任何终端，并以任何用户或组
 </li>
 <li><p>后9个字母表示权限，3个一组，分别表示：属主(owner)、属组(group)、其他人(others)的权限<br>一组权限表示，是否可读(r&#x2F;-) 是否可写(w&#x2F;-) 是否可执行(x&#x2F;-)</p>
 <ul>
-<li>r：read 可读，可以⽤ cat、more、less、head、tail等命令查看 </li>
-<li>w：write 可写，可以vim编辑、使用重定向符号或者删除这个⽂件 </li>
-<li>x：executable  可以执⾏ </li>
-<li>-：没有权限</li>
+<li>r：read 可读，可以⽤ cat、more、less、head、tail等命令查看，数字表示为4</li>
+<li>w：write 可写，可以vim编辑、使用重定向符号或者删除这个⽂件，数字表示为2</li>
+<li>x：executable  可以执⾏，数字表示为1</li>
+<li>-：没有权限，数字表示为0</li>
 </ul>
 </li>
 <li><p>.：通常表示这个文件或目录有额外的属性设置，比如ACLs（Access Control Lists）</p>
@@ -1896,7 +1929,123 @@ aj：指定用户<br>ALL&#x3D;(ALL)：从任何终端，并以任何用户或组
 </li>
 </ul>
 </blockquote>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p>附：</p>
+<blockquote>
+<p>常⻅权限对应 ：<br>444 r–r–r– 均只读<br>600 rw——- 仅所有者可读、写<br>644 rw-r–r– 均可读 仅所有者可写<br>666 rw-rw-rw- 均可读、可写<br>700 rwx—— 仅所有者可读、写、运行<br>744 rwxr–r– 可读 仅所有者可写、运行<br>755 rwxr-xr-x 可读、可运行 仅所有者可写<br>777 rwxrwxrwx 均可读、可写、可运行</p>
+</blockquote>
+<p><em><strong>chmod 命令</strong></em></p>
+<blockquote>
+<p><strong>chmod</strong>（change mode）:用于改变文件或目录权限的命令</p>
+</blockquote>
+<p>语法：</p>
+<ul>
+<li>chmod [选项] [操作对象] [操作设定] [权限类别]</li>
+</ul>
+<p>操作对像：</p>
+<ul>
+<li>u：⽂件属主权限 </li>
+<li>g：同组⽤户权限 </li>
+<li>o：其它⽤户权限 </li>
+<li>a：所有⽤户（包括以上三种）</li>
+</ul>
+<p>权限设定：</p>
+<ul>
+<li>+：增加权限 </li>
+<li>-：取消权限 </li>
+<li>=：唯⼀设定权限</li>
+</ul>
+<p>权限类别：</p>
+<ul>
+<li>r：读权限 </li>
+<li>w：写权限 </li>
+<li>x：执⾏权限</li>
+</ul>
+<p>文件的r w x<br><img src="/../images/070702.png"></p>
+<p>文件夹的r w x<br><img src="/../images/070703.png"></p>
+<p><em><strong>chown 命令</strong></em><br>修改⽂件属主、属组信息</p>
+<p>语法</p>
+<ul>
+<li>chown 新属主的名字 文件&#x2F;文件夹 # 修改文件的用户名</li>
+<li>chown :属组文件 文件&#x2F;文件夹 # 修改文件的用户组</li>
+<li>chown 属主:属组文件 文件&#x2F;文件夹 # 同时修改文件的属主，属组</li>
+</ul>
+<p>参数 </p>
+<ul>
+<li>-R：递归处理所有的⽂件及⼦⽬录</li>
+<li>-v：为处理的所有⽂件显示诊断信息<br>只有超级用户（root）或者具有相应 sudo 权限的用户可以更改文件的所有者，即使您是文件的所有者</li>
+</ul>
+<p><img src="/../images/070704.png"></p>
+<p><em><strong>umask 命令</strong></em></p>
+<blockquote>
+<p>用于设置文件和目录创建时默认权限掩码的命令</p>
+</blockquote>
+<ul>
+<li>也称之为遮罩码，防⽌⽂件、⽂件夹创建的时候,权限过⼤。当新⽂件被创建时，其最初的权限由⽂件创建掩码决定。⽤户每次注册进⼊系统时，umask 命令都被执⾏，并⾃动设置掩码改变默认值，新的权限将会把旧的覆盖。</li>
+<li>umask 默认配置在 &#x2F;etc&#x2F;profile 61-64 ⾏</li>
+</ul>
+<p>基本用法</p>
+<ul>
+<li>查看当前的 umask 值：<ul>
+<li>umask</li>
+</ul>
+</li>
+<li>设置新的 umask 值：<ul>
+<li>umask [value]</li>
+</ul>
+</li>
+</ul>
+<p>语法参数 </p>
+<ul>
+<li>-S: 以字符的形势显示当前的掩码。 </li>
+<li>-p ：带 umask 开头以数字的形势显示当前掩码</li>
+</ul>
+<p>Linux 默认设置：新创建文件的权限是666(出于安全考虑，默认非可执行) 文件夹是777</p>
+<p>实际权限 &#x3D; 默认权限 - umask （root 和 普通用户的umask不同）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[monkey@localhost umask_test]$ touch 01.txt</span><br><span class="line">[monkey@localhost umask_test]$ mkdir dir</span><br><span class="line">[monkey@localhost umask_test]$ ll</span><br><span class="line">总用量 0</span><br><span class="line">-rw-r--r--. 1 monkey girl 0 7月   7 16:16 01.txt</span><br><span class="line">drwxr-xr-x. 2 monkey girl 6 7月   7 16:16 dir</span><br><span class="line"></span><br><span class="line"># 普通用户的umask</span><br><span class="line">[monkey@localhost umask_test]$ umask</span><br><span class="line">0022</span><br><span class="line">[monkey@localhost umask_test]$ umask -S</span><br><span class="line">u=rwx,g=rx,o=rx</span><br><span class="line">[monkey@localhost umask_test]$ umask -p</span><br><span class="line">umask 0022</span><br><span class="line"># root 用户的umask</span><br><span class="line">[root@localhost ~]# umask</span><br><span class="line">0022</span><br><span class="line">[root@localhost ~]# umask -S</span><br><span class="line">u=rwx,g=rx,o=rx</span><br><span class="line">[root@localhost ~]# umask -p</span><br><span class="line">umask 0022</span><br></pre></td></tr></table></figure>
+<p>Linux 默认权限</p>
+<ul>
+<li>文件：</li>
+<li>文件夹：</li>
+</ul>
+<p>注：</p>
+<ul>
+<li>umask 值不得⼤于 6 </li>
+<li>umask 计算出的 ⽂件权限 不得拥有执⾏权限 x ，如果计算结果中有执⾏权限(–x)，则需要将其加⼀(-w-)<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-rw-r---w-. 1 monkey girl 0 7月   7 16:34 02.txt</span><br><span class="line">[monkey@localhost umask_test]$ umask 0025</span><br><span class="line">[monkey@localhost umask_test]$ touch 02.txt</span><br><span class="line">[monkey@localhost umask_test]$ ll</span><br><span class="line">总用量 0</span><br><span class="line">-rw-r---w-. 1 monkey girl 0 7月   7 16:34 02.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><em><strong>chattr lsattr 命令</strong></em></p>
+<blockquote>
+<p>chattr 和 lsattr 是Linux系统中用于查看和修改文件或目录的扩展属性（attributes）的命令。这些扩展属性可以影响文件的行为，例如是否可以被修改或删除。</p>
+</blockquote>
+<p><strong>chattr（Change Attribute）</strong> 命令用于改变文件或目录的扩展属性。<br>基本用法</p>
+<ul>
+<li>chattr [模式] 扩展属性 文件</li>
+</ul>
+<p>模式</p>
+<ul>
+<li>+：增加参数 </li>
+<li>-：移除参数 </li>
+<li>=：更新为指定参数</li>
+</ul>
+<p>扩展属性</p>
+<ul>
+<li>i：不可变（immutable），文件不能被修改、删除或链接。</li>
+<li>a：只追加（append only），只能向文件中添加数据，不能删除或修改。</li>
+<li>A：不让系统修改⽂件最后访问时间</li>
+<li>c：压缩（compressed），文件在写入时会被自动压缩。</li>
+<li>s：安全删除（secure deletion），文件被删除时会被覆盖以防止数据恢复。</li>
+<li>u：undelete，允许文件被恢复。</li>
+</ul>
+<p><strong>lsattr（List Attribute）</strong>：命令用于列出文件或目录的扩展属性。<br>基本用法</p>
+<ul>
+<li>lsattr [options] file</li>
+</ul>
+<p><img src="/../images/070705.png"></p>
+<p>注：</p>
+<ul>
+<li>chaddr命令通常需要有 root 权限</li>
+<li>使用这些命令时需要小心，因为它们可能会影响文件系统的正常操作。</li>
+</ul>
+<h2 id="十三、shell"><a href="#十三、shell" class="headerlink" title="十三、shell"></a>十三、shell</h2><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CS4y1C7ZY?p=1&vd_source=df38266eedfef61aa7370319919d94d7">老男孩于超</a></p>
 </blockquote>
 
@@ -2002,6 +2151,15 @@ aj：指定用户<br>ALL&#x3D;(ALL)：从任何终端，并以任何用户或组
 
   
 <nav id="article-nav">
+  
+    <a href="/2024/07/01/2407/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          7月
+        
+      </div>
+    </a>
   
   
     <a href="/2024/06/08/Introduction-to-front-end-development/" id="article-nav-older" class="article-nav-link-wrap">
