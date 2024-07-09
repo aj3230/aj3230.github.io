@@ -48,7 +48,7 @@
 <meta property="og:image" content="http://example.com/images/070705.png">
 <meta property="og:image" content="http://example.com/images/070901.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-07-09T10:05:41.827Z">
+<meta property="article:modified_time" content="2024-07-09T10:10:13.064Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -2084,41 +2084,54 @@ aj：指定用户<br>ALL&#x3D;(ALL)：从任何终端，并以任何用户或组
 <li>-e：启用反斜杠转义解释，允许使用转义字符。</li>
 </ul>
 <p><img src="/../images/070901.png"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /]# echo -e &quot;ab\bc&quot; # \b 退格，即向左删除</span><br><span class="line">ac</span><br><span class="line">[root@localhost /]# echo -e &quot;a\tb\tc\n1\t2\t3&quot; # \t tab制表键 \n 换行键</span><br><span class="line">a       b       c</span><br><span class="line">1       2       3</span><br><span class="line">[root@localhost /]# echo -e   &quot;\x61\t\x62\t\x63\n\x64\t\x65\t\x66&quot; # \xhh 按照十六进制ASC码输出</span><br><span class="line">a       b       c</span><br><span class="line">d       e       f</span><br><span class="line"></span><br><span class="line">[root@localhost /]# echo -e &quot;\e[1;36m  abcd \e[0m&quot; # </span><br><span class="line">  abcd</span><br><span class="line">[root@localhost /]#  </span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">注：</span><br><span class="line">\e[1 和 \e[0m 分别表示开启和结束颜色输出</span><br><span class="line">#30m=黑色，31m=红色，32m=绿色，33m=黄色 </span><br><span class="line">#34m=蓝色，35m=洋红，36m=青色，37m=白色</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### shebang</span><br><span class="line">&gt; 一个由两个字符 **#!** 组成的行，出现在脚本文件的第一行。**#!** 后通常跟着一个路径，指向解释该脚本内容的程序。</span><br><span class="line"></span><br><span class="line">#### 脚本案例</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>[aj@localhost tmp]$ cat test.sh<br>#!&#x2F;bin&#x2F;bash<br>echo “<br>超哥强呀，奥⼒给<br>“<br>#!&#x2F;bin&#x2F;bash 这⾥就是注释的作⽤了<br>[aj@localhost tmp]$ test.sh<br>bash: test.sh: 未找到命令…<br>[aj@localhost tmp]$ chmod u+x test.sh<br>[aj@localhost tmp]$ test.sh<br>bash: test.sh: 未找到命令…<br>[aj@localhost tmp]$ .&#x2F;test.sh</p>
-<p>超哥强呀，奥⼒给</p>
-<p>[aj@localhost tmp]$</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">系统自带的bash脚本，开机启动脚本</span><br></pre></td></tr></table></figure>
-<p>[aj@localhost tmp]$ head -1 &#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;network<br>#! &#x2F;bin&#x2F;bash</p>
-<pre><code>
-注：
-- 如果脚本未指定 shebang ，脚本执⾏的时候，默认⽤当前 shell 去解释脚本，即 $SHELL
-- #! 之后的解释程序，需要写其绝对路径
-- 养成注释脚本，规范开发的习惯
-
-
-#### 脚本执行
-- 赋予脚本执行权限，通过绝对路径或相对路径调用（不能直接写文件名）
-  - chmod 755 test.sh
-  - ./test.sh
-- 通过 Bash 调用执行脚本（ bash 直接加 文件名，不赋予执行权限也能执行：本质是用 bash 解释脚本）
-  - bash test.sh
-
-注：习惯上先赋予脚本执行权限，再通过相对路径或绝对路径调用执行
-
-&gt; **dos2unix** 用于转换 Windows 系统中编写的脚本 为 Unix 的格式
-&gt;
-&gt; yum -y install dos2unix  #可能需要通过 yum 手动安装
-
-
-
-
-# 参考
-
-&gt;shell 前： [老男孩 于超](https://www.bilibili.com/video/BV1CS4y1C7ZY?p=1&amp;vd_source=df38266eedfef61aa7370319919d94d7)
-&gt;
-&gt; shell 及之后：[兄弟连 沈超](https://www.bilibili.com/video/BV1mW411i7Qf?p=63&amp;vd_source=df38266eedfef61aa7370319919d94d7)
+<pre><code>[root@localhost /]# echo -e &quot;ab\bc&quot; # \b 退格，即向左删除
+ac
+[root@localhost /]# echo -e &quot;a\tb\tc\n1\t2\t3&quot; # \t tab制表键 \n 换行键
+a       b       c
+1       2       3
+[root@localhost /]# echo -e   &quot;\x61\t\x62\t\x63\n\x64\t\x65\t\x66&quot; # \xhh 按照十六进制ASC码输出
+a       b       c
+d       e       f
+[root@localhost /]# echo -e &quot;\e[1;36m  abcd \e[0m&quot; # 
+  abcd
+[root@localhost /]#  
 </code></pre>
+<p>注：<br>\e[1 和 \e[0m 分别表示开启和结束颜色输出<br>#30m&#x3D;黑色，31m&#x3D;红色，32m&#x3D;绿色，33m&#x3D;黄色<br>#34m&#x3D;蓝色，35m&#x3D;洋红，36m&#x3D;青色，37m&#x3D;白色</p>
+<h4 id="shebang"><a href="#shebang" class="headerlink" title="shebang"></a>shebang</h4><blockquote>
+<p>一个由两个字符 <strong>#!</strong> 组成的行，出现在脚本文件的第一行。**#!** 后通常跟着一个路径，指向解释该脚本内容的程序。</p>
+</blockquote>
+<h4 id="脚本案例"><a href="#脚本案例" class="headerlink" title="脚本案例"></a>脚本案例</h4><p>案例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[aj@localhost tmp]$ cat test.sh</span><br><span class="line">#!/bin/bash</span><br><span class="line">echo &quot;</span><br><span class="line">超哥强呀，奥⼒给</span><br><span class="line">&quot;</span><br><span class="line">#!/bin/bash 这⾥就是注释的作⽤了</span><br><span class="line">[aj@localhost tmp]$ test.sh</span><br><span class="line">bash: test.sh: 未找到命令...</span><br><span class="line">[aj@localhost tmp]$ chmod u+x test.sh</span><br><span class="line">[aj@localhost tmp]$ test.sh</span><br><span class="line">bash: test.sh: 未找到命令...</span><br><span class="line">[aj@localhost tmp]$ ./test.sh</span><br><span class="line"></span><br><span class="line">超哥强呀，奥⼒给</span><br><span class="line"></span><br><span class="line">[aj@localhost tmp]$</span><br></pre></td></tr></table></figure>
+
+<p>系统自带的bash脚本，开机启动脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[aj@localhost tmp]$ head -1 /etc/rc.d/init.d/network</span><br><span class="line">#! /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ul>
+<li>如果脚本未指定 shebang ，脚本执⾏的时候，默认⽤当前 shell 去解释脚本，即 $SHELL</li>
+<li>#! 之后的解释程序，需要写其绝对路径</li>
+<li>养成注释脚本，规范开发的习惯</li>
+</ul>
+<h4 id="脚本执行"><a href="#脚本执行" class="headerlink" title="脚本执行"></a>脚本执行</h4><ul>
+<li>赋予脚本执行权限，通过绝对路径或相对路径调用（不能直接写文件名）<ul>
+<li>chmod 755 test.sh</li>
+<li>.&#x2F;test.sh</li>
+</ul>
+</li>
+<li>通过 Bash 调用执行脚本（ bash 直接加 文件名，不赋予执行权限也能执行：本质是用 bash 解释脚本）<ul>
+<li>bash test.sh</li>
+</ul>
+</li>
+</ul>
+<p>注：习惯上先赋予脚本执行权限，再通过相对路径或绝对路径调用执行</p>
+<blockquote>
+<p><strong>dos2unix</strong> 用于转换 Windows 系统中编写的脚本 为 Unix 的格式</p>
+<p>yum -y install dos2unix  #可能需要通过 yum 手动安装</p>
+</blockquote>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p>shell 前： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CS4y1C7ZY?p=1&vd_source=df38266eedfef61aa7370319919d94d7">老男孩 于超</a></p>
+<p>shell 及之后：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mW411i7Qf?p=63&vd_source=df38266eedfef61aa7370319919d94d7">兄弟连 沈超</a></p>
+</blockquote>
 
       
 
