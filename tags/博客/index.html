@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>浏览器及工作原理 | Hexo</title>
+  <title>Tag: 博客 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不懂浏览器的前端工程师不是好码农   结构：  用户界面 浏览器引擎 渲染引擎 —— 浏览器的内核 网络 JS解释器">
-<meta property="og:type" content="article">
-<meta property="og:title" content="浏览器及工作原理">
-<meta property="og:url" content="http://example.com/2024/06/06/Browser-working-mode/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/tags/%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="不懂浏览器的前端工程师不是好码农   结构：  用户界面 浏览器引擎 渲染引擎 —— 浏览器的内核 网络 JS解释器">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-06-06T05:19:39.000Z">
-<meta property="article:modified_time" content="2024-07-03T06:41:37.411Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="网络知识">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -163,215 +158,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Browser-working-mode" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      浏览器及工作原理
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2024" class="archive-year">2024</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2024/07/11/Python/" class="archive-article-date">
+  	<time datetime="2024-07-11T08:39:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-11</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2024/07/11/Python/">Python</a>
     </h1>
   
 
-        
-        <a href="/2024/06/06/Browser-working-mode/" class="archive-article-date">
-  	<time datetime="2024-06-06T05:19:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-06-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>不懂浏览器的前端工程师不是好码农</p>
-</blockquote>
-<blockquote>
-<p>结构：</p>
-<ul>
-<li>用户界面</li>
-<li>浏览器引擎</li>
-<li><strong>渲染引擎</strong> —— 浏览器的内核<ul>
-<li>网络</li>
-<li>JS解释器</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<span id="more"></span>
-<p>多进程结构 每个结构并发多个线程 每个线程可以并行执行不同的任务</p>
-<p>启动一程序，会创建一进程来执行任务代码，并为该进程分配内存空间，应用程序的状态保存在内存空间里，应用程序关闭，内存空间被回收。进程可以启动更多的进程来执行任务。进程间彼此独立，若两进程间需要传递数据，需要通过进程间通信管道IPC来传递。多进程结果能避免一个进程故障而影响整个应用程序。进程可将任务细分，通过创建多个线程并行执行不同的任务，同一进程间的线程可直接共享数据。</p>
-<p>早期浏览器并非是多进程结果，存在很多问题：</p>
-<ul>
-<li>不稳定：其中一个线程卡死可能会导致整个进程出现问题</li>
-<li>不安全：数据共享</li>
-<li>不流畅：一个进程负担过重，运行效率不高</li>
-</ul>
-<p>&nbsp;</p>
-<p>目前的浏览器是多进程结构，根据进程的功能不同，可以分为以下结构：</p>
-<ul>
-<li>浏览器进程：负责控制除标签页外的用户界面(顶部)，包括地址栏、书签、前进后退按钮、负责与浏览器其他进程协调工作</li>
-<li>网络进程：负责发起、接受网络请求</li>
-<li>GPU进程：负责浏览器也页面的渲染</li>
-<li>插件进程：负责控制网站使用的所有插件(例如Flash)，并非扩展</li>
-<li>渲染器进程：负责控制显示Tab标签内的所有内容，浏览器默认情况下会为每个标签页都创建一个进程(具体有进程模型决定)</li>
-</ul>
-<p>&nbsp;</p>
-<p>当在地址栏输入地址时，浏览器进程的UI线程会捕捉输入内容</p>
-<ul>
-<li>若输入的是网址，UI线程会启动一个网络线程来请求DNS进行域名解析，然后连接服务器获取数据</li>
-<li>若输入的是关键词，浏览器会使用默认配置的搜索引擎来查询</li>
-</ul>
-<p>网络线程获取到数据后 巴拉巴拉巴拉 听不懂了<br>只是想简单入个门的</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络知识</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">博客</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2024/06/06/Browser-working-mode/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2024/06/08/Introduction-to-front-end-development/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          前端入门
-        
-      </div>
-    </a>
   
   
-    <a href="/2024/06/01/2406/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">6月</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -394,9 +234,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

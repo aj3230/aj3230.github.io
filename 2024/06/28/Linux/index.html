@@ -48,7 +48,7 @@
 <meta property="og:image" content="http://example.com/images/070705.png">
 <meta property="og:image" content="http://example.com/images/070901.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-07-09T10:10:13.064Z">
+<meta property="article:modified_time" content="2024-07-11T00:57:53.818Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -2128,7 +2128,37 @@ d       e       f
 <p><strong>dos2unix</strong> 用于转换 Windows 系统中编写的脚本 为 Unix 的格式</p>
 <p>yum -y install dos2unix  #可能需要通过 yum 手动安装</p>
 </blockquote>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p>&nbsp;</p>
+<h3 id="（三）Bash-基本功能"><a href="#（三）Bash-基本功能" class="headerlink" title="（三）Bash 基本功能"></a>（三）Bash 基本功能</h3><h4 id="1-历史命令与补全"><a href="#1-历史命令与补全" class="headerlink" title="(1) 历史命令与补全"></a>(1) 历史命令与补全</h4><h5 id="历史命令"><a href="#历史命令" class="headerlink" title="历史命令"></a>历史命令</h5><blockquote>
+<p><strong>history 命令</strong></p>
+</blockquote>
+<p>语法：</p>
+<ul>
+<li>history [选项] [历史命令保存文件]</li>
+</ul>
+<p>常用选项：</p>
+<ul>
+<li>-c：  清空历史命令  </li>
+<li>-w： 把缓存中的历史命令写入历史命令保存文件 ~&#x2F;.bash_history</li>
+</ul>
+<p>注：</p>
+<ul>
+<li>-c 会把缓存和文件中保存的历史命令都删除（不建议）</li>
+<li>-w 默认情况下是等正常退出之后，缓存中的命令才会写入 ~&#x2F;.bash_history</li>
+<li>历史命令默认会保存1000条,可以在环境变量配置文件&#x2F;etc&#x2F;profile “HISTSIZE&#x3D;1000” 中进行修改，重新登录后生效。若历史记录超过设置的数量，则从头开始删除来给新命令让位。</li>
+</ul>
+<p>历史命令的调用：</p>
+<ul>
+<li>使用上、下箭头调用以前的历史命令 </li>
+<li>使用“!n”重复执行第n条历史命令（调用 history 命令，会给历史命令编号）</li>
+<li>使用“!!”重复执行上一条命令 </li>
+<li>使用“!字串”重复执行最后一条以该字串开头的命令</li>
+</ul>
+<h5 id="自动补全"><a href="#自动补全" class="headerlink" title="自动补全"></a>自动补全</h5><p>在Bash中，命令与文件补全是非常方便与常用的功能，我们只要在输入命令或文件时，按 “<strong>Tab</strong>” 键就会自动进行补全</p>
+<ul>
+<li>若以当前字符串开头的命令或目录不止一个，按两下 <strong>Tab</strong> 键，会显示出所有以当前字符串开头的命令</li>
+</ul>
+<h4 id="2-命令别名与常用快捷键"><a href="#2-命令别名与常用快捷键" class="headerlink" title="(2) 命令别名与常用快捷键"></a>(2) 命令别名与常用快捷键</h4><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <p>shell 前： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CS4y1C7ZY?p=1&vd_source=df38266eedfef61aa7370319919d94d7">老男孩 于超</a></p>
 <p>shell 及之后：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mW411i7Qf?p=63&vd_source=df38266eedfef61aa7370319919d94d7">兄弟连 沈超</a></p>
 </blockquote>
@@ -2390,6 +2420,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">博客</a>
               </li>
             
             <div class="clearfix"></div>
