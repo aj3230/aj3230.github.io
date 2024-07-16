@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/071401.png">
 <meta property="article:published_time" content="2024-07-11T08:39:41.000Z">
-<meta property="article:modified_time" content="2024-07-15T15:15:34.803Z">
+<meta property="article:modified_time" content="2024-07-16T06:52:54.366Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="博客">
 <meta name="twitter:card" content="summary">
@@ -672,7 +672,81 @@
 <blockquote>
 <p>pip install flask&#x3D;&#x3D;2.0.3</p>
 </blockquote>
-<h3 id="Flask-项目"><a href="#Flask-项目" class="headerlink" title="Flask 项目"></a>Flask 项目</h3><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<h3 id="使用-Flask-框架编写简单Python-Web应用程序"><a href="#使用-Flask-框架编写简单Python-Web应用程序" class="headerlink" title="使用 Flask 框架编写简单Python Web应用程序"></a>使用 Flask 框架编写简单Python Web应用程序</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello World!&quot;</span></span><br><span class="line"></span><br><span class="line">app.run(debug=<span class="literal">True</span>, host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">5000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>注释：</p>
+<ul>
+<li>from flask import Flask：这行代码从Flask库中导入Flask类。Flask是一个轻量级的Web应用框架，用于快速开发Web应用程序。</li>
+<li>app &#x3D; Flask(<strong>name</strong>)：创建一个Flask应用实例。__name__是一个特殊的变量，它表示当前Python模块的名称。在这里，它被用作Flask应用的主模块或包名。</li>
+<li>@app.route(‘&#x2F;‘)：这是一个装饰器，用于将URL路由（在本例中是网站的根目录&#x2F;）绑定到下面的函数hello。</li>
+<li>def hello():：定义一个名为hello的函数，它将在用户访问网站根目录时被调用。</li>
+<li>return “Hello World!”：hello函数返回一个字符串”Hello World!”。当用户访问网站根目录时，这个字符串将显示在浏览器中。</li>
+<li>app.run(debug&#x3D;True, host&#x3D;’0.0.0.0’, port&#x3D;5000)：启动Flask应用。以下是参数的说明：<ul>
+<li>debug&#x3D;True：开启调试模式，这样在代码修改后，服务器会自动重新加载，并且在出现错误时提供调试信息。</li>
+<li>host&#x3D;’0.0.0.0’：指定服务器监听的IP地址。0.0.0.0表示监听所有可用的网络接口，这样其他计算机也可以访问这个服务器。</li>
+<li>port&#x3D;5000：指定服务器监听的端口号，本例中为5000。</li>
+</ul>
+</li>
+</ul>
+<h3 id="URL-与-视图"><a href="#URL-与-视图" class="headerlink" title="URL 与 视图"></a>URL 与 视图</h3><h4 id="URL-与-函数映射"><a href="#URL-与-函数映射" class="headerlink" title="URL 与 函数映射"></a>URL 与 函数映射</h4><blockquote>
+<p>一个URL要与执行函数进行映射，使用的是@app.route装饰器。@app.route装饰器中，可以指定URL的规则来进行更加详细的映射，</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello World!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/test1/&lt;id&gt;&#x27;</span></span>) </span><span class="comment"># 传参</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params"><span class="built_in">id</span></span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;&lt;h1&gt;hello <span class="subst">&#123;<span class="built_in">id</span>&#125;</span>!&lt;/h1&gt;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/test2/&lt;int:id&gt;&#x27;</span></span>) </span><span class="comment"># 指定参数的数据类型</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>(<span class="params"><span class="built_in">id</span></span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;&lt;h1&gt;hello <span class="subst">&#123;<span class="built_in">str</span>(<span class="built_in">id</span>)&#125;</span>!&lt;/h1&gt;&quot;</span> <span class="comment"># 整数拼接会报错，先转换成字符串</span></span><br><span class="line"></span><br><span class="line">app.run(debug=<span class="literal">True</span>, host=<span class="string">&#x27;0.0.0.0&#x27;</span>, port=<span class="number">5000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其中<id>，尖括号是固定写法，语法为<variable>，variable默认的数据类型是字符串。如果需要指定类型，则要写成<a href="converter:variable">converter:variable</a>，其中converter就是类型名称，可以有以下几种：</p>
+<ul>
+<li>string: 默认的数据类型，接受没有任何斜杠&#x2F;的字符串。</li>
+<li>int: 整形</li>
+<li>float: 浮点型。</li>
+<li>path： 和string类似，但是可以传递斜杠&#x2F;。</li>
+<li>uuid： uuid类型的字符串。</li>
+<li>any：可以指定多种路径</li>
+</ul>
+<p>注：如果指定类型为int，如果传入一个不是int类型的，就无法触发这个路由，就会返回404</p>
+<p><em><strong>any</strong></em> 类型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/user/&lt;any(article,blog):url_path&gt;&#x27;</span></span>)</span></span><br><span class="line"><span class="comment"># 在/user/后面只能是article和blog二选一，并且会被传递到url_path变量</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">url_path</span>(<span class="params">url_path</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&quot;你输入的是<span class="subst">&#123;url_path&#125;</span>,此处只能是article或者blog&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="构造-URL"><a href="#构造-URL" class="headerlink" title="构造 URL"></a>构造 URL</h4><blockquote>
+<p><strong>url_for</strong> 函数：Flask中的一个非常实用的函数，它用于根据视图函数的名称生成URL</p>
+</blockquote>
+<p>基本用法</p>
+<ul>
+<li><strong>url_for(endpoint,**values)</strong><ul>
+<li>endpoint：视图函数的名称。</li>
+<li>**values：关键字参数，对应于URL中的动态部分。</li>
+</ul>
+</li>
+</ul>
+<p>用途</p>
+<ul>
+<li>当你需要在一个模板中创建指向其他页面的链接时。</li>
+<li>当你的应用程序的路由规则发生变化时，使用 <strong>url_for</strong> 可以确保链接仍然有效，因为函数名不会改变。</li>
+</ul>
+<p>优点</p>
+<ul>
+<li>灵活性：即使你改变了路由规则，只要视图函数的名称保持不变，使用url_for生成的URL仍然是有效的。</li>
+<li>安全性：url_for会自动转义URL参数，这有助于防止跨站脚本攻击（XSS）。</li>
+<li>易于维护：在大型应用程序中，使用url_for意味着你不需要记住所有的URL结构，只需要记住视图函数的名称。</li>
+</ul>
+<p>案例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, url_for</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="comment"># 生成指向profile视图的URL</span></span><br><span class="line">    profile_url = url_for(<span class="string">&#x27;profile&#x27;</span>, username=<span class="string">&#x27;alice&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&#x27;Go to profile: &lt;a href=&quot;<span class="subst">&#123;profile_url&#125;</span>&quot;&gt;<span class="subst">&#123;profile_url&#125;</span>&lt;/a&gt;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/user/&lt;username&gt;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">profile</span>(<span class="params">username</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&#x27;Hello, <span class="subst">&#123;username&#125;</span>!&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>当你访问主页（&#x2F;）时，你会看到一个链接，指向用户Alice的配置文件页面。即使你改变了profile路由的URL结构，主页上的链接仍然会工作，因为它是使用 url_for 生成的。</p>
+<h4 id="指定URL末尾的斜杠"><a href="#指定URL末尾的斜杠" class="headerlink" title="指定URL末尾的斜杠"></a>指定URL末尾的斜杠</h4><p>当访问一个结尾不带斜线的URL：&#x2F;article，会被重定向到带斜线的URL：&#x2F;article&#x2F;上去。但是当我们在定义article的url的时候，如果在末尾没有加上斜杠，但是在访问的时候又加上了斜杠，这时候就会抛出一个404错误页面了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/test&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">haha</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;你好&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>所以还是 URL 末尾还是加上斜杠 <strong>&#x2F;</strong> 比较好</p>
+<h4 id="指定HTTP方法"><a href="#指定HTTP方法" class="headerlink" title="指定HTTP方法"></a>指定HTTP方法</h4><p>在@app.route()中可以传入一个关键字参数 <strong>methods</strong> 来指定本方法支持的HTTP方法，默认情况下，只能使用GET请求，如果使用post提交就会触发错误 “Method Not Allowed”。</p>
+<h4 id="页面跳转和重定向"><a href="#页面跳转和重定向" class="headerlink" title="页面跳转和重定向"></a>页面跳转和重定向</h4><p>重定向分为永久性重定向和暂时性重定向，在页面上体现的操作就是浏览器会从一个页面自动跳转到另外一个页面。比如用户访问了一个需要权限的页面，但是该用户当前并没有登录，因此我们应该给他重定向到登录页面。</p>
+<ul>
+<li>永久性重定向：http的状态码是301，多用于旧网址被废弃了要转到一个新的网址确保用户的访问，最经典的就是京东网站，你输入 <a target="_blank" rel="noopener" href="http://www.jingdong.com的时候,会被重定向到/">www.jingdong.com的时候，会被重定向到</a> <a target="_blank" rel="noopener" href="http://www.jd.com,因为jingdong.com这个网址已经被废弃了,被改成/">www.jd.com，因为jingdong.com这个网址已经被废弃了，被改成</a> jd.com，所以这种情况下应该用永久重定向。</li>
+<li>暂时性重定向：http的状态码是302，表示页面的暂时性跳转。比如访问一个需要权限的网址，如果当前用户没有登录，应该重定向到登录页面，这种情况下，应该用暂时性重定向。</li>
+</ul>
+<p>在flask中，重定向是通过 <strong>flask.redirect(location,code&#x3D;302)</strong> 这个函数来实现的，location表示需要重定向到的URL，应该配合之前讲的url_for()函数来使用，code表示采用哪个重定向，默认是302也即暂时性重定向，可以修改成301来实现永久性重定向。</p>
+<p>案例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, session, redirect, url_for</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.secret_key = <span class="string">&#x27;啦啦啦，我是买糕的小行家&#x27;</span></span><br><span class="line"><span class="comment"># 使用session的话，需要配置一个secret_key，内容随意，最好别人想不到</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/login/&#x27;</span>,methods=[<span class="string">&#x27;POST&#x27;</span>,<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login</span>():</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;username&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> request.form <span class="keyword">and</span> <span class="string">&#x27;password&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> request.form:</span><br><span class="line">        <span class="comment"># 如果没有携带用户名和密码，就显示请登陆</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;请登陆&quot;</span></span><br><span class="line">    username = request.form[<span class="string">&#x27;username&#x27;</span>]</span><br><span class="line">    password = request.form[<span class="string">&#x27;password&#x27;</span>]</span><br><span class="line">    <span class="keyword">if</span> username == <span class="string">&#x27;admin&#x27;</span> <span class="keyword">and</span> password == <span class="string">&#x27;123456&#x27;</span>:</span><br><span class="line">        session[<span class="string">&#x27;username&#x27;</span>] = <span class="string">&#x27;admin&#x27;</span></span><br><span class="line">        <span class="comment"># 登陆成功之后，服务器存储session值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Logged in successfully&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Invalid username or password&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/profile/&quot;</span>,methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">profile</span>():</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;username&#x27;</span> <span class="keyword">in</span> session:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&quot;欢迎用户<span class="subst">&#123;session[<span class="string">&#x27;username&#x27;</span>]&#125;</span>&quot;</span></span><br><span class="line">        <span class="comment"># 如果已经登陆，就欢迎</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> redirect(url_for(<span class="string">&#x27;login&#x27;</span>))</span><br><span class="line">        <span class="comment"># 如果cookie中没有合法的session值，就重定向去登陆</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.eagleslab.com/">英格 许文哲老师</a></p>
 </blockquote>
 
@@ -778,6 +852,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2024/07/16/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%99%BA%E6%85%A7%E6%94%AF%E4%BB%98%E7%B3%BB%E7%BB%9F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          人脸识别智慧支付系统
+        
+      </div>
+    </a>
   
   
     <a href="/2024/07/01/2407/" id="article-nav-older" class="article-nav-link-wrap">
@@ -911,15 +994,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">语法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">运维</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+                <a href="javascript:void(0)" class="js-tag color3">语法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -928,6 +1007,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">博客</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">项目</a>
               </li>
             
             <div class="clearfix"></div>
