@@ -47,8 +47,13 @@
 <meta property="og:image" content="http://example.com/images/070704.png">
 <meta property="og:image" content="http://example.com/images/070705.png">
 <meta property="og:image" content="http://example.com/images/070901.png">
+<meta property="og:image" content="http://example.com/images/072001.png">
+<meta property="og:image" content="http://example.com/images/072002.png">
+<meta property="og:image" content="http://example.com/images/072101.png">
+<meta property="og:image" content="http://example.com/images/072102.png">
+<meta property="og:image" content="http://example.com/images/072103.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-07-20T10:13:46.996Z">
+<meta property="article:modified_time" content="2024-07-21T06:48:15.559Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -2215,8 +2220,8 @@ d       e       f
 <td align="center">恢复屏幕输出</td>
 </tr>
 </tbody></table>
-<h4 id="3-输入输出重定向"><a href="#3-输入输出重定向" class="headerlink" title="(3) 输入输出重定向"></a>(3) 输入输出重定向</h4><h5 id="标准输入输出"><a href="#标准输入输出" class="headerlink" title="标准输入输出"></a>标准输入输出</h5><p><a href="../images/072001.png"></a></p>
-<h5 id="输出重定向"><a href="#输出重定向" class="headerlink" title="输出重定向"></a>输出重定向</h5><p><a href="../images/072002.png"></a></p>
+<h4 id="3-输入输出重定向"><a href="#3-输入输出重定向" class="headerlink" title="(3) 输入输出重定向"></a>(3) 输入输出重定向</h4><h5 id="标准输入输出"><a href="#标准输入输出" class="headerlink" title="标准输入输出"></a>标准输入输出</h5><p><img src="/../images/072001.png"></p>
+<h5 id="输出重定向"><a href="#输出重定向" class="headerlink" title="输出重定向"></a>输出重定向</h5><p><img src="/../images/072002.png"></p>
 <p>注：</p>
 <ul>
 <li>命令要有输出（像cd命令，路径正确的情况下无输出，就不行）</li>
@@ -2232,7 +2237,41 @@ d       e       f
 </li>
 </ul>
 <p>例如：搭配 wc</p>
-<h4 id="4-多命令顺序执行与管道符"><a href="#4-多命令顺序执行与管道符" class="headerlink" title="(4) 多命令顺序执行与管道符"></a>(4) 多命令顺序执行与管道符</h4><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<h4 id="4-多命令顺序执行与管道符"><a href="#4-多命令顺序执行与管道符" class="headerlink" title="(4) 多命令顺序执行与管道符"></a>(4) 多命令顺序执行与管道符</h4><h5 id="多命令顺序执行"><a href="#多命令顺序执行" class="headerlink" title="多命令顺序执行"></a>多命令顺序执行</h5><p><img src="/../images/072101.png"><br><strong>dd</strong> 命令：用于复制和转换文件</p>
+<ul>
+<li>dd if&#x3D;输入文件 of&#x3D;输出文件 bs&#x3D;字节数 count&#x3D;个数    <ul>
+<li>if&#x3D;输入文件  指定源文件或源设备  </li>
+<li>of&#x3D;输出文件  指定目标文件或目标设备   </li>
+<li>bs&#x3D;字节数  指定一次输入&#x2F;输出多少字节，即把这些字节看做一个数据块 </li>
+<li>count&#x3D;个数  指定输入&#x2F;输出多少个数据块</li>
+</ul>
+</li>
+</ul>
+<p>例子：<br>[root@localhost ~]# date ; dd if&#x3D;&#x2F;dev&#x2F;zero of&#x3D;&#x2F;root&#x2F;testfile bs&#x3D;1k count&#x3D;100000 ; date</p>
+<p>测试命令执行时间</p>
+<ul>
+<li>date; 待测试命令; date</li>
+</ul>
+<p>[root@localhost ~]# ls anaconda-ks.cfg &amp;&amp; echo yes<br>[root@localhost ~]# ls &#x2F;root&#x2F;test || echo no</p>
+<p>判断一个命令是否正确</p>
+<ul>
+<li>[root@localhost ~]# 命令 &amp;&amp; echo yes || echo no</li>
+</ul>
+<h5 id="管道符"><a href="#管道符" class="headerlink" title="管道符"></a>管道符</h5><p>命令1的正确输出作为命令2的操作对象</p>
+<ul>
+<li>命令1  |  命令2</li>
+</ul>
+<p>注：命令1 必须有正确的输出</p>
+<p>例子：<br>[root@localhost ~]# ll -a &#x2F;etc&#x2F;  | more<br>[root@localhost ~]# netstat -an | grep “ESTABLISHED”</p>
+<blockquote>
+<p><strong>netstat</strong>：用于显示各种网络相关信息，如网络连接、路由表、接口统计信息、伪装连接以及多播成员的工具</p>
+</blockquote>
+<blockquote>
+<p>grep [选项] “搜索内容” 文件名<br>选项：<br>-i：  忽略大小写<br>-n：  输出行号<br>-v：  反向查找<br>–color&#x3D;auto 搜索出的关键字用颜色显示</p>
+</blockquote>
+<h4 id="5-通配符与其他特殊符号"><a href="#5-通配符与其他特殊符号" class="headerlink" title="(5) 通配符与其他特殊符号"></a>(5) 通配符与其他特殊符号</h4><h5 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h5><p>通配符用于匹配文件名，与正则表达式相似但不同<br><img src="/../images/072102.png"></p>
+<h5 id="Bash中其他特殊符号"><a href="#Bash中其他特殊符号" class="headerlink" title="Bash中其他特殊符号"></a>Bash中其他特殊符号</h5><p><img src="/../images/072103.png"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <p>shell 前： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CS4y1C7ZY?p=1&vd_source=df38266eedfef61aa7370319919d94d7">老男孩 于超</a></p>
 <p>shell 及之后：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mW411i7Qf?p=63&vd_source=df38266eedfef61aa7370319919d94d7">兄弟连 沈超</a></p>
 </blockquote>
