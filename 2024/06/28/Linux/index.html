@@ -52,8 +52,9 @@
 <meta property="og:image" content="http://example.com/images/072101.png">
 <meta property="og:image" content="http://example.com/images/072102.png">
 <meta property="og:image" content="http://example.com/images/072103.png">
+<meta property="og:image" content="http://example.com/images/080701.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-07-21T06:48:15.559Z">
+<meta property="article:modified_time" content="2024-08-07T02:30:59.291Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -2271,6 +2272,74 @@ d       e       f
 </blockquote>
 <h4 id="5-通配符与其他特殊符号"><a href="#5-通配符与其他特殊符号" class="headerlink" title="(5) 通配符与其他特殊符号"></a>(5) 通配符与其他特殊符号</h4><h5 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h5><p>通配符用于匹配文件名，与正则表达式相似但不同<br><img src="/../images/072102.png"></p>
 <h5 id="Bash中其他特殊符号"><a href="#Bash中其他特殊符号" class="headerlink" title="Bash中其他特殊符号"></a>Bash中其他特殊符号</h5><p><img src="/../images/072103.png"></p>
+<p>&nbsp;</p>
+<h3 id="（四）Bash-的变量"><a href="#（四）Bash-的变量" class="headerlink" title="（四）Bash 的变量"></a>（四）Bash 的变量</h3><h4 id="1-用户自定义变量（本地变量）"><a href="#1-用户自定义变量（本地变量）" class="headerlink" title="(1) 用户自定义变量（本地变量）"></a>(1) 用户自定义变量（本地变量）</h4><h5 id="什么是变量"><a href="#什么是变量" class="headerlink" title="什么是变量"></a>什么是变量</h5><p>变量是计算机内存的单元，其中存放的值可以改变。当Shell脚本需要保存一些信息时，如一个文件名或是一个数字，就把它存放在一个变量中。每个变量有一个名字，所以很容易引用它。使用变量可以保存有用信息，使系统获知用户相关设置，变量也可以用于保存暂时信息。 </p>
+<h5 id="变量设置规则"><a href="#变量设置规则" class="headerlink" title="变量设置规则"></a>变量设置规则</h5><ul>
+<li>变量名称可以<strong>由字母、数字和下划线组成，但是不能以数字开头</strong>。如果变量名是“2name”则是错误的。</li>
+<li>在Bash中，变量的默认<strong>类型都是字符串型</strong>，如果要进行数值运算，则必修指定变量类型为数值型。</li>
+<li>变量用等号连接值，<em><strong>等号左右两侧不能有空格</strong></em>。 变量的值如果有空格，需要使用单引号或双引号包括。 </li>
+<li>在变量的值中，可以使用“\”转义符。 </li>
+<li>如果需要增加变量的值，那么可以进行变量值的叠加。不过变量需要用双引号包含“$变量名”或用${变量名}包含。 </li>
+<li>如果是把命令的结果作为变量值赋予变量，则需要使用反引号或$()包含命令。 </li>
+<li>环境变量名建议大写，便于区分。</li>
+</ul>
+<h5 id="变量分类"><a href="#变量分类" class="headerlink" title="变量分类"></a>变量分类</h5><ul>
+<li>用户自定义变量（变量名和值都自定义）。</li>
+<li>环境变量：这种变量中主要保存的是和系统操作环境相关的数据（系统预设的环境变量不能改名，能查看和修改其值；也能增加环境变量）。 </li>
+<li>位置参数变量：这种变量主要是用来向脚本当中传递参数或数据的，变量名不能自定义，变量作用是固定的（预定义变量的一种，都只能改变量值，不能增加）。 </li>
+<li>预定义变量：是Bash中已经定义好的变量，变量名不能自定义，变量作用也是固定的。</li>
+</ul>
+<h5 id="本地变量"><a href="#本地变量" class="headerlink" title="本地变量"></a>本地变量</h5><ul>
+<li>变量定义：name&#x3D;’A j’</li>
+<li>变量叠加：<br>t&#x3D;1<br>t&#x3D;”$t”2<br>t&#x3D;${t}3</li>
+<li>变量调用<br>echo $name</li>
+<li>变量查看：set（查看当前系统全部命令 可用 set | grep “t&#x3D;123” 过滤）</li>
+<li>变量删除：unset aj</li>
+</ul>
+<h4 id="2-环境变量"><a href="#2-环境变量" class="headerlink" title="(2) 环境变量"></a>(2) 环境变量</h4><h5 id="环境变量是什么"><a href="#环境变量是什么" class="headerlink" title="环境变量是什么"></a>环境变量是什么</h5><p>用户自定义变量只在当前的Shell中生效，而环境变量会在当前Shell和这个Shell的所有子Shell当中生效。<br>如果把环境变量写入相应的配置文件，那么这个环境变量就会在所有的Shell中生效。</p>
+<h5 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h5><ul>
+<li>申明变量<br>export 变量名&#x3D;变量值</li>
+</ul>
+<p>[root@localhost ~]# export name<br>[root@localhost ~]# name&#x3D;aj</p>
+<ul>
+<li><p>查询变量<br>env </p>
+</li>
+<li><p>删除变量<br>unset 变量名</p>
+</li>
+</ul>
+<h5 id="系统常见环境变量"><a href="#系统常见环境变量" class="headerlink" title="系统常见环境变量"></a>系统常见环境变量</h5><ul>
+<li><p><strong>PATH</strong>：系统查找命令的路径<br>[root@localhost ~]# echo $PATH<br>&#x2F;usr&#x2F;local&#x2F;sbin:&#x2F;usr&#x2F;local&#x2F;bin:&#x2F;usr&#x2F;sbin:&#x2F;usr&#x2F;bin:&#x2F;root&#x2F;bin</p>
+</li>
+<li><p>PATH变量叠加<br>PATH&#x3D;”$PATH”:&#x2F;root</p>
+</li>
+</ul>
+<p>注：</p>
+<ul>
+<li><p>一般不把sh文件移动到系统的 PATH路径，而是采用 PATH变量叠加 的方式</p>
+</li>
+<li><p>通过命令行 PATH变量叠加 只能临时生效，重启后失效，要永久生效要写进相应的配置文件</p>
+</li>
+<li><p><strong>PS1</strong>：定义系统提示符的变量<br>\d：显示日期，格式为“星期 月 日”<br>\h：显示简写主机名。如默认主机名“localhost”<br>\t：显示24小时制时间，格式为“HH:MM:SS”<br>\T：显示12小时制时间，格式为“HH:MM:SS”<br>\A：显示24小时制时间，格式为“HH:MM”<br>\u：显示当前用户名<br>\w：显示当前所在目录的完整名称<br>\W：显示当前所在目录的最后一个目录<br>\#：执行的第几个命令 $：提示符。如果是root用户会显示提示符为“#”，如果是普通用户会显示提示符为“$”</p>
+</li>
+<li><p>例<br>[root@localhost ~]# echo $PS1<br>[\u@\h \W]$<br>[root@localhost ~]# PS1&#x3D;’[\u@\h \t \w]$ ‘<br>[root@localhost 09:49:06 ~]# </p>
+</li>
+<li><p>注：</p>
+</li>
+</ul>
+<ol>
+<li>一般用’’引起来（有特殊符号）</li>
+<li>最后一般空一格</li>
+</ol>
+<h4 id="3-位置参数变量"><a href="#3-位置参数变量" class="headerlink" title="(3) 位置参数变量"></a>(3) 位置参数变量</h4><h5 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h5><p><img src="/../images/080701.png"></p>
+<h5 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h5><h6 id="例1："><a href="#例1：" class="headerlink" title="例1："></a>例1：</h6><p>[root@localhost sh]# cat canshu1.sh<br>#!&#x2F;bin&#x2F;bash</p>
+<p>echo $0<br>echo $1<br>echo $2<br>[root@localhost sh]# .&#x2F;canshu1.sh 1 2 3<br>.&#x2F;canshu1.sh<br>1<br>2</p>
+<h6 id="例2："><a href="#例2：" class="headerlink" title="例2："></a>例2：</h6><p>[root@localhost sh]# cat canshu2.sh<br>#!&#x2F;bin&#x2F;bash<br>sum&#x3D;$(($1 + $2)) # $(()) 进行数值运算<br>echo $sum<br>[root@localhost sh]# .&#x2F;canshu2.sh 1 2<br>3</p>
+<h6 id="例3："><a href="#例3：" class="headerlink" title="例3："></a>例3：</h6><p>[root@localhost sh]# cat canshu3.sh<br>#!&#x2F;bin&#x2F;bash</p>
+<p>echo $#<br>echo $*<br>echo $@<br>[root@localhost sh]# .&#x2F;canshu3.sh 1 2 3 4 5<br>5<br>1 2 3 4 5<br>1 2 3 4 5</p>
+<h4 id="4-预定义变量"><a href="#4-预定义变量" class="headerlink" title="(4) 预定义变量"></a>(4) 预定义变量</h4><p>[root@localhost sh]# cat canshu4.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;$i案例&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">&quot;$*&quot;</span> <span class="comment">#$*中的所有参数看成是一个整体，所以这个for循环只会循环一次</span></span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">                <span class="built_in">echo</span> <span class="string">&quot;The parameters is: <span class="variable">$i</span>&quot;</span></span><br><span class="line">        <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;$@案例&#x27;</span></span><br><span class="line">x=1</span><br><span class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$@</span>&quot;</span> <span class="comment">#$@中的每个参数都看成是独立的，所以“$@”中有几个参数，就会循环几次</span></span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">                <span class="built_in">echo</span> <span class="string">&quot;The parameter<span class="variable">$x</span> is: <span class="variable">$j</span>&quot;</span></span><br><span class="line">                x=$(( <span class="variable">$x</span> +<span class="number">1</span> ))</span><br><span class="line">        <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>执行效果：<br>[root@localhost sh]# .&#x2F;canshu4.sh 1 2 3 4 5<br>$i案例<br>The parameters is: 1 2 3 4 5</p>
+<p>$@案例<br>The parameter1 is: 1<br>The parameter2 is: 2<br>The parameter3 is: 3<br>The parameter4 is: 4<br>The parameter5 is: 5</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <p>shell 前： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CS4y1C7ZY?p=1&vd_source=df38266eedfef61aa7370319919d94d7">老男孩 于超</a></p>
 <p>shell 及之后：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mW411i7Qf?p=63&vd_source=df38266eedfef61aa7370319919d94d7">兄弟连 沈超</a></p>
@@ -2541,6 +2610,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">打卡</a>
               </li>
             
             <div class="clearfix"></div>
