@@ -56,8 +56,11 @@
 <meta property="og:image" content="http://example.com/images/080801.png">
 <meta property="og:image" content="http://example.com/images/080802.png">
 <meta property="og:image" content="http://example.com/images/080803.png">
+<meta property="og:image" content="http://example.com/images/080901.png">
+<meta property="og:image" content="http://example.com/images/080902.png">
+<meta property="og:image" content="http://example.com/images/080903.png">
 <meta property="article:published_time" content="2024-06-28T10:56:42.000Z">
-<meta property="article:modified_time" content="2024-08-08T02:19:58.894Z">
+<meta property="article:modified_time" content="2024-08-09T10:55:26.688Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运维">
 <meta name="twitter:card" content="summary">
@@ -2374,6 +2377,51 @@ d       e       f
 <p>测试x &#x3D; $ { y - 新值} </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost sh]<span class="comment"># unset y # 无论之前有没有y 删除变量y</span></span><br><span class="line">[root@localhost sh]<span class="comment"># x=$&#123;y-1&#125;</span></span><br><span class="line">[root@localhost sh]<span class="comment"># echo $x # 因为变量y不存在，所以x=new</span></span><br><span class="line">1</span><br><span class="line">[root@localhost sh]<span class="comment"># y=&quot;&quot;</span></span><br><span class="line">[root@localhost sh]<span class="comment"># x=$&#123;y-new&#125;</span></span><br><span class="line">[root@localhost sh]<span class="comment"># echo $x</span></span><br><span class="line"></span><br><span class="line">[root@localhost sh]<span class="comment"># y=1</span></span><br><span class="line">[root@localhost sh]<span class="comment"># x=$&#123;y-new&#125;</span></span><br><span class="line">[root@localhost sh]<span class="comment"># echo $x</span></span><br><span class="line">1</span><br></pre></td></tr></table></figure>
 
+
+<h3 id="（六）环境变量配置文件"><a href="#（六）环境变量配置文件" class="headerlink" title="（六）环境变量配置文件"></a>（六）环境变量配置文件</h3><h4 id="1-环境变量配置文件简介"><a href="#1-环境变量配置文件简介" class="headerlink" title="(1) 环境变量配置文件简介"></a>(1) 环境变量配置文件简介</h4><h5 id="source-命令"><a href="#source-命令" class="headerlink" title="source 命令"></a>source 命令</h5><p>语法：</p>
+<ul>
+<li>source 配置文件<br>或</li>
+<li>. 配置文件</li>
+</ul>
+<p>作用：省略重启系统的步骤，使配置文件直接生效</p>
+<h5 id="环境变量配置文件简介"><a href="#环境变量配置文件简介" class="headerlink" title="环境变量配置文件简介"></a>环境变量配置文件简介</h5><blockquote>
+<p>环境变量配置文件中主要是定义对系统的操作环境生效的系统默认环境变量，比如PATH、HISTSIZE、PS1、HOSTNAME等默认环境变量。</p>
+</blockquote>
+<p>常见的几组环境变量配置文件</p>
+<ul>
+<li>&#x2F;etc&#x2F;profile.d&#x2F;*.sh </li>
+<li>~&#x2F;.bash_profile </li>
+<li>~&#x2F;.bashrc </li>
+<li>&#x2F;etc&#x2F;bashrc</li>
+</ul>
+<p>注：</p>
+<ul>
+<li>&#x2F;etc&#x2F; 目录下的环境变量配置文件 对所有用户均生效</li>
+<li>~ 表示 家目录，只对被修改的用户生效</li>
+</ul>
+<h4 id="2-环境变量配置文件作用"><a href="#2-环境变量配置文件作用" class="headerlink" title="(2) 环境变量配置文件作用"></a>(2) 环境变量配置文件作用</h4><p>配置文件读取顺序：<br><img src="/../images/080901.png"></p>
+<p>注：</p>
+<ul>
+<li>若不用变量叠加，后面的命令会覆盖前面的命令</li>
+<li>分为 login shell 和 non-login shell</li>
+</ul>
+<p><img src="/../images/080902.png"></p>
+<ul>
+<li><p>&#x2F;etc&#x2F;profile的作用：<br>USER变量<br>LOGNAME变量<br>MAIL变量<br>PATH变量<br>HOSTNAME变量<br>HISTSIZE变量<br>umask<br>调用&#x2F;etc&#x2F;profile.d&#x2F;*.sh文件 </p>
+</li>
+<li><p><del>&#x2F;.bash_profile的作用<br>用了</del>&#x2F;.bashrc文件。<br>在PATH变量后面加入了“:$HOME&#x2F;bin”这个目录</p>
+</li>
+</ul>
+<h4 id="3-其他配置文件和登录信息"><a href="#3-其他配置文件和登录信息" class="headerlink" title="(3) 其他配置文件和登录信息"></a>(3) 其他配置文件和登录信息</h4><h5 id="注销时生效的环境变量配置文件"><a href="#注销时生效的环境变量配置文件" class="headerlink" title="注销时生效的环境变量配置文件"></a>注销时生效的环境变量配置文件</h5><p>~&#x2F;.bash_logout </p>
+<h5 id="历史命令保存文件"><a href="#历史命令保存文件" class="headerlink" title="历史命令保存文件"></a>历史命令保存文件</h5><p>~&#x2F;bash_history<br>（当前shell的历史命令默认保存在内存中，主动保存或注销后才保存到文件中）</p>
+<h5 id="Shell登录信息"><a href="#Shell登录信息" class="headerlink" title="Shell登录信息"></a>Shell登录信息</h5><ul>
+<li><p>本地终端欢迎信息： &#x2F;etc&#x2F;issue<br><img src="/../images/080903.png"></p>
+</li>
+<li><p>远程终端欢迎信息： &#x2F;etc&#x2F;issue.net<br>转义符在&#x2F;etc&#x2F;issue.net文件中不能使用<br>是否显示此欢迎信息，由ssh的配置文件&#x2F;etc&#x2F;ssh&#x2F;sshd_config决定，加入“Banner &#x2F;etc&#x2F;issue.net”行才能显示（记得重启SSH服务 service sshd restart） </p>
+</li>
+<li><p>登陆后欢迎信息：&#x2F;etc&#x2F;motd<br>不管是本地登录，还是远程登录，都可以显示此欢迎信息</p>
+</li>
+</ul>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
 <p>shell 前： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1CS4y1C7ZY?p=1&vd_source=df38266eedfef61aa7370319919d94d7">老男孩 于超</a></p>
 <p>shell 及之后：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mW411i7Qf?p=63&vd_source=df38266eedfef61aa7370319919d94d7">兄弟连 沈超</a></p>
