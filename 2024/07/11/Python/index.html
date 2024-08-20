@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/071401.png">
 <meta property="article:published_time" content="2024-07-11T08:39:41.000Z">
-<meta property="article:modified_time" content="2024-07-20T04:42:02.184Z">
+<meta property="article:modified_time" content="2024-08-20T13:51:27.203Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
@@ -187,6 +187,7 @@
       
         <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="一、注释"><a href="#一、注释" class="headerlink" title="一、注释"></a>一、注释</h3><p>单行注释：# 被注释内容<br>多行注释：’’’ 被注释内容 ‘’’，或者 “”” 被注释内容 “””<br>范围快捷注释：<strong>Ctrl + &#x2F;</strong></p>
 <h3 id="二、格式化输出"><a href="#二、格式化输出" class="headerlink" title="二、格式化输出"></a>二、格式化输出</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="built_in">input</span>(<span class="string">&quot;姓名：&quot;</span>)</span><br><span class="line">age = <span class="built_in">input</span>(<span class="string">&quot;年龄：&quot;</span>)</span><br><span class="line">job = <span class="built_in">input</span>(<span class="string">&quot;工作：&quot;</span>)</span><br><span class="line">info = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">----------- info of %s -----------</span></span><br><span class="line"><span class="string">姓名：%s</span></span><br><span class="line"><span class="string">年龄：%s</span></span><br><span class="line"><span class="string">工作：%s</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span> % (name,name,age,job)</span><br><span class="line"><span class="built_in">print</span>(info)</span><br></pre></td></tr></table></figure>
+
 <p>运行结果</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">姓名：Aaron</span><br><span class="line">年龄：<span class="number">18</span></span><br><span class="line">工作：Teacher</span><br><span class="line">----------- info of Aaron -----------</span><br><span class="line">姓名：Aaron</span><br><span class="line">年龄：<span class="number">18</span></span><br><span class="line">工作：Teacher</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
