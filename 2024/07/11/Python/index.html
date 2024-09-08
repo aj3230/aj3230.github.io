@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/071401.png">
 <meta property="article:published_time" content="2024-07-11T08:39:41.000Z">
-<meta property="article:modified_time" content="2024-09-04T02:02:11.673Z">
+<meta property="article:modified_time" content="2024-09-05T13:02:52.778Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
@@ -941,7 +941,172 @@
 
 
 
-<h3 id="模块-和-包"><a href="#模块-和-包" class="headerlink" title="模块 和 包"></a>模块 和 包</h3><h4 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h4><h4 id="包"><a href="#包" class="headerlink" title="包"></a>包</h4><h2 id="Web-框架——Flask"><a href="#Web-框架——Flask" class="headerlink" title="Web 框架——Flask"></a>Web 框架——Flask</h2><p>特点：</p>
+<h3 id="模块-和-包"><a href="#模块-和-包" class="headerlink" title="模块 和 包"></a>模块 和 包</h3><h4 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h4><p><strong>什么是模块？</strong></p>
+<ul>
+<li>模块由python编写（是.py文件）</li>
+<li>已被编译为<code>共享库</code>或<code>DLL</code>的C或C++扩展的是模块</li>
+<li>封装装有一组模块的包也是模块</li>
+<li>使用C编写并链接到python解释器的内置模块</li>
+</ul>
+<p><strong>为什么使用模块？</strong></p>
+<blockquote>
+<p>实现代码和功能的复用</p>
+</blockquote>
+<p><strong>import 自定义模块 <code>my_module.py</code></strong></p>
+<p>文件名 <code>my_module.py</code> ，模块名 <code>my_module</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># my_module.py</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;from the my_module.py&#x27;</span>)</span><br><span class="line"></span><br><span class="line">money = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read1</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;my_module-&gt;read1-&gt;money&#x27;</span>,money)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read2</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;my_module-&gt;read2 calling read1&#x27;</span>)</span><br><span class="line">    read1()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">change</span>():</span><br><span class="line">    <span class="keyword">global</span> money</span><br><span class="line">    money=<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>模块可以包含<strong>可执行的语句</strong>和<strong>函数的定义</strong>，这些语句的目的是<strong>初始化模块</strong>，它们只在模块名<strong>第一次遇到导入import语句时才执行</strong>（import语句是可以在程序中的任意位置使用的,且针对同一个模块很import多次,为了防止你重复导入。 python的优化手段是：第一次导入后就将模块名加载到内存了，后续的import语句仅是对已经加载大内存中的模块对象增加了一次引用，<strong>不会重新执行</strong>模块内的语句）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> my_module</span><br><span class="line"><span class="keyword">import</span> my_module</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="built_in">print</span>(sys.modules)</span><br><span class="line"><span class="comment"># sys.modules是一个字典，内部包含模块名与模块对象的映射，该字典决定了导入模块时是否需要重新导入。</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">from the my_module.py</span></span><br><span class="line"><span class="string">&#123;&#x27;sys&#x27;: &lt;module &#x27;sys&#x27; (built-in)&gt;, ... , &#x27;my_module&#x27;: &lt;module &#x27;my_module&#x27; from &#x27;C:\\Users\\aj\\PycharmProjects\\pythonProject\\New\\my_module.py&#x27;&gt;&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>每个模块都是一个独立的名称空间，定义在这个模块中的函数，把这个模块的名称空间当做全局名称空间，这样我们在编写自己的模块时，就不用担心我们定义在自己模块中全局变量会在被导入时，与使用者的全局变量冲突。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> my_module</span><br><span class="line">money=<span class="number">10</span></span><br><span class="line"><span class="built_in">print</span>(my_module.money)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">from the my_module.py</span></span><br><span class="line"><span class="string">100</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> my_module</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read1</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;=========&#x27;</span>)</span><br><span class="line"></span><br><span class="line">my_module.read1()</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">from the my_module.py</span></span><br><span class="line"><span class="string">my_module-&gt;read1-&gt;money 100</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> my_module</span><br><span class="line"></span><br><span class="line">money = <span class="number">1</span></span><br><span class="line">my_module.change()</span><br><span class="line"><span class="built_in">print</span>(money)</span><br><span class="line"><span class="built_in">print</span>(my_module.money)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">from the my_module.py</span></span><br><span class="line"><span class="string">1</span></span><br><span class="line"><span class="string">0</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong>：</p>
+<p>用<code>import my_module</code>首次导入模块<code>my_module</code>时会做三件事：</p>
+<ol>
+<li>为源文件(<code>my_module</code>模块)创建新的<strong>命名空间</strong></li>
+<li>在新创建的命名空间中执行模块中包含的代码</li>
+<li>创建名字<code>my_module</code>来<strong>引用</strong>该命名空间</li>
+</ol>
+<p><strong>模块的别名</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> my_module <span class="keyword">as</span> mm</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(mm.money)</span><br></pre></td></tr></table></figure>
+
+<p>demo：</p>
+<p><code>sql</code>模块中有<code>mysql</code>和<code>oracle</code>两种数据库，根据用户的输入，选择不同的<code>sql</code>功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mysql.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sqlparse</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;from mysql sqlparse&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># oracle</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sqlparse</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;from oracle sqlparse&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># test.py</span></span><br><span class="line">db_type=<span class="built_in">input</span>(<span class="string">&#x27;&gt;&gt;: &#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> db_type == <span class="string">&#x27;mysql&#x27;</span>:</span><br><span class="line">    <span class="keyword">import</span> mysql <span class="keyword">as</span> db</span><br><span class="line"><span class="keyword">elif</span> db_type == <span class="string">&#x27;oracle&#x27;</span>:</span><br><span class="line">    <span class="keyword">import</span> oracle <span class="keyword">as</span> db</span><br><span class="line"></span><br><span class="line">db.sqlparse()</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>在一行导入多个模块</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  sys, os, re</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>from … import …</strong></p>
+<p>用<code>import my_module as ...</code>首次导入模块<code>my_module</code>时会做三件事：</p>
+<ol>
+<li>为源文件(<code>my_module</code>模块)创建新的<strong>命名空间</strong>（同<code>import my_module</code>）</li>
+<li>将指定的名字（函数、类、变量等）从 <code>my_module</code> 的命名空间直接导入到当前的命名空间中</li>
+</ol>
+<p><code>import</code>与<code>from ... import ...</code></p>
+<ul>
+<li><p><code>import</code> ：要访问 <code>my_module</code> 中的任何函数、类或变量，必须使用 <code>my_module.</code> 前缀。</p>
+</li>
+<li><p><code>from ... import ...</code>：直接使用这些名字(函数、类、变量等)，而不需要 <code>my_module.</code> 前缀</p>
+</li>
+<li><p>使用 <code>import</code> 语句有助于避免命名冲突，因为必须使用模块名作为前缀。</p>
+</li>
+<li><p>使用 <code>from ... import ...</code> 可以让代码更简洁，但可能会增加命名冲突的风险。</p>
+</li>
+</ul>
+<p>demo</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> my_module <span class="keyword">import</span> read1,read2</span><br><span class="line">money = <span class="number">1000</span></span><br><span class="line">read1() <span class="comment"># 导入的函数read1，执行时仍然回到my_module.py中寻找全局变量money</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">from the my_module.py</span></span><br><span class="line"><span class="string">my_module-&gt;read1-&gt;money 100</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> my_module <span class="keyword">import</span> read1,read2</span><br><span class="line">money = <span class="number">1000</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read1</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;*&#x27;</span>*<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">read2() <span class="comment"># 导入的函数read2，执行时需要调用read1(),仍然回到my_module.py中找read1()</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">from the my_module.py</span></span><br><span class="line"><span class="string">my_module-&gt;read2 calling read1</span></span><br><span class="line"><span class="string">my_module-&gt;read1-&gt;money 100</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> my_module <span class="keyword">import</span> read1,read2</span><br><span class="line">money = <span class="number">1000</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">read1</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;*&#x27;</span>*<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">read1() <span class="comment"># 导入的函数read1，被当前位置定义的read1覆盖掉了</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">from the my_module.py</span></span><br><span class="line"><span class="string">**********</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p> <code>from my_module import *</code></p>
+<ul>
+<li><p>导入<code>my_module</code>模块中所有不被<code>_</code>前缀开头的公有名称（public names）。模块中以下划线开头的名称（例如<code>_private_var</code>或<code>__special_method</code>）通常不会被导入，除非在<code>__all__</code>中主动设置。</p>
+</li>
+<li><p>通常不推荐，因为它会使代码可读性差（很难知道当前作用域中有哪些名称来自<code>my_module</code>），并且增加了命名冲突的可能性。</p>
+</li>
+</ul>
+<p><code>__all__ = [&#39;name1&#39;, &#39;name2&#39;, &#39;name3&#39;]</code></p>
+<ul>
+<li><p>使用<code>__all__</code>可以更好地控制模块的公共接口。如果<code>__all__</code>被定义了，只有列出的名称会被导入。如果没有定义<code>__all__</code>，那么在没有前导下划线的所有名称都会被导入。</p>
+</li>
+<li><p>demo</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># my_module1.py 模板</span></span><br><span class="line">__all__ = [<span class="string">&#x27;name1&#x27;</span>, <span class="string">&#x27;name2&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">name1</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;from name1&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">name2</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;from name2&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">name3</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;from name3&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">_private_name</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;***&#x27;</span>)  </span><br></pre></td></tr></table></figure>
+
+<p><code> from my_module1 import *</code> 时，只会导入<code>name1</code>、 <code>name2</code></p>
+</li>
+</ul>
+<p>编写好的一个python文件可以有两种用途：</p>
+<ul>
+<li><p>脚本，一个文件就是整个程序，用来被执行</p>
+</li>
+<li><p>模块，文件中存放着一堆功能，用来被导入使用</p>
+</li>
+</ul>
+<p>python为我们内置了全局变量<code>__name__</code>，</p>
+<ul>
+<li><p>当文件被当做脚本执行时：<code>__name__</code> 等于<code>&#39;__main__&#39;</code></p>
+</li>
+<li><p>当文件被当做模块导入时：<code>__name__</code> 等于 模块名</p>
+</li>
+<li><p>作用：用来控制 <code>.py文件</code>在不同的应用场景下执行不同的逻辑（或者是在模块文件中测试代码）</p>
+</li>
+</ul>
+<p><code>if __name__ == &#39;__main__&#39;:</code>示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fib</span>(<span class="params">n</span>):</span><br><span class="line">    a, b = <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> b &lt; n:</span><br><span class="line">        <span class="built_in">print</span>(b, end=<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        a, b = b, a+b</span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="built_in">print</span>(__name__)</span><br><span class="line">    num = <span class="built_in">input</span>(<span class="string">&#x27;num :&#x27;</span>)</span><br><span class="line">    fib(<span class="built_in">int</span>(num))    </span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">globals</span>())</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">__main__</span></span><br><span class="line"><span class="string">num :3</span></span><br><span class="line"><span class="string">1,1,2,</span></span><br><span class="line"><span class="string">&#123;&#x27;__name__&#x27;: &#x27;__main__&#x27;,..., &#x27;fib&#x27;: &lt;function fib at 0x0000000000EF04A0&gt;, &#x27;num&#x27;: &#x27;3&#x27;&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<p><strong>模块搜索路径</strong></p>
+<p>模块的查找顺序是：内存中已经加载的模块 ——&gt; 自建模块 —— &gt; <code>sys.path</code>路径中包含的模块</p>
+<ol>
+<li><p>在第一次导入某个模块时（比如my_module），会先检查该模块是否已经被加载到内存中（当前执行文件的名称空间对应的内存）</p>
+<ul>
+<li><p>如果有则直接引用（PS：Python解释器在启动时会自动加载一些模块到内存中，可以使用<code>sys.modules</code>查看）</p>
+</li>
+<li><p>如果没有，解释器则会查找同名的内建模块</p>
+</li>
+</ul>
+</li>
+<li><p>如果还没有找到就从<code>sys.path</code>给出的目录列表中依次寻找<code>my_module.py文件</code></p>
+</li>
+</ol>
+<p><strong>编译模块</strong></p>
+<p>为了提高加载模块的速度，Python解释器会在<code>__pycache__</code>目录中下缓存每个模块编译后的版本，格式为：<code>module.version.pyc</code>。通常会包含python的版本号。例如，在<code>CPython3.3版本</code>下，<code>my module.py</code>模块会被缓存成<code>_pycache/my_module.cpython-33.pyc</code>。这种命名规范保证了编译后的结果多版本共存。</p>
+<h4 id="包"><a href="#包" class="headerlink" title="包"></a>包</h4><p>包就是一个包含有<code>__init__.py</code>文件的文件夹，所以其实我们创建包的目的就是为了用文件夹将文件&#x2F;模块组织起来</p>
+<p>注：</p>
+<ul>
+<li><p>在Python3中，即使包下没有<code>__init__.py</code>文件，import 包仍然不会报错，而在Python2中，包下一定要有该文件，否则import 包报错</p>
+</li>
+<li><p>创建包的目的不是为了运行，而是被导入使用。包只是模块的一种形式而已，包的本质就是一种模块。</p>
+</li>
+</ul>
+<p><strong>为什么要使用包</strong></p>
+<p>包的本质就是一个文件夹，那么文件夹唯一的功能就是<strong>将文件组织起来</strong> 。随着功能越写越多，我们无法将所以功能都放到一个文件中，于是我们使用模块去组织功能，而随着模块越来越多，我们就需要用文件夹将模块文件组织起来，以此来提高程序的结构性和可维护性。</p>
+<p>注意事项：</p>
+<ol>
+<li>关于包相关的导入语句也分为<code>import</code>和<code>from ... import ...</code>两种，但是无论哪种，无论在什么位置，在导入时都必须遵循一个原则：<strong>凡是在导入时带点的，点的左边都必须是一个包，否则非法</strong>。可以带有一连串的点，如<code>item.subitem.subsubitem</code>，但都必须遵循这个原则。但对于导入后，在使用时就没有这种限制了，点的左边可以是包,模块，函数，类(它们都可以用点的方式调用自己的属性)。</li>
+<li>import导入文件时，产生名称空间中的名字来源于文件，import 包，产生的名称空间的名字同样来源于文件，即包下的<code>__init__.py</code>，导入包本质就是在导入该文件</li>
+<li>包A和包B下有同名模块也不会冲突，如<code>A.a</code>与<code>B.a</code>来自两个命名空间</li>
+</ol>
+<p>包示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">glance/                 <span class="comment"># Top-level package</span></span><br><span class="line">├── __init__.py      	<span class="comment"># Initialize the glance package</span></span><br><span class="line">├── api                 <span class="comment"># Subpackage for api</span></span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── policy.py</span><br><span class="line">│   └── versions.py</span><br><span class="line">├── cmd                 <span class="comment"># Subpackage for cmd</span></span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   └── manage.py</span><br><span class="line">└── db                  <span class="comment"># Subpackage for db</span></span><br><span class="line">    ├── __init__.py</span><br><span class="line">    └── models.py</span><br></pre></td></tr></table></figure>
+
+
+
+<p>演示文件的内容</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 包结构</span></span><br><span class="line"></span><br><span class="line">my_package/             <span class="comment"># Top-level package</span></span><br><span class="line">├── __init__.py      	<span class="comment"># Initialize the glance package</span></span><br><span class="line">└── api                 <span class="comment"># Subpackage for api</span></span><br><span class="line">    ├── __init__.py</span><br><span class="line">  	└── hello.py</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment"># 文件内容</span></span><br><span class="line"><span class="comment"># my_package.__init__.py</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;imported form my_package&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># my_package.api.__init__.py</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;imported form my_package.api&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># my_package.api.hello.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">say_hello</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Hello World!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>demo</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> my_package.api.hello</span><br><span class="line"></span><br><span class="line">my_package.api.hello.say_hello()</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">imported form my_package</span></span><br><span class="line"><span class="string">imported form my_package.api</span></span><br><span class="line"><span class="string">Hello World!</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="Web-框架——Flask"><a href="#Web-框架——Flask" class="headerlink" title="Web 框架——Flask"></a>Web 框架——Flask</h2><p>特点：</p>
 <ul>
 <li>微框架、简洁、只做他需要做的，给开发者提供了很大的扩展性。</li>
 <li>Flask和相应的插件写得很好，用起来很爽。</li>
@@ -1070,6 +1235,9 @@
 <li><strong>Unicode</strong>：Unicode是一个国际标准，用于文本的编码、表示和处理的统一字符集。它几乎包含了世界上所有的字符。</li>
 <li><strong>编码</strong>：将Unicode字符串转换成特定编码格式的字节序列。常见的编码格式包括UTF-8、UTF-16、ISO-8859-1（也称为latin1）、ASCII等。</li>
 </ul>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><blockquote>
+<p>在Python中，命名空间是一个字典，它 <strong>维护了x变量名与对象之间的映射关系</strong>。每个模块、函数、类或变量的作用域都有它自己的命名空间。</p>
+</blockquote>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.eagleslab.com/">英格 许文哲老师</a></p>
 </blockquote>
